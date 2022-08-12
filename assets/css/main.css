@@ -1,0 +1,4 @@
+.nuxt-icon svg {
+	width: inherit !important;
+	height: inherit !important;
+}

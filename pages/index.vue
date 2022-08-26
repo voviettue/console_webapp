@@ -3,5 +3,10 @@
 </template>
 
 <script setup>
-navigateTo('/sign-in')
+const { hasToken } = useToken()
+if (hasToken()) {
+	navigateTo('dashboard')
+} else {
+	navigateTo('sign-in')
+}
 </script>

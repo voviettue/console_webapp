@@ -1,10 +1,7 @@
-import { useDirectus } from '~/composables/use-directus'
-
 export default defineNuxtRouteMiddleware(() => {
-	const directus = useDirectus()
-	const token = directus.auth?.token
+	const { hasToken } = useToken()
 
-	if (!token) {
+	if (!hasToken()) {
 		return navigateTo('/sign-in')
 	}
 })

@@ -18,10 +18,7 @@
 </template>
 
 <script setup>
-const headers = [
-	'name',
-	'owner',
-]
+const headers = ['name', 'owner']
 
 const items = [
 	{

@@ -10,7 +10,15 @@ export default defineNuxtConfig({
 			url: 'http://localhost:3000',
 			api: {
 				baseUrl: 'https://dev.terminal.catex.se',
+			},
+			cognito: {
+				domain: '',
+				clientId: '',
+				scope: ''
 			}
 		}
+	},
+	formkit: {
+		configFile: './formkit.config.ts'
 	}
 })

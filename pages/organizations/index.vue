@@ -6,7 +6,7 @@
 			<TwTable
 				:headers="headers"
 				:items="items"
-				:rowClick="(item) => navigateTo(`/organizations/${item.id}`)"
+				:row-click="(item) => navigateTo(`/organizations/${item.id}`)"
 			>
 				<template #items-actions>
 					<button
@@ -26,10 +26,7 @@ definePageMeta({
 	title: 'Dashboard',
 	middleware: ['auth'],
 })
-const headers = [
-	'name',
-	'owner',
-]
+const headers = ['name', 'owner']
 
 const items = [
 	{

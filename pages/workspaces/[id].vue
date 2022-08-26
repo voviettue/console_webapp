@@ -3,10 +3,7 @@
 		<template #title>Workspace Details</template>
 
 		<TwCard class="mb-6">
-			<TwList
-				:headers="headers"
-				:item="item"
-			/>
+			<TwList :headers="headers" :item="item" />
 		</TwCard>
 
 		<TabGroup>
@@ -54,8 +51,8 @@ definePageMeta({
 })
 
 const headers = [
-	{ value: 'name', text: 'Workspace Name'},
-	{ value: 'owner', text: 'Owner'},
+	{ value: 'name', text: 'Workspace Name' },
+	{ value: 'owner', text: 'Owner' },
 ]
 
 const item = {
@@ -72,6 +69,6 @@ const tabs = [
 	{
 		name: 'extensions',
 		label: 'Extensions',
-	}
+	},
 ]
 </script>

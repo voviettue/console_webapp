@@ -17,7 +17,7 @@ export const useOrgsStore = defineStore({
 			}
 		},
 		async getOrgs() {
-			const { data, error } = await useFetch<any>('/api/orgs')
+			const { data, error } = await useFetch<any>('/api/orgs', { initialCache: false })
 
 			if (error.value) {
 				throw new Error(`Cannot get organizations`)
@@ -26,7 +26,7 @@ export const useOrgsStore = defineStore({
 			this.orgs = data.value.data.map(this.parseOrg)
 		},
 		async getOrg(orgId: string) {
-			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}`)
+			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}`, { initialCache: false })
 			if (error.value) {
 				throw new Error(`Cannot get organization ${orgId}`)
 			}

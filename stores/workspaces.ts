@@ -20,14 +20,14 @@ export const useWorkspacesStore = defineStore({
 			}
 		},
 		async getWorkspaces(orgId: string) {
-			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}/workspaces`)
+			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}/workspaces`, { initialCache: false })
 			if (error.value) {
 				throw new Error('Cannot get workspaces')
 			}
 			this.workspaces = data.value.data.map(this.parseWorkspace)
 		},
 		async getWorkspace(orgId: string, wsId: string) {
-			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}/workspaces/${wsId}`)
+			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}/workspaces/${wsId}`, { initialCache: false })
 			if (error.value) {
 				throw new Error(`Cannot get workspace ${wsId}`)
 			}

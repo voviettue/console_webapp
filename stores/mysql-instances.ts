@@ -11,7 +11,7 @@ export const useMysqlInstancesStore = defineStore({
 	},
 	actions: {
 		async getMySQLInstances(orgId: string) {
-			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}/mysqlinstances`)
+			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}/mysqlinstances`, { initialCache: false })
 			if (error.value) {
 				return error.value
 			}

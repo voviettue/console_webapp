@@ -1,8 +1,8 @@
 <template>
 	<PageWrapper>
-		<template #title>Workspace Details</template>
+		<template #title>Workspace details</template>
 
-		<TwCard class="mb-6">
+		<TwCard class="mb-6 rounded-lg ring-black ring-1 ring-opacity-5">
 			<TwList :headers="headers" :item="workspace">
 				<template #item-domain="{ item }">{{ item.subdomain + '.' + item.domain }}</template>
 			</TwList>

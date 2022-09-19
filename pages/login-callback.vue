@@ -16,6 +16,6 @@ if (!token) {
 	navigateTo('sign-in')
 } else {
 	setToken(token)
-	navigateTo('dashboard')
+	navigateTo('organizations')
 }
 </script>

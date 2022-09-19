@@ -1,6 +1,6 @@
 <template>
 	<PageWrapper>
-		<template #title>Organization Details</template>
+		<template #title>Organization details</template>
 
 		<TwCard class="mb-6 rounded-lg ring-black ring-1 ring-opacity-5">
 			<TwList :headers="headers" :item="org" />
@@ -30,7 +30,7 @@
 						<div class="mb-4 text-right">
 							<TwButton @click="navigateTo(`/organizations/${orgId}/new-workspace`)">
 								<template #prepend-outer>
-									<NuxtIcon name="plus" class="mr-3 flex-shrink-0 h-4 w-4" aria-hidden="true" />
+									<PlusIcon class="mr-3 flex-shrink-0 h-4 w-4" aria-hidden="true" />
 								</template>
 								New workspace
 							</TwButton>
@@ -46,7 +46,7 @@
 						<div class="mb-4 text-right">
 							<TwButton>
 								<template #prepend-outer>
-									<NuxtIcon name="plus" class="mr-3 flex-shrink-0 h-4 w-4" aria-hidden="true" />
+									<PlusIcon class="mr-3 flex-shrink-0 h-4 w-4" aria-hidden="true" />
 								</template>
 								New database
 							</TwButton>
@@ -63,6 +63,7 @@
 
 <script setup lang="ts">
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { PlusIcon } from '@heroicons/vue/24/outline'
 import { useOrgsStore } from '@/stores/orgs'
 import { Org } from '@/types'
 
@@ -78,7 +79,7 @@ try {
 }
 
 definePageMeta({
-	title: 'Dashboard',
+	title: 'Organization details',
 	middleware: ['auth'],
 })
 

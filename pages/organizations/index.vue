@@ -4,7 +4,7 @@
 		<template #actions>
 			<TwButton @click="navigateTo('/workspaces/create')">
 				<template #prepend-outer>
-					<NuxtIcon name="plus" class="mr-3 flex-shrink-0 h-4 w-4" aria-hidden="true" />
+					<PlusIcon class="mr-3 flex-shrink-0 h-4 w-4" aria-hidden="true" />
 				</template>
 				New organization
 			</TwButton>
@@ -26,9 +26,11 @@
 </template>
 
 <script setup>
+import { PlusIcon } from '@heroicons/vue/24/outline'
 import { useOrgsStore } from '@/stores/orgs'
+
 definePageMeta({
-	title: 'Dashboard',
+	title: 'Organizations',
 	middleware: ['auth'],
 })
 const headers = [

@@ -9,7 +9,7 @@
 				class="cursor-pointer border-t-2 border-transparent pt-4 pr-1 inline-flex items-center font-medium hover:border-gray-300"
 				@click="toPage(page - 1)"
 			>
-				<NuxtIcon name="arrow-narrow-left" class="mr-3 h-5 w-5 text-gray-500" aria-hidden="true" />
+				<ChevronLeftIcon class="mr-3 h-5 w-5 text-gray-500" aria-hidden="true" />
 				Prev
 			</button>
 		</div>
@@ -32,7 +32,7 @@
 				@click="toPage(page + 1)"
 			>
 				Next
-				<NuxtIcon name="arrow-narrow-right" class="ml-3 h-5 w-5 text-gray-500" aria-hidden="true" />
+				<ChevronRightIcon class="ml-3 h-5 w-5 text-gray-500" aria-hidden="true" />
 			</button>
 		</div>
 	</nav>
@@ -40,6 +40,7 @@
 
 <script setup lang="ts">
 import { watchEffect } from 'vue'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 
 interface Props {
 	totalPage: number

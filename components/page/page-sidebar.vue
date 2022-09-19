@@ -41,7 +41,7 @@
 										@click="sidebarOpen = false"
 									>
 										<span class="sr-only">Close sidebar</span>
-										<NuxtIcon name="x" class="text-gray-300 hover:text-gray-100 h-6 w-6" @click="sidebarOpen = false" />
+										<XMarkIcon class="text-gray-300 hover:text-gray-100 h-6 w-6" @click="sidebarOpen = false" />
 									</button>
 								</div>
 							</TransitionChild>
@@ -64,8 +64,8 @@
 										]"
 										@click="sidebarOpen = false"
 									>
-										<NuxtIcon
-											:name="item.icon"
+										<component
+											:is="item.icon"
 											:class="[
 												item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
 												'mr-4 flex-shrink-0 h-6 w-6',
@@ -100,18 +100,18 @@
 							:key="item.name"
 							:to="item.to"
 							:class="[
-								item.current ? 'bg-gray-300 text-indigo-900' : 'text-gray-300 hover:bg-gray-50 hover:text-gray-900',
+								item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
 								'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
 							]"
 						>
-							<NuxtIcon
-								:name="item.icon"
+							<component
+								:is="item.icon"
 								:class="[
-									item.current ? 'text-indigo-500' : 'text-indigo-400 group-hover:text-indigo-500',
+									item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
 									'mr-3 flex-shrink-0 h-6 w-6',
 								]"
 								aria-hidden="true"
-							/>
+							></component>
 							{{ item.name }}
 						</NuxtLink>
 					</nav>
@@ -126,7 +126,7 @@
 					@click="sidebarOpen = true"
 				>
 					<span class="sr-only">Open sidebar</span>
-					<NuxtIcon name="menu-alt-2" class="h-6 w-6" aria-hidden="true" />
+					<Bars3BottomLeftIcon class="h-6 w-6" aria-hidden="true" />
 				</button>
 				<PageTopbar></PageTopbar>
 			</div>
@@ -135,23 +135,18 @@
 	</div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { HomeIcon, XMarkIcon, Bars3BottomLeftIcon } from '@heroicons/vue/24/outline'
 
 const route = useRoute()
 const navigation = computed(() => {
 	return [
 		{
-			name: 'Dashboard',
-			to: '/dashboard',
-			icon: 'home',
-			current: route.path.startsWith('/dashboard'),
-		},
-		{
 			name: 'Organizations',
 			to: '/organizations',
-			icon: 'briefcase',
+			icon: HomeIcon,
 			current: route.path.startsWith('/organizations'),
 		},
 	]

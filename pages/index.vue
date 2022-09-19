@@ -5,7 +5,7 @@
 <script setup>
 const { hasToken } = useToken()
 if (hasToken()) {
-	navigateTo('dashboard')
+	navigateTo('organizations')
 } else {
 	navigateTo('sign-in')
 }

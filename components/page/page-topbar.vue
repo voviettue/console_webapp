@@ -5,7 +5,7 @@
 				<label for="search-field" class="sr-only">Search</label>
 				<div class="relative w-full text-gray-400 focus-within:text-gray-600">
 					<div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
-						<NuxtIcon name="search" class="h-5 w-5" aria-hidden="true" />
+						<MagnifyingGlassIcon class="h-5 w-5" aria-hidden="true" />
 					</div>
 					<input
 						id="search-field"
@@ -33,7 +33,7 @@
 						class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 					>
 						<span class="sr-only">Open user menu</span>
-						<nuxt-icon name="user-circle" class="avatar-icon h-8 w-8 rounded-full" />
+						<UserCircleIcon class="avatar-icon h-8 w-8 rounded-full" />
 					</MenuButton>
 				</div>
 				<transition
@@ -75,6 +75,7 @@
 
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { UserCircleIcon, MagnifyingGlassIcon } from '@heroicons/vue/24/outline'
 
 const userNavigation = [
 	{ name: 'Your Profile', href: '#' },

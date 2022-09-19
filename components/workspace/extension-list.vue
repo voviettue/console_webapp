@@ -7,7 +7,7 @@
 					type="button"
 					@click="open = true"
 				>
-					<NuxtIcon name="pencil" class="h-5 w-5" />
+					Edit
 				</button>
 			</template>
 		</TwTable>
@@ -108,8 +108,8 @@ const open = ref(false)
 const headers = [
 	'name',
 	'version',
-	{ value: 'is_dev', text: 'Is Dev', display: 'boolean' },
-	{ value: 'is_auto_upgrade', text: 'Auto Upgrade', display: 'boolean' },
+	{ value: 'isDev', text: 'Is Dev', display: 'boolean' },
+	{ value: 'autoUpgrade', text: 'Auto Upgrade', display: 'boolean' },
 	{ value: 'actions', text: '' },
 ]
 const values = props.items[0]

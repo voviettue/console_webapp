@@ -19,6 +19,7 @@ export const useMysqlInstancesStore = defineStore({
 		},
 		parseMySQLInstance(mysqlInstance: any): MySQLInstance {
 			return {
+				uid: mysqlInstance.metadata.uid,
 				name: mysqlInstance.metadata.name,
 				status: parseStatus(mysqlInstance.status),
 			}

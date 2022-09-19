@@ -12,6 +12,7 @@ export const useOrgsStore = defineStore({
 	actions: {
 		parseOrg(org: any): Org {
 			return {
+				uid: org.metadata.uid,
 				name: org.metadata.name,
 				status: parseStatus(org.status),
 			}

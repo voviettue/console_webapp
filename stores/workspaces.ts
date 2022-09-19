@@ -12,6 +12,7 @@ export const useWorkspacesStore = defineStore({
 	actions: {
 		parseWorkspace(workspace: any): Workspace {
 			return {
+				uid: workspace.metadata.uid,
 				name: workspace.metadata.name,
 				status: parseStatus(workspace.status),
 				extensions: workspace.spec.extensions,

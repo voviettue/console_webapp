@@ -8,6 +8,7 @@ export interface Extension {
 }
 
 export interface Workspace {
+	uid: string
 	name: string
 	domain: string
 	subdomain: string

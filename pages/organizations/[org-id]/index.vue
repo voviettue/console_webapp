@@ -1,5 +1,13 @@
 <template>
 	<PageWrapper>
+		<template #title:prepend>
+			<button
+				class="mr-2 p-2 inline-flex items-center rounded-full border border-transparent bg-indigo-100 p-1 text-indigo-700 shadow-sm hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+				@click="router.back()"
+			>
+				<ArrowLeftIcon class="w-4 h-4" />
+			</button>
+		</template>
 		<template #title>Organization details</template>
 
 		<TwCard class="mb-6 rounded-lg ring-black ring-1 ring-opacity-5">
@@ -63,11 +71,12 @@
 
 <script setup lang="ts">
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
-import { PlusIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { useOrgsStore } from '@/stores/orgs'
 import { Org } from '@/types'
 
 const route = useRoute()
+const router = useRouter()
 const store = useOrgsStore()
 const orgId = route.params.orgid as string
 

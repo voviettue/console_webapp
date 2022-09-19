@@ -1,10 +1,22 @@
 <template>
 	<PageWrapper>
+		<template #title:prepend>
+			<button
+				class="mr-2 p-2 inline-flex items-center rounded-full border border-transparent bg-indigo-100 p-1 text-indigo-700 shadow-sm hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+				@click="router.back()"
+			>
+				<ArrowLeftIcon class="w-4 h-4" />
+			</button>
+		</template>
 		<template #title>Workspace details</template>
 
 		<TwCard class="mb-6 rounded-lg ring-black ring-1 ring-opacity-5">
 			<TwList :headers="headers" :item="workspace">
-				<template #item-domain="{ item }">{{ item.subdomain + '.' + item.domain }}</template>
+				<template #item-domain="{ item }">
+					<a class="font-normal hover:underline" :href="`https://${item.subdomain}.${item.domain}`" target="_blank">
+						{{ item.subdomain + '.' + item.domain }}
+					</a>
+				</template>
 			</TwList>
 		</TwCard>
 
@@ -45,14 +57,15 @@
 
 <script setup lang="ts">
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { useRoute } from 'vue-router'
 import { useWorkspacesStore } from '@/stores/workspaces'
 import { Workspace } from '@/types'
 const store = useWorkspacesStore()
 const route = useRoute()
+const router = useRouter()
 const orgId = route.params.orgid as string
 const wsId = route.params.id as string
-
 const workspace = ref<Workspace>()
 
 try {

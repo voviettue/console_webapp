@@ -16,11 +16,12 @@ module.exports = {
 		es2021: true,
 	},
 	extends: [
-		'plugin:vue/essential',
+		'plugin:vue/vue3-recommended',
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 		'@nuxtjs/eslint-config-typescript',
 		'eslint-config-prettier',
+		'prettier',
 	],
 	parserOptions: {
 		ecmaVersion: 'latest',

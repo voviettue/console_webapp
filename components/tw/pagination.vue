@@ -1,8 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-	<nav
-		class="border-t border-gray-200 px-4 flex items-center justify-between sm:px-0"
-	>
+	<nav class="border-t border-gray-200 px-4 flex items-center justify-between sm:px-0">
 		<div class="-mt-px w-0 flex-1 flex">
 			<button
 				v-if="totalPage > 1 && page > 1"
@@ -11,11 +9,7 @@
 				class="cursor-pointer border-t-2 border-transparent pt-4 pr-1 inline-flex items-center font-medium hover:border-gray-300"
 				@click="toPage(page - 1)"
 			>
-				<NuxtIcon
-					name="arrow-narrow-left"
-					class="mr-3 h-5 w-5 text-gray-500"
-					aria-hidden="true"
-				/>
+				<NuxtIcon name="arrow-narrow-left" class="mr-3 h-5 w-5 text-gray-500" aria-hidden="true" />
 				Prev
 			</button>
 		</div>
@@ -38,11 +32,7 @@
 				@click="toPage(page + 1)"
 			>
 				Next
-				<NuxtIcon
-					name="arrow-narrow-right"
-					class="ml-3 h-5 w-5 text-gray-500"
-					aria-hidden="true"
-				/>
+				<NuxtIcon name="arrow-narrow-right" class="ml-3 h-5 w-5 text-gray-500" aria-hidden="true" />
 			</button>
 		</div>
 	</nav>

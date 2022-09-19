@@ -3,7 +3,7 @@
 		<div class="inline-block min-w-full align-middle">
 			<table class="min-w-full divide-y divide-gray-300">
 				<thead v-if="!hideHeader">
-					<tr class="border-t border-gray-200">
+					<tr>
 						<th
 							v-for="header in normalizedHeaders"
 							:key="`th-${header?.value}`"
@@ -28,11 +28,7 @@
 							:key="`td-${header}`"
 							class="px-6 py-3 w-full whitespace-nowrap text-sm font-medium text-gray-900"
 						>
-							<slot
-								:name="`item-${header?.value}`"
-								:item="item"
-								:value="get(item, header.value)"
-							>
+							<slot :name="`item-${header?.value}`" :item="item" :value="get(item, header.value)">
 								<RenderDisplay
 									v-if="header?.display"
 									:name="header.display"
@@ -60,23 +56,22 @@
 </template>
 
 <script setup lang="ts">
+import get from 'lodash/get'
 import { TableHeader } from '~/shared/types'
 
 const props = defineProps<{
 	headers: (string | Partial<TableHeader>)[]
 	items?: Record<string, any>[]
-	rowClick: (item: any) => void
-	hideHeader: boolean
+	hideHeader?: boolean
+	rowClick?: (item: any) => void
 }>()
 
 const normalizedHeaders = computed<Partial<TableHeader>[]>(() => {
-	return props.headers.map((header: any) =>
-		header instanceof Object ? header : { value: header, text: header }
-	)
+	return props.headers.map((header: any) => (header instanceof Object ? header : { value: header, text: header }))
 })
 
 const clickable = !!props.rowClick
-const { get } = useLodash()
+
 function onRowClick(item) {
 	if (props.rowClick) props.rowClick(item)
 }

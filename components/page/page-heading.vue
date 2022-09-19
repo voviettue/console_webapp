@@ -1,46 +1,22 @@
 <template>
-	<div
-		class="p-8 bg-white lg:flex lg:items-center lg:justify-between shadow overflow-hidden rounded"
-	>
+	<div class="p-8 bg-white lg:flex lg:items-center lg:justify-between shadow overflow-hidden rounded">
 		<div class="flex-1 min-w-0">
-			<h2
-				class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate"
-			>
-				Back End Developer
-			</h2>
-			<div
-				class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6"
-			>
+			<h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">Back End Developer</h2>
+			<div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
 				<div class="mt-2 flex items-center text-sm text-gray-500">
-					<nuxt-icon
-						name="briefcase"
-						class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-						aria-hidden="true"
-					/>
+					<nuxt-icon name="briefcase" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
 					Full-time
 				</div>
 				<div class="mt-2 flex items-center text-sm text-gray-500">
-					<nuxt-icon
-						name="location-marker"
-						class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-						aria-hidden="true"
-					/>
+					<nuxt-icon name="location-marker" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
 					Remote
 				</div>
 				<div class="mt-2 flex items-center text-sm text-gray-500">
-					<nuxt-icon
-						name="currency-dollar"
-						class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-						aria-hidden="true"
-					/>
+					<nuxt-icon name="currency-dollar" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
 					$120k &ndash; $140k
 				</div>
 				<div class="mt-2 flex items-center text-sm text-gray-500">
-					<nuxt-icon
-						name="calendar"
-						class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-						aria-hidden="true"
-					/>
+					<nuxt-icon name="calendar" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
 					Closing on January 9, 2020
 				</div>
 			</div>
@@ -51,11 +27,7 @@
 					type="button"
 					class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 				>
-					<nuxt-icon
-						name="pencil"
-						class="-ml-1 mr-2 h-5 w-5 text-gray-500"
-						aria-hidden="true"
-					/>
+					<nuxt-icon name="pencil" class="-ml-1 mr-2 h-5 w-5 text-gray-500" aria-hidden="true" />
 					Edit
 				</button>
 			</span>
@@ -65,11 +37,7 @@
 					type="button"
 					class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 				>
-					<nuxt-icon
-						name="link"
-						class="-ml-1 mr-2 h-5 w-5 text-gray-500"
-						aria-hidden="true"
-					/>
+					<nuxt-icon name="link" class="-ml-1 mr-2 h-5 w-5 text-gray-500" aria-hidden="true" />
 					View
 				</button>
 			</span>
@@ -79,11 +47,7 @@
 					type="button"
 					class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 				>
-					<nuxt-icon
-						name="check"
-						class="-ml-1 mr-2 h-5 w-5"
-						aria-hidden="true"
-					/>
+					<nuxt-icon name="check" class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
 					Publish
 				</button>
 			</span>
@@ -94,11 +58,7 @@
 					class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 				>
 					More
-					<nuxt-icon
-						name="chevron-down"
-						class="-mr-1 ml-2 h-5 w-5 text-gray-500"
-						aria-hidden="true"
-					/>
+					<nuxt-icon name="chevron-down" class="-mr-1 ml-2 h-5 w-5 text-gray-500" aria-hidden="true" />
 				</MenuButton>
 
 				<transition
@@ -113,26 +73,10 @@
 						class="origin-top-right absolute right-0 mt-2 -mr-1 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
 					>
 						<MenuItem v-slot="{ active }">
-							<a
-								href="#"
-								:class="[
-									active ? 'bg-gray-100' : '',
-									'block px-4 py-2 text-sm text-gray-700',
-								]"
-							>
-								Edit
-							</a>
+							<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
 						</MenuItem>
 						<MenuItem v-slot="{ active }">
-							<a
-								href="#"
-								:class="[
-									active ? 'bg-gray-100' : '',
-									'block px-4 py-2 text-sm text-gray-700',
-								]"
-							>
-								View
-							</a>
+							<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
 						</MenuItem>
 					</MenuItems>
 				</transition>

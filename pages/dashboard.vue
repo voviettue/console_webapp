@@ -6,9 +6,7 @@
 			<h3 class="text-lg leading-6 font-medium text-gray-900">Last 30 days</h3>
 
 			<dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-				<div
-					class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
-				>
+				<div class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
 					<dt>
 						<div class="absolute bg-indigo-500 rounded-md p-3">
 							<svg
@@ -28,15 +26,11 @@
 								></path>
 							</svg>
 						</div>
-						<p class="ml-16 text-sm font-medium text-gray-500 truncate">
-							Total Subscribers
-						</p>
+						<p class="ml-16 text-sm font-medium text-gray-500 truncate">Total Subscribers</p>
 					</dt>
 					<dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
 						<p class="text-2xl font-semibold text-gray-900">71,897</p>
-						<p
-							class="ml-2 flex items-baseline text-sm font-semibold text-green-600"
-						>
+						<p class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
 							<svg
 								class="self-center flex-shrink-0 h-5 w-5 text-green-500"
 								x-description="Heroicon name: solid/arrow-sm-up"
@@ -54,14 +48,9 @@
 							<span class="sr-only">Increased by</span>
 							122
 						</p>
-						<div
-							class="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6"
-						>
+						<div class="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
 							<div class="text-sm">
-								<a
-									href="#"
-									class="font-medium text-indigo-600 hover:text-indigo-500"
-								>
+								<a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
 									View all
 									<span class="sr-only">Total Subscribers stats</span>
 								</a>
@@ -70,9 +59,7 @@
 					</dd>
 				</div>
 
-				<div
-					class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
-				>
+				<div class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
 					<dt>
 						<div class="absolute bg-indigo-500 rounded-md p-3">
 							<svg
@@ -92,15 +79,11 @@
 								></path>
 							</svg>
 						</div>
-						<p class="ml-16 text-sm font-medium text-gray-500 truncate">
-							Avg. Open Rate
-						</p>
+						<p class="ml-16 text-sm font-medium text-gray-500 truncate">Avg. Open Rate</p>
 					</dt>
 					<dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
 						<p class="text-2xl font-semibold text-gray-900">58.16%</p>
-						<p
-							class="ml-2 flex items-baseline text-sm font-semibold text-green-600"
-						>
+						<p class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
 							<svg
 								class="self-center flex-shrink-0 h-5 w-5 text-green-500"
 								x-description="Heroicon name: solid/arrow-sm-up"
@@ -118,14 +101,9 @@
 							<span class="sr-only">Increased by</span>
 							5.4%
 						</p>
-						<div
-							class="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6"
-						>
+						<div class="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
 							<div class="text-sm">
-								<a
-									href="#"
-									class="font-medium text-indigo-600 hover:text-indigo-500"
-								>
+								<a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
 									View all
 									<span class="sr-only">Avg. Open Rate stats</span>
 								</a>
@@ -134,9 +112,7 @@
 					</dd>
 				</div>
 
-				<div
-					class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
-				>
+				<div class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
 					<dt>
 						<div class="absolute bg-indigo-500 rounded-md p-3">
 							<svg
@@ -156,15 +132,11 @@
 								></path>
 							</svg>
 						</div>
-						<p class="ml-16 text-sm font-medium text-gray-500 truncate">
-							Avg. Click Rate
-						</p>
+						<p class="ml-16 text-sm font-medium text-gray-500 truncate">Avg. Click Rate</p>
 					</dt>
 					<dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
 						<p class="text-2xl font-semibold text-gray-900">24.57%</p>
-						<p
-							class="ml-2 flex items-baseline text-sm font-semibold text-red-600"
-						>
+						<p class="ml-2 flex items-baseline text-sm font-semibold text-red-600">
 							<svg
 								class="self-center flex-shrink-0 h-5 w-5 text-red-500"
 								x-description="Heroicon name: solid/arrow-sm-down"
@@ -182,14 +154,9 @@
 							<span class="sr-only">Decreased by</span>
 							3.2%
 						</p>
-						<div
-							class="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6"
-						>
+						<div class="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
 							<div class="text-sm">
-								<a
-									href="#"
-									class="font-medium text-indigo-600 hover:text-indigo-500"
-								>
+								<a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
 									View all
 									<span class="sr-only">Avg. Click Rate stats</span>
 								</a>

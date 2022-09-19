@@ -9,32 +9,15 @@
 			autocomplete="off"
 			@submit="reset()"
 		>
-			<div v-if="!isValidToken" class="alert-error">
-				Invalid token to reset password
-			</div>
+			<div v-if="!isValidToken" class="alert-error">Invalid token to reset password</div>
 			<div v-if="isValidToken" class="">
-				<FormKit
-					v-if="isValidToken"
-					type="text"
-					name="email"
-					label="Email"
-					validation="required"
-					disabled
-				/>
-				<FormKit
-					type="password"
-					name="password"
-					label="Password"
-					validation="required"
-					autocomplete="off"
-				/>
+				<FormKit v-if="isValidToken" type="text" name="email" label="Email" validation="required" disabled />
+				<FormKit type="password" name="password" label="Password" validation="required" autocomplete="off" />
 			</div>
 		</FormKit>
 
 		<div v-if="error" class="alert-error">{{ error }}</div>
-		<div v-if="isSuccess" class="alert-success">
-			Password successfully reset.
-		</div>
+		<div v-if="isSuccess" class="alert-success">Password successfully reset.</div>
 	</div>
 </template>
 

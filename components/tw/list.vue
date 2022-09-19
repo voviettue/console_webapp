@@ -12,11 +12,7 @@
 					</slot>
 				</dt>
 				<dd class="mt-1 text-right sm:mt-0 sm:col-span-2 font-bold">
-					<slot
-						:name="`item-${header?.value}`"
-						:item="item"
-						:value="get(item, header?.value)"
-					>
+					<slot :name="`item-${header?.value}`" :item="item" :value="get(item, header?.value)">
 						<RenderDisplay
 							v-if="header?.display"
 							:name="header.display"
@@ -34,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import get from 'lodash/get'
 import { TableHeader } from '~~/shared/types'
 
 const props = defineProps<{
@@ -42,9 +39,6 @@ const props = defineProps<{
 }>()
 
 const normalizedHeaders = computed<Partial<TableHeader>[]>(() => {
-	return props.headers.map((header: any) =>
-		header instanceof Object ? header : { value: header, text: header }
-	)
+	return props.headers.map((header: any) => (header instanceof Object ? header : { value: header, text: header }))
 })
-const { get } = useLodash()
 </script>

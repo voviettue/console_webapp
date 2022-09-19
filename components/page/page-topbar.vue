@@ -4,9 +4,7 @@
 			<form class="w-full flex md:ml-0" action="#" method="GET">
 				<label for="search-field" class="sr-only">Search</label>
 				<div class="relative w-full text-gray-400 focus-within:text-gray-600">
-					<div
-						class="absolute inset-y-0 left-0 flex items-center pointer-events-none"
-					>
+					<div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
 						<NuxtIcon name="search" class="h-5 w-5" aria-hidden="true" />
 					</div>
 					<input
@@ -35,10 +33,7 @@
 						class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 					>
 						<span class="sr-only">Open user menu</span>
-						<nuxt-icon
-							name="user-circle"
-							class="avatar-icon h-8 w-8 rounded-full"
-						/>
+						<nuxt-icon name="user-circle" class="avatar-icon h-8 w-8 rounded-full" />
 					</MenuButton>
 				</div>
 				<transition
@@ -50,34 +45,27 @@
 					leave-to-class="transform opacity-0 scale-95"
 				>
 					<MenuItems
-						class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+						class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none divide-y"
 					>
-						<MenuItem
-							v-for="item in userNavigation"
-							:key="item.name"
-							v-slot="{ active }"
-						>
-							<a
-								:href="item.href"
-								:class="[
-									active ? 'bg-gray-100' : '',
-									'block px-4 py-2 text-sm text-gray-700',
-								]"
-							>
-								{{ item.name }}
-							</a>
-						</MenuItem>
-						<MenuItem v-slot="{ active }">
-							<a
-								:class="[
-									active ? 'bg-gray-100' : '',
-									'w-full text-left block px-4 py-2 text-sm text-gray-700',
-								]"
-								:href="logoutUrl"
-							>
-								Sign out
-							</a>
-						</MenuItem>
+						<div class="px-4 py-2">
+							<span class="block text-xs text-gray-500">Signed in as</span>
+							<span class="mt-0.5 font-semibold">thien@catex.se</span>
+						</div>
+						<div>
+							<MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
+								<a :href="item.href" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+									{{ item.name }}
+								</a>
+							</MenuItem>
+							<MenuItem v-slot="{ active }">
+								<a
+									:class="[active ? 'bg-gray-100' : '', 'w-full text-left block px-4 py-2 text-sm text-gray-700']"
+									:href="logoutUrl"
+								>
+									Sign out
+								</a>
+							</MenuItem>
+						</div>
 					</MenuItems>
 				</transition>
 			</Menu>
@@ -97,7 +85,5 @@ const { url, cognito } = useRuntimeConfig()
 const query = new URLSearchParams()
 query.append('client_id', cognito.clientId)
 query.append('logout_uri', `${url}/logout-callback`)
-const logoutUrl = `${cognito.domain}/logout?${decodeURIComponent(
-	query.toString()
-)}`
+const logoutUrl = `${cognito.domain}/logout?${decodeURIComponent(query.toString())}`
 </script>

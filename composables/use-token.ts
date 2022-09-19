@@ -1,6 +1,7 @@
 import { useLocalStorage } from './use-local-storage'
 
 const TOKEN_KEY = 'token'
+
 export default function useToken() {
 	const token = useLocalStorage(TOKEN_KEY)
 
@@ -8,15 +9,15 @@ export default function useToken() {
 		return token
 	}
 
-	const setToken = (v: string) => {
+	const setToken = (v: string): void => {
 		token.value = v
 	}
 
-	const hasToken = () => {
+	const hasToken = (): boolean => {
 		return !!token.value
 	}
 
-	const revokeToken = () => {
+	const revokeToken = (): void => {
 		token.value = null
 	}
 

@@ -1,7 +1,5 @@
 <template>
-	<div
-		class="text-center min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8"
-	>
+	<div class="text-center min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
 		<div class="sm:mx-auto sm:w-full sm:max-w-md">
 			<img class="mx-auto h-12 w-auto" src="/img/logo.png" alt="Workflow" />
 		</div>
@@ -32,7 +30,5 @@ query.append('client_id', cognito.clientId)
 query.append('response_type', 'token')
 query.append('scope', cognito.scope)
 query.append('redirect_uri', `${url}/login-callback`)
-const loginUrl = `${cognito.domain}/login?${decodeURIComponent(
-	query.toString()
-)}`
+const loginUrl = `${cognito.domain}/login?${decodeURIComponent(query.toString())}`
 </script>

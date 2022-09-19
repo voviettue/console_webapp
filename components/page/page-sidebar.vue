@@ -1,11 +1,7 @@
 <template>
 	<div>
 		<TransitionRoot as="template" :show="sidebarOpen">
-			<Dialog
-				as="div"
-				class="relative z-40 md:hidden"
-				@close="sidebarOpen = false"
-			>
+			<Dialog as="div" class="relative z-40 md:hidden" @close="sidebarOpen = false">
 				<TransitionChild
 					as="template"
 					enter="transition-opacity ease-linear duration-300"
@@ -28,9 +24,7 @@
 						leave-from="translate-x-0"
 						leave-to="-translate-x-full"
 					>
-						<DialogPanel
-							class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white"
-						>
+						<DialogPanel class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white">
 							<TransitionChild
 								as="template"
 								enter="ease-in-out duration-300"
@@ -47,11 +41,7 @@
 										@click="sidebarOpen = false"
 									>
 										<span class="sr-only">Close sidebar</span>
-										<NuxtIcon
-											name="x"
-											class="text-gray-300 hover:text-gray-100 h-6 w-6"
-											@click="sidebarOpen = false"
-										/>
+										<NuxtIcon name="x" class="text-gray-300 hover:text-gray-100 h-6 w-6" @click="sidebarOpen = false" />
 									</button>
 								</div>
 							</TransitionChild>
@@ -69,9 +59,7 @@
 										:key="item.name"
 										:to="item.to"
 										:class="[
-											item.current
-												? 'bg-gray-100 text-gray-900'
-												: 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+											item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
 											'group flex items-center px-2 py-2 text-base font-medium rounded-md',
 										]"
 										@click="sidebarOpen = false"
@@ -79,9 +67,7 @@
 										<NuxtIcon
 											:name="item.icon"
 											:class="[
-												item.current
-													? 'text-gray-500'
-													: 'text-gray-400 group-hover:text-gray-500',
+												item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
 												'mr-4 flex-shrink-0 h-6 w-6',
 											]"
 											aria-hidden="true"
@@ -102,9 +88,7 @@
 		<!-- Static sidebar for desktop -->
 		<div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
 			<!-- Sidebar component, swap this element with another sidebar if you like -->
-			<div
-				class="flex flex-col flex-grow border-r border-gray-200bg-white overflow-y-auto bg-slate-800"
-			>
+			<div class="flex flex-col flex-grow border-r border-gray-200bg-white overflow-y-auto bg-slate-800">
 				<div class="flex items-center flex-shrink-0 p-4 bg-slate-900">
 					<img class="h-8 w-auto" src="/img/logo.png" alt="Workflow" />
 					<div class="text-lg text-white ml-4">CONSOLE</div>
@@ -116,18 +100,14 @@
 							:key="item.name"
 							:to="item.to"
 							:class="[
-								item.current
-									? 'bg-gray-300 text-indigo-900'
-									: 'text-gray-300 hover:bg-gray-50 hover:text-gray-900',
+								item.current ? 'bg-gray-300 text-indigo-900' : 'text-gray-300 hover:bg-gray-50 hover:text-gray-900',
 								'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
 							]"
 						>
 							<NuxtIcon
 								:name="item.icon"
 								:class="[
-									item.current
-										? 'text-indigo-500'
-										: 'text-indigo-400 group-hover:text-indigo-500',
+									item.current ? 'text-indigo-500' : 'text-indigo-400 group-hover:text-indigo-500',
 									'mr-3 flex-shrink-0 h-6 w-6',
 								]"
 								aria-hidden="true"
@@ -157,12 +137,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import {
-	Dialog,
-	DialogPanel,
-	TransitionChild,
-	TransitionRoot,
-} from '@headlessui/vue'
+import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 
 const route = useRoute()
 const navigation = computed(() => {
@@ -178,18 +153,6 @@ const navigation = computed(() => {
 			to: '/organizations',
 			icon: 'briefcase',
 			current: route.path.startsWith('/organizations'),
-		},
-		{
-			name: 'Users',
-			to: '/users',
-			icon: 'users',
-			current: route.path.startsWith('/users'),
-		},
-		{
-			name: 'Market Places',
-			to: '/market-places',
-			icon: 'shopping-bag',
-			current: route.path.startsWith('/market-places'),
 		},
 	]
 })

@@ -15,8 +15,7 @@
 
 		<div v-if="error" class="alert-error">{{ error }}</div>
 		<div v-if="isSuccess" class="alert-success">
-			If you have an account, we've sent you a secure link to reset your
-			password
+			If you have an account, we've sent you a secure link to reset your password
 		</div>
 	</div>
 </template>

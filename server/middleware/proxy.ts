@@ -4,7 +4,7 @@ import httpProxy from 'http-proxy'
 const config = useRuntimeConfig()
 
 const proxy = httpProxy.createProxyServer({
-	target: config.public.api.baseUrl,
+	target: config.api.baseUrl,
 	changeOrigin: true,
 	ws: true,
 })
@@ -12,7 +12,7 @@ const proxy = httpProxy.createProxyServer({
 export default function (req: IncomingMessage, res: ServerResponse, next) {
 	const prefix = '/api'
 	if (req.url.startsWith(prefix)) {
-		req.url = req.url.replace(prefix, config.public.api.baseUrl)
+		req.url = req.url.replace(prefix, config.api.baseUrl + '/v1alpha1')
 		proxy.web(req, res)
 	} else {
 		next()

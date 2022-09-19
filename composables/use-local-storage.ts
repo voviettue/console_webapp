@@ -5,10 +5,7 @@ interface Serializer<T> {
 	write(value: T): string
 }
 
-const StorageSerializers: Record<
-	'boolean' | 'string' | 'number' | 'object',
-	Serializer<any>
-> = {
+const StorageSerializers: Record<'boolean' | 'string' | 'number' | 'object', Serializer<any>> = {
 	boolean: {
 		read: (v: any) => v === 'true',
 		write: (v: any) => String(v),

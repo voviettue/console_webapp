@@ -1,6 +1,6 @@
-export function useLocalStorage(key: string) {
+export function useLocalStorage<T extends string | number | boolean | object | null>(key: string, defaultValue?: T) {
 	const internalKey = `console_webapp_${key}`
-	const data = ref<string | number | boolean | object | null>(null)
+	const data = ref<T>(defaultValue)
 
 	function getExistingValue() {
 		let rawValue
@@ -21,17 +21,21 @@ export function useLocalStorage(key: string) {
 
 	getExistingValue()
 
-	watch(data, () => {
-		try {
-			if (data.value === null) {
-				localStorage.removeItem(internalKey)
-			} else {
-				localStorage.setItem(internalKey, JSON.stringify(data.value))
+	watch(
+		data,
+		() => {
+			try {
+				if (data.value === null) {
+					localStorage.removeItem(internalKey)
+				} else {
+					localStorage.setItem(internalKey, JSON.stringify(data.value))
+				}
+			} catch (err: any) {
+				throw new Error(`[use-local-storage] ${err}`)
 			}
-		} catch (err: any) {
-			throw new Error(`[use-local-storage] ${err}`)
-		}
-	})
+		},
+		{ deep: true }
+	)
 
 	return { data }
 }

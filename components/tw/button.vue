@@ -19,9 +19,9 @@
 import { computed } from 'vue'
 
 type PropType = {
-	disabled: boolean
-	href: string
-	type: string
+	disabled?: boolean
+	href?: string
+	type?: string
 }
 
 const props = withDefaults(defineProps<PropType>(), {

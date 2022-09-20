@@ -34,35 +34,10 @@
 
 			<TabPanels>
 				<TabPanel :key="`tab-panel-workspaces`">
-					<div class="py-2">
-						<div class="mb-4 text-right">
-							<TwButton @click="navigateTo(`/organizations/${orgId}/new-workspace`)">
-								<template #prepend-outer>
-									<PlusIcon class="mr-3 flex-shrink-0 h-4 w-4" aria-hidden="true" />
-								</template>
-								New workspace
-							</TwButton>
-						</div>
-						<TwCard :body-padding="false" class="rounded-lg ring-black ring-1 ring-opacity-5">
-							<OrganizationWorkspaceList :org-id="orgId"></OrganizationWorkspaceList>
-						</TwCard>
-					</div>
+					<OrganizationWorkspaceList class="my-3" :org-id="orgId"></OrganizationWorkspaceList>
 				</TabPanel>
-
-				<TabPanel :key="`tab-panel-workspaces`">
-					<div class="py-2">
-						<div class="mb-4 text-right">
-							<TwButton>
-								<template #prepend-outer>
-									<PlusIcon class="mr-3 flex-shrink-0 h-4 w-4" aria-hidden="true" />
-								</template>
-								New database
-							</TwButton>
-						</div>
-						<TwCard :body-padding="false" class="rounded-lg ring-black ring-1 ring-opacity-5">
-							<OrganizationDatabaseList :org-id="orgId"></OrganizationDatabaseList>
-						</TwCard>
-					</div>
+				<TabPanel :key="`tab-panel-databases`">
+					<OrganizationDatabaseList class="my-3" :org-id="orgId"></OrganizationDatabaseList>
 				</TabPanel>
 			</TabPanels>
 		</TabGroup>
@@ -71,32 +46,24 @@
 
 <script setup lang="ts">
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
-import { PlusIcon, ArrowLeftIcon } from '@heroicons/vue/24/outline'
+import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { useOrgsStore } from '@/stores/orgs'
 import { Org } from '@/types'
-
-const route = useRoute()
-const router = useRouter()
-const store = useOrgsStore()
-const orgId = route.params.orgid as string
-
-const org = ref<Org>()
-try {
-	org.value = await store.getOrg(orgId)
-} catch (error) {
-	navigateTo('/organizations')
-}
 
 definePageMeta({
 	title: 'Organization details',
 	middleware: ['auth'],
 })
 
+const route = useRoute()
+const router = useRouter()
+const orgsStore = useOrgsStore()
+const orgId = route.params.orgid as string
+const org = ref<Org>()
 const headers = [
 	{ value: 'name', text: 'Name' },
 	{ value: 'owner', text: 'Owner' },
 ]
-
 const tabs = [
 	{
 		name: 'workspaces',
@@ -107,4 +74,10 @@ const tabs = [
 		label: 'Databases',
 	},
 ]
+
+try {
+	org.value = await orgsStore.getOrg(orgId)
+} catch (error) {
+	navigateTo('/organizations')
+}
 </script>

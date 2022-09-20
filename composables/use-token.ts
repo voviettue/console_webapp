@@ -1,24 +1,20 @@
-import { useLocalStorage } from './use-local-storage'
-
-const TOKEN_KEY = 'token'
-
-export default function useToken() {
-	const token = useLocalStorage(TOKEN_KEY)
+export function useToken() {
+	const { data } = useLocalStorage('token')
 
 	const getToken = () => {
-		return token
+		return data
 	}
 
 	const setToken = (v: string): void => {
-		token.value = v
+		data.value = v
 	}
 
 	const hasToken = (): boolean => {
-		return !!token.value
+		return !!data.value
 	}
 
 	const revokeToken = (): void => {
-		token.value = null
+		data.value = null
 	}
 
 	return {

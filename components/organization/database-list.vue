@@ -12,5 +12,15 @@ const props = defineProps<{
 const store = useMysqlInstancesStore()
 store.getMySQLInstances(props.orgId)
 
-const headers = ['name', 'ip', 'status']
+const headers = [
+	{
+		value: 'name',
+		text: 'Name',
+	},
+	{
+		value: 'status',
+		text: 'Status',
+		display: 'status',
+	},
+]
 </script>

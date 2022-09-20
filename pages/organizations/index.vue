@@ -25,15 +25,16 @@
 	</PageWrapper>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { PlusIcon } from '@heroicons/vue/24/outline'
 import { useOrgsStore } from '@/stores/orgs'
+import { TableHeader } from '@/shared/types'
 
 definePageMeta({
 	title: 'Organizations',
 	middleware: ['auth'],
 })
-const headers = [
+const headers: TableHeader[] = [
 	{
 		value: 'name',
 		text: 'Name',
@@ -41,6 +42,7 @@ const headers = [
 	{
 		value: 'status',
 		text: 'Status',
+		display: 'status',
 	},
 ]
 

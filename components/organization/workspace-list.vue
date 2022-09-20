@@ -18,5 +18,19 @@ const props = defineProps<{
 const store = useWorkspacesStore()
 store.getWorkspaces(props.orgId)
 
-const headers = ['name', 'domain', 'owner', 'status']
+const headers = [
+	{
+		value: 'name',
+		text: 'Name',
+	},
+	{
+		value: 'subdomain',
+		text: 'Domain',
+	},
+	{
+		value: 'status',
+		text: 'Status',
+		display: 'status',
+	},
+]
 </script>

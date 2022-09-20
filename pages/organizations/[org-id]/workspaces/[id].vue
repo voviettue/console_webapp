@@ -82,7 +82,7 @@ definePageMeta({
 const headers = [
 	{ value: 'name', text: 'Name' },
 	{ value: 'domain', text: 'Domain' },
-	{ value: 'status', text: 'Status' },
+	{ value: 'status', text: 'Status', display: 'status' },
 	{ value: 'owner', text: 'Owner' },
 ]
 

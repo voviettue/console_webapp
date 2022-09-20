@@ -3,19 +3,14 @@
 		<ol role="list" class="flex items-center">
 			<li v-for="(item, index) in crumbs" :key="item.path">
 				<div class="flex items-center">
-					<svg
-						v-if="index !== 0"
-						class="h-5 w-5 flex-shrink-0 text-gray-300"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="currentColor"
-						viewBox="0 0 20 20"
-						aria-hidden="true"
-					>
-						<path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+					<svg v-if="index !== 0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="mx-1 text-gray-400 w-4 h-4">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
 					</svg>
+					<span v-if="item.current">{{ item.title }}</span>
 					<NuxtLink
+						v-else
 						:to="item.path"
-						:class="[item.current ? 'text-gray-900' : '', 'text-sm font-medium text-gray-500 hover:text-gray-700']"
+						class="text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline"
 					>
 						{{ item.title }}
 					</NuxtLink>

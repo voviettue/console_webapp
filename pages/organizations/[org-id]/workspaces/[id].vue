@@ -13,7 +13,11 @@
 		<TwCard class="mb-6 rounded-lg ring-black ring-1 ring-opacity-5">
 			<TwList :headers="headers" :item="workspace">
 				<template #item-domain="{ item }">
-					<a class="font-normal hover:underline" :href="`https://${item.subdomain}.${item.domain}`" target="_blank">
+					<a
+						class="font-normal text-gray-500 hover:text-gray-900 hover:underline"
+						:href="`https://${item.subdomain}.${item.domain}`"
+						target="_blank"
+					>
 						{{ item.subdomain + '.' + item.domain }}
 					</a>
 				</template>

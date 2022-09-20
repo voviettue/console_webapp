@@ -4,7 +4,16 @@
 		:items="store.workspaces"
 		:row-click="(item) => navigateTo(`/organizations/${orgId}/workspaces/${item.name}`)"
 	>
-		<template #item-domain="{ item }">{{ item.subdomain + '.' + item.domain }}</template>
+		<template #item-domain="{ item }">
+			<a
+				class="font-normal text-gray-500 hover:underline hover:text-gray-900"
+				:href="`https://${item.subdomain}.${item.domain}`"
+				target="_blank"
+				@click="(e) => e.stopPropagation()"
+			>
+				{{ item.subdomain + '.' + item.domain }}
+			</a>
+		</template>
 	</TwTable>
 </template>
 

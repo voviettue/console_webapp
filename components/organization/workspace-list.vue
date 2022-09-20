@@ -24,7 +24,7 @@ const headers = [
 		text: 'Name',
 	},
 	{
-		value: 'subdomain',
+		value: 'domain',
 		text: 'Domain',
 	},
 	{

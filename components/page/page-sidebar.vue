@@ -86,40 +86,61 @@
 		</TransitionRoot>
 
 		<!-- Static sidebar for desktop -->
-		<div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-			<!-- Sidebar component, swap this element with another sidebar if you like -->
-			<div class="flex flex-col flex-grow border-r border-gray-200bg-white overflow-y-auto bg-slate-800">
-				<div class="flex items-center flex-shrink-0 p-4 bg-slate-900">
-					<img class="h-8 w-auto" src="/img/logo.png" alt="Workflow" />
-					<div class="text-lg text-white ml-4">CONSOLE</div>
-				</div>
-				<div class="mt-5 flex-grow flex flex-col">
-					<nav class="flex-1 px-2 pb-4 space-y-1">
-						<NuxtLink
-							v-for="item in navigation"
-							:key="item.name"
-							:to="item.to"
-							:class="[
-								item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-								'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
-							]"
-						>
-							<component
-								:is="item.icon"
+		<div
+			:class="[
+				appStore.isSidebarCollapsed ? 'md:w-[56px]' : 'md:w-[256px]',
+				'hidden md:flex md:flex-col md:fixed md:inset-y-0',
+			]"
+		>
+			<div
+				class="flex flex-col flex-grow justify-between border-r border-gray-200bg-white overflow-y-auto bg-slate-800"
+			>
+				<div>
+					<div class="flex items-center flex-shrink-0 px-4 h-[60px] bg-slate-900">
+						<img class="w-8" src="/img/logo.png" alt="Workflow" />
+						<div v-if="!appStore.isSidebarCollapsed" class="text-lg text-white ml-4">CONSOLE</div>
+					</div>
+					<div class="mt-5 flex-grow flex flex-col">
+						<nav class="flex-1 px-2 pb-4 space-y-1">
+							<NuxtLink
+								v-for="item in navigation"
+								:key="item.name"
+								:to="item.to"
 								:class="[
-									item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
-									'mr-3 flex-shrink-0 h-6 w-6',
+									item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+									'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
 								]"
-								aria-hidden="true"
-							></component>
-							{{ item.name }}
-						</NuxtLink>
-					</nav>
+							>
+								<component
+									:is="item.icon"
+									:class="[
+										item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
+										'flex-shrink-0 h-6 w-6',
+									]"
+									aria-hidden="true"
+								></component>
+								<span v-if="!appStore.isSidebarCollapsed" class="ml-3">{{ item.name }}</span>
+							</NuxtLink>
+						</nav>
+					</div>
+				</div>
+				<div class="px-2 py-4">
+					<button
+						class="group flex w-full items-center text-gray-300 hover:bg-gray-700 hover:text-white px-2 py-2 text-sm font-medium rounded-md"
+						@click="appStore.toggleSidebar()"
+					>
+						<component
+							:is="appStore.isSidebarCollapsed ? ChevronDoubleRightIcon : ChevronDoubleLeftIcon"
+							class="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-300"
+							aria-hidden="true"
+						></component>
+						<span v-if="!appStore.isSidebarCollapsed" class="ml-3">Collapse sidebar</span>
+					</button>
 				</div>
 			</div>
 		</div>
-		<div class="md:pl-64 flex flex-col flex-1">
-			<div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow">
+		<div :class="[appStore.isSidebarCollapsed ? 'md:pl-[56px]' : 'md:pl-[256px]', 'flex flex-col flex-1']">
+			<div class="h-[60px] sticky top-0 z-10 flex-shrink-0 flex bg-white shadow">
 				<button
 					type="button"
 					class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
@@ -138,9 +159,18 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { HomeIcon, XMarkIcon, Bars3BottomLeftIcon } from '@heroicons/vue/24/outline'
+import {
+	HomeIcon,
+	XMarkIcon,
+	Bars3BottomLeftIcon,
+	ChevronDoubleLeftIcon,
+	ChevronDoubleRightIcon,
+	UserIcon,
+} from '@heroicons/vue/24/outline'
+import { useAppStore } from '@/stores/app'
 
 const route = useRoute()
+const appStore = useAppStore()
 const navigation = computed(() => {
 	return [
 		{
@@ -148,6 +178,12 @@ const navigation = computed(() => {
 			to: '/organizations',
 			icon: HomeIcon,
 			current: route.path.startsWith('/organizations'),
+		},
+		{
+			name: 'Users',
+			to: '/users',
+			icon: UserIcon,
+			current: route.path.startsWith('/users'),
 		},
 	]
 })

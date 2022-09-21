@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { MySQLInstance } from '@/types'
 import { parseStatus } from '@/shared/stores'
+import { compareName } from '@/shared/utils/compares'
 
 export const useMysqlInstancesStore = defineStore({
 	id: 'mysqlInstancesStore',
@@ -15,7 +16,7 @@ export const useMysqlInstancesStore = defineStore({
 			if (error.value) {
 				return error.value
 			}
-			this.mysqlInstances = data.value.data.map(this.parseMySQLInstance)
+			this.mysqlInstances = data.value.data.map(this.parseMySQLInstance).sort(compareName)
 		},
 		parseMySQLInstance(mysqlInstance: any): MySQLInstance {
 			return {

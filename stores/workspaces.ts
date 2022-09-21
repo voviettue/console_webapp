@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { Workspace } from '@/types'
 import { parseStatus } from '@/shared/stores'
+import { compareName } from '@/shared/utils/compares'
 
 export const useWorkspacesStore = defineStore({
 	id: 'workspacesStore',
@@ -25,7 +26,7 @@ export const useWorkspacesStore = defineStore({
 			if (error.value) {
 				throw new Error('Cannot get workspaces')
 			}
-			this.workspaces = data.value.data.map(this.parseWorkspace)
+			this.workspaces = data.value.data.map(this.parseWorkspace).sort(compareName)
 		},
 		async getWorkspace(orgId: string, wsId: string) {
 			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}/workspaces/${wsId}`, { initialCache: false })

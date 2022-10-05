@@ -12,7 +12,7 @@ const proxy = httpProxy.createProxyServer({
 export default function (req: IncomingMessage, res: ServerResponse, next) {
 	const prefix = '/api'
 	if (req.url.startsWith(prefix)) {
-		req.url = req.url.replace(prefix, config.api.baseUrl + '/v1alpha1')
+		req.url = req.url.replace(prefix, config.api.baseUrl)
 		proxy.web(req, res)
 	} else {
 		next()

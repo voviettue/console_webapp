@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { MySQLInstance } from '@/types'
 import { parseStatus } from '@/shared/stores'
 import { compareName } from '@/shared/utils/compares'
+import { apiInstance } from '@/plugins/api'
 
 export const useMysqlInstancesStore = defineStore({
 	id: 'mysqlInstancesStore',
@@ -12,11 +13,12 @@ export const useMysqlInstancesStore = defineStore({
 	},
 	actions: {
 		async getMySQLInstances(orgId: string) {
-			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}/mysqlinstances`, { initialCache: false })
-			if (error.value) {
-				return error.value
+			try {
+				const res = await apiInstance.get(`/api/v1alpha1/orgs/${orgId}/mysqlinstances`)
+				this.mysqlInstances = res.data.data.map(this.parseMySQLInstance).sort(compareName)
+			} catch (err) {
+				throw new Error(err)
 			}
-			this.mysqlInstances = data.value.data.map(this.parseMySQLInstance).sort(compareName)
 		},
 		parseMySQLInstance(mysqlInstance: any): MySQLInstance {
 			return {

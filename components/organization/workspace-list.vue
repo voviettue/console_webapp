@@ -5,7 +5,9 @@
 			<DropdownAutoRefresh v-model="refreshInterval" @refresh="refresh" />
 		</div>
 		<div class="bg-white shadow-md overflow-hidden rounded rounded-lg ring-black ring-1 ring-opacity-5">
+			<SkeletorTable v-if="isFetchingWorkspaces" :headers="headers" />
 			<TwTable
+				v-else
 				:headers="headers"
 				:items="store.workspaces"
 				:row-click="(item) => navigateTo(`/organizations/${orgId}/workspaces/${item.name}`)"
@@ -34,7 +36,8 @@ const props = defineProps<{
 const { refreshInterval } = useCollectionPreset('org_details_workspaces')
 
 const store = useWorkspacesStore()
-store.getWorkspaces(props.orgId)
+const isFetchingWorkspaces = ref(true)
+store.getWorkspaces(props.orgId).finally(() => (isFetchingWorkspaces.value = false))
 
 const headers = [
 	{

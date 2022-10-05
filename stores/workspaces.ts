@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { Workspace } from '@/types'
 import { parseStatus } from '@/shared/stores'
 import { compareName } from '@/shared/utils/compares'
+import { apiInstance } from '@/plugins/api'
 
 export const useWorkspacesStore = defineStore({
 	id: 'workspacesStore',
@@ -22,18 +23,20 @@ export const useWorkspacesStore = defineStore({
 			}
 		},
 		async getWorkspaces(orgId: string) {
-			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}/workspaces`, { initialCache: false })
-			if (error.value) {
-				throw new Error('Cannot get workspaces')
+			try {
+				const res = await apiInstance.get(`/api/v1alpha1/orgs/${orgId}/workspaces`)
+				this.workspaces = res.data.data.map(this.parseWorkspace).sort(compareName)
+			} catch (err) {
+				throw new Error(err)
 			}
-			this.workspaces = data.value.data.map(this.parseWorkspace).sort(compareName)
 		},
 		async getWorkspace(orgId: string, wsId: string) {
-			const { data, error } = await useFetch<any>(`/api/orgs/${orgId}/workspaces/${wsId}`, { initialCache: false })
-			if (error.value) {
-				throw new Error(`Cannot get workspace ${wsId}`)
+			try {
+				const res = await apiInstance.get(`/api/v1alpha1/orgs/${orgId}/workspaces/${wsId}`)
+				return this.parseWorkspace(res.data.data)
+			} catch (err) {
+				throw new Error(err)
 			}
-			return this.parseWorkspace(data.value.data)
 		},
 	},
 })

@@ -1,11 +1,5 @@
 import { Status } from './shared'
-
-export interface Extension {
-	name: string
-	version: string
-	isDev?: boolean
-	autoUpgrade?: boolean
-}
+import { Extension } from './extensions'
 
 export interface Workspace {
 	uid: string

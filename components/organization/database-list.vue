@@ -5,7 +5,8 @@
 			<DropdownAutoRefresh v-model="refreshInterval" @refresh="refresh" />
 		</div>
 		<div class="bg-white shadow-md overflow-hidden rounded rounded-lg ring-black ring-1 ring-opacity-5">
-			<TwTable :headers="headers" :items="store.mysqlInstances"></TwTable>
+			<SkeletorTable v-if="isFetchingMySQLInstances" :headers="headers" />
+			<TwTable v-else :headers="headers" :items="store.mysqlInstances"></TwTable>
 		</div>
 	</div>
 </template>
@@ -19,7 +20,8 @@ const props = defineProps<{
 const store = useMysqlInstancesStore()
 const { refreshInterval } = useCollectionPreset('org_details_databases')
 
-store.getMySQLInstances(props.orgId)
+const isFetchingMySQLInstances = ref(true)
+store.getMySQLInstances(props.orgId).finally(() => (isFetchingMySQLInstances.value = false))
 
 const headers = [
 	{

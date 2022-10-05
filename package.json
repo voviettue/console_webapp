@@ -38,11 +38,13 @@
 		"@headlessui/vue": "^1.6.5",
 		"@heroicons/vue": "^2.0.11",
 		"@pinia/nuxt": "^0.3.1",
+		"axios": "^1.0.0",
 		"base-64": "^1.0.0",
 		"date-fns": "^2.28.0",
 		"http-proxy": "^1.18.1",
 		"lodash": "^4.17.21",
 		"pinia": "^2.0.16",
-		"slugify": "^1.6.5"
+		"slugify": "^1.6.5",
+		"vue-skeletor": "^1.0.6"
 	}
 }

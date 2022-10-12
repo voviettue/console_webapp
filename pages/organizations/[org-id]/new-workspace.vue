@@ -86,7 +86,7 @@
 							<div>
 								<span class="block text-sm font-medium text-gray-700 mb-1">Environment variables</span>
 								<div>
-                  <div v-for="(env, index) in form.app.env" :key="`env-${index}`" class="flex items-end space-x-2 mb-3">
+									<div v-for="(env, index) in form.app.env" :key="`env-${index}`" class="flex items-end space-x-2 mb-3">
 										<div class="flex-1">
 											<FormKit
 												v-model="form.app.env[index].name"

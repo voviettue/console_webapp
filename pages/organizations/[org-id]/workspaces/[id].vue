@@ -8,47 +8,72 @@
 				<ArrowLeftIcon class="w-4 h-4" />
 			</button>
 		</template>
-		<template #title>Workspace details</template>
+		<template #title>Workspace settings</template>
 
-		<TwCard class="mb-6 rounded-lg ring-black ring-1 ring-opacity-5">
-			<TwList :headers="headers" :item="workspace">
-				<template #item-domain="{ item }">
+		<TabGroup vertical class="lg:grid gap-8 grid-cols-[200px_1fr]" as="div">
+			<TabList class="-mx-2">
+				<Tab v-for="tab in tabs" :key="tab.name" v-slot="{ selected }" as="template">
 					<a
-						class="font-normal text-gray-500 hover:text-gray-900 hover:underline"
-						:href="`https://${item.subdomain}.${item.domain}`"
-						target="_blank"
+						:class="[
+							selected ? 'text-gray-900 font-semibold' : '',
+							'block py-2 px-2 rounded-md text-gray-500 cursor-pointer hover:bg-gray-200',
+						]"
 					>
-						{{ item.subdomain + '.' + item.domain }}
+						{{ tab.label }}
 					</a>
-				</template>
-			</TwList>
-		</TwCard>
-
-		<TabGroup>
-			<div class="border-b border-gray-200">
-				<TabList class="-mb-px flex space-x-8">
-					<Tab v-for="tab in tabs" :key="tab.name" v-slot="{ selected }" as="template">
-						<a
-							:class="[
-								selected
-									? 'border-indigo-500 text-indigo-600'
-									: 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 cursor-pointer',
-								'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
-							]"
-						>
-							{{ tab.label }}
-						</a>
-					</Tab>
-				</TabList>
-			</div>
-
+				</Tab>
+			</TabList>
 			<TabPanels>
-				<TabPanel :key="`tab-panel-domains`">
-					<TwCard :body-padding="false" class="my-2 rounded-lg ring-black ring-1 ring-opacity-5">
-						<WorkspaceDomainList></WorkspaceDomainList>
+				<TabPanel :key="`tab-panel-general`">
+					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
+						<h3 class="mb-5">Workspace information</h3>
+						<TwList :headers="headers" :item="workspace" />
 					</TwCard>
 				</TabPanel>
+				<TabPanel :key="`tab-panel-domains`">
+					<h3>Domains</h3>
+					<p class="mb-4">Use your own domain for your workspace for free</p>
 
+					<div class="flex gap-3 mb-6">
+						<div class="flex-1">
+							<FormKit type="text" placeholder="mywebsite.com" />
+						</div>
+						<TwButton>Add</TwButton>
+					</div>
+					<TwCard class="my-2 rounded-lg ring-black ring-1 ring-opacity-5">
+						<div>
+							<div>
+								<h4>
+									<a
+										:href="`https://${workspace.subdomain}.catex.se`"
+										target="_blank"
+										class="flex items-center gap-2 text-lg text-gray-900 font-semibold"
+									>
+										{{ `${workspace.subdomain}.catex.se` }}
+										<ArrowTopRightOnSquareIcon class="w-5 h-5" />
+										<Badge variant="secondary">Default</Badge>
+									</a>
+								</h4>
+							</div>
+						</div>
+					</TwCard>
+				</TabPanel>
+				<TabPanel :key="`tab-panel-back-office`" class="space-y-6">
+					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
+						<h3 class="mb-5">App version</h3>
+						<FormSelectImageVersion v-model="form.app.version" repo="core" />
+					</TwCard>
+					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
+						<h3 class="mb-5">Environment variables</h3>
+						<FormAddEnv v-model="form.app.env" />
+					</TwCard>
+				</TabPanel>
+				<TabPanel :key="`tab-panel-front-office`">
+					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
+						<h3 class="mb-5">Front office version</h3>
+						<FormSelectImageVersion v-model="form.webapp.version" repo="front-office" />
+					</TwCard>
+				</TabPanel>
 				<TabPanel :key="`tab-panel-extensions`">
 					<TwCard :body-padding="false" class="my-2 rounded-lg ring-black ring-1 ring-opacity-5">
 						<WorkspaceExtensionList :items="workspace.extensions"></WorkspaceExtensionList>
@@ -61,22 +86,28 @@
 
 <script setup lang="ts">
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
-import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
+import { ArrowLeftIcon, ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/outline'
 import { useRoute } from 'vue-router'
 import { useWorkspacesStore } from '@/stores/workspaces'
 import { Workspace } from '@/types'
+
 const store = useWorkspacesStore()
 const route = useRoute()
 const router = useRouter()
 const orgId = route.params.orgid as string
 const wsId = route.params.id as string
 const workspace = ref<Workspace>()
+const form = ref({})
 
-try {
-	workspace.value = await store.getWorkspace(orgId, wsId)
-} catch (err) {
-	// @TODO: handle error
-}
+store
+	.getWorkspace(orgId, wsId)
+	.then((res) => {
+		workspace.value = res
+		form.value = { ...workspace.value }
+	})
+	.catch((err) => {
+		throw new Error(String(err))
+	})
 
 definePageMeta({
 	title: 'Workspace details',
@@ -85,15 +116,26 @@ definePageMeta({
 
 const headers = [
 	{ value: 'name', text: 'Name' },
-	{ value: 'domain', text: 'Domain' },
-	{ value: 'status', text: 'Status', display: 'status' },
 	{ value: 'owner', text: 'Owner' },
+	{ value: 'status', text: 'Status', display: 'status' },
 ]
 
 const tabs = [
 	{
+		name: 'general',
+		label: 'General',
+	},
+	{
 		name: 'domains',
 		label: 'Domains',
+	},
+	{
+		name: 'back-office',
+		label: 'Back office',
+	},
+	{
+		name: 'front-office',
+		label: 'Front office',
 	},
 	{
 		name: 'extensions',

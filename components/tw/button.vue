@@ -67,7 +67,7 @@ const variantClass = computed(() => {
 		return 'bg-red-100 text-red-700 border-transparent hover:bg-red-200 focus:ring-red-500'
 	if (props.variant === 'soft-success')
 		return 'bg-green-100 text-green-700 border-transparent hover:bg-green-200 focus:ring-green-500'
-  return 'bg-indigo-600 text-white border-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'
+	return 'bg-indigo-600 text-white border-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'
 })
 const sizeClass = computed(() => {
 	if (props.size === 'xs') return 'px-2.5 py-1.5 text-xs'

@@ -11,7 +11,7 @@ type PropType = {
 	modelValue?: Extension
 }
 const props = withDefaults(defineProps<PropType>(), {
-	description: '',
+	description: 'x-description',
 	checked: false,
 	hideButton: false,
 	default: false,

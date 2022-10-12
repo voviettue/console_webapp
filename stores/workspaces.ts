@@ -13,6 +13,13 @@ export const useWorkspacesStore = defineStore({
 	},
 	actions: {
 		parseWorkspace(workspace: any): Workspace {
+			const env = []
+			if (workspace.spec.app.env) {
+				for (const [k, v] of Object.entries(workspace.spec.app.env)) {
+					env.push({ name: k, value: v })
+				}
+			}
+
 			return {
 				uid: workspace.metadata.uid,
 				name: workspace.metadata.name,
@@ -20,6 +27,14 @@ export const useWorkspacesStore = defineStore({
 				extensions: workspace.spec.extensions,
 				domain: workspace.spec.domain,
 				subdomain: workspace.spec.subdomain,
+				app: {
+					...workspace.spec.app,
+					env,
+				},
+				webapp: {
+					enabled: workspace.spec.webapp.enabled,
+					version: workspace.spec.webapp.version,
+				},
 			}
 		},
 		async getWorkspaces(orgId: string) {

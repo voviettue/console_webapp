@@ -15,7 +15,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Lato', ...defaultTheme.fontFamily.sans],
+				sans: ['Inter', ...defaultTheme.fontFamily.sans],
 			},
 			borderRadius: {
 				DEFAULT: '0.125rem',

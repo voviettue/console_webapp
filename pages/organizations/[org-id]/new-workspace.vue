@@ -162,7 +162,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import slugify from 'slugify'
-import { ArrowLeftIcon, XCircleIcon } from '@heroicons/vue/24/outline'
+import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { Extension } from '@/types'
 import { useExtensionsStore } from '@/stores/extensions'
 

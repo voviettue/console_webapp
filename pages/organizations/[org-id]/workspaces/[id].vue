@@ -26,12 +26,12 @@
 			<TabPanels>
 				<TabPanel :key="`tab-panel-general`">
 					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
-						<h3 class="mb-5">Workspace information</h3>
+						<h3 class="mb-5 font-semibold">Workspace information</h3>
 						<TwList :headers="headers" :item="workspace" />
 					</TwCard>
 				</TabPanel>
 				<TabPanel :key="`tab-panel-domains`">
-					<h3>Domains</h3>
+					<h3 class="font-semibold">Domains</h3>
 					<p class="mb-4">Use your own domain for your workspace for free</p>
 
 					<div class="flex gap-3 mb-6">
@@ -60,17 +60,17 @@
 				</TabPanel>
 				<TabPanel :key="`tab-panel-back-office`" class="space-y-6">
 					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
-						<h3 class="mb-5">App version</h3>
+						<h3 class="mb-5 font-semibold">App version</h3>
 						<FormSelectImageVersion v-model="form.app.version" repo="core" />
 					</TwCard>
 					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
-						<h3 class="mb-5">Environment variables</h3>
+						<h3 class="mb-5 font-semibold">Environment variables</h3>
 						<FormAddEnv v-model="form.app.env" />
 					</TwCard>
 				</TabPanel>
 				<TabPanel :key="`tab-panel-front-office`">
 					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
-						<h3 class="mb-5">Front office version</h3>
+						<h3 class="mb-5 font-semibold">Front office version</h3>
 						<FormSelectImageVersion v-model="form.webapp.version" repo="front-office" />
 					</TwCard>
 				</TabPanel>

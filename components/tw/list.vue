@@ -11,7 +11,7 @@
 						{{ get(header, 'text') ?? '—' }}
 					</slot>
 				</dt>
-				<dd class="mt-1 text-right sm:mt-0 sm:col-span-2 font-bold">
+				<dd class="mt-1 text-right sm:mt-0 sm:col-span-2 font-semibold">
 					<slot :name="`item-${header?.value}`" :item="item" :value="get(item, header?.value)">
 						<RenderDisplay
 							v-if="header?.display"

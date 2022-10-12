@@ -10,77 +10,121 @@
 		</template>
 		<template #title>Workspace settings</template>
 
-		<TabGroup vertical class="lg:grid gap-8 grid-cols-[200px_1fr]" as="div">
-			<TabList class="-mx-2">
-				<Tab v-for="tab in tabs" :key="tab.name" v-slot="{ selected }" as="template">
-					<a
-						:class="[
-							selected ? 'text-gray-900 font-semibold' : '',
-							'block py-2 px-2 rounded-md text-gray-500 cursor-pointer hover:bg-gray-200',
-						]"
-					>
-						{{ tab.label }}
-					</a>
-				</Tab>
-			</TabList>
-			<TabPanels>
-				<TabPanel :key="`tab-panel-general`">
-					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
-						<h3 class="mb-5 font-semibold">Workspace information</h3>
-						<TwList :headers="headers" :item="workspace" />
-					</TwCard>
-				</TabPanel>
-				<TabPanel :key="`tab-panel-domains`">
-					<h3 class="font-semibold">Domains</h3>
-					<p class="mb-4">Use your own domain for your workspace for free</p>
-
-					<div class="flex gap-3 mb-6">
-						<div class="flex-1">
-							<FormKit type="text" placeholder="mywebsite.com" />
-						</div>
-						<TwButton>Add</TwButton>
+		<div v-if="isFetchingWorkspace">
+			<TwCard class="mb-8 rounded-lg ring-black ring-1 ring-opacity-5">
+				<div>
+					<Skeletor width="100" />
+				</div>
+				<div>
+					<Skeletor width="160" class="mr-2" />
+					<Skeletor width="24" />
+				</div>
+			</TwCard>
+			<div class="lg:grid gap-8 grid-cols-[200px_1fr]">
+				<div class="space-y-3">
+					<div v-for="i in 5" :key="i">
+						<Skeletor width="120" />
 					</div>
-					<TwCard class="my-2 rounded-lg ring-black ring-1 ring-opacity-5">
-						<div>
-							<div>
-								<h4>
-									<a
-										:href="`https://${workspace.subdomain}.catex.se`"
-										target="_blank"
-										class="flex items-center gap-2 text-lg text-gray-900 font-semibold"
-									>
-										{{ `${workspace.subdomain}.catex.se` }}
-										<ArrowTopRightOnSquareIcon class="w-5 h-5" />
-										<Badge variant="secondary">Default</Badge>
-									</a>
-								</h4>
+				</div>
+				<div>
+					<TwCard class="mb-8 rounded-lg ring-black ring-1 ring-opacity-5">
+						<div class="mb-5">
+							<Skeletor width="200" />
+						</div>
+						<div class="space-y-4">
+							<div v-for="i in 5" :key="i" class="flex justify-between">
+								<Skeletor width="100" />
+								<Skeletor width="100" />
 							</div>
 						</div>
 					</TwCard>
-				</TabPanel>
-				<TabPanel :key="`tab-panel-back-office`" class="space-y-6">
-					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
-						<h3 class="mb-5 font-semibold">App version</h3>
-						<FormSelectImageVersion v-model="form.app.version" repo="core" />
-					</TwCard>
-					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
-						<h3 class="mb-5 font-semibold">Environment variables</h3>
-						<FormAddEnv v-model="form.app.env" />
-					</TwCard>
-				</TabPanel>
-				<TabPanel :key="`tab-panel-front-office`">
-					<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
-						<h3 class="mb-5 font-semibold">Front office version</h3>
-						<FormSelectImageVersion v-model="form.webapp.version" repo="front-office" />
-					</TwCard>
-				</TabPanel>
-				<TabPanel :key="`tab-panel-extensions`">
-					<TwCard :body-padding="false" class="my-2 rounded-lg ring-black ring-1 ring-opacity-5">
-						<WorkspaceExtensionList :items="workspace.extensions"></WorkspaceExtensionList>
-					</TwCard>
-				</TabPanel>
-			</TabPanels>
-		</TabGroup>
+				</div>
+			</div>
+		</div>
+		<template v-else>
+			<TwCard class="mb-8 rounded-lg ring-black ring-1 ring-opacity-5">
+				<h1 class="text-xl font-medium">{{ workspace.name }}</h1>
+				<a
+					:href="`https://${workspace.subdomain}.catex.se`"
+					class="flex items-center gap-2 text-gray-500 hover:underline hover:text-gray-900"
+				>
+					{{ `${workspace.subdomain}.catex.se` }}
+					<ArrowTopRightOnSquareIcon class="w-5 h-5" />
+				</a>
+			</TwCard>
+
+			<TabGroup vertical class="lg:grid gap-8 grid-cols-[200px_1fr]" as="div">
+				<TabList class="-mx-2">
+					<Tab v-for="tab in tabs" :key="tab.name" v-slot="{ selected }" as="template">
+						<a
+							:class="[
+								selected ? 'text-gray-900 font-semibold' : '',
+								'block py-2 px-2 rounded-md text-gray-500 cursor-pointer hover:bg-gray-200',
+							]"
+						>
+							{{ tab.label }}
+						</a>
+					</Tab>
+				</TabList>
+				<TabPanels>
+					<TabPanel :key="`tab-panel-general`">
+						<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
+							<h3 class="mb-5 font-semibold">Workspace information</h3>
+							<TwList :headers="headers" :item="workspace" />
+						</TwCard>
+					</TabPanel>
+					<TabPanel :key="`tab-panel-domains`">
+						<h3 class="font-semibold">Domains</h3>
+						<p class="mb-4">Use your own domain for your workspace for free</p>
+
+						<div class="flex gap-3 mb-6">
+							<div class="flex-1">
+								<FormKit type="text" placeholder="mywebsite.com" />
+							</div>
+							<TwButton>Add</TwButton>
+						</div>
+						<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
+							<div>
+								<div>
+									<h4>
+										<a
+											:href="`https://${workspace.subdomain}.catex.se`"
+											target="_blank"
+											class="flex items-center gap-2 text-lg text-gray-900 font-semibold"
+										>
+											{{ `${workspace.subdomain}.catex.se` }}
+											<ArrowTopRightOnSquareIcon class="w-5 h-5" />
+											<Badge variant="secondary">Default</Badge>
+										</a>
+									</h4>
+								</div>
+							</div>
+						</TwCard>
+					</TabPanel>
+					<TabPanel :key="`tab-panel-back-office`" class="space-y-6">
+						<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
+							<h3 class="mb-5 font-semibold">App version</h3>
+							<FormSelectImageVersion v-model="form.app.version" repo="core" />
+						</TwCard>
+						<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
+							<h3 class="mb-5 font-semibold">Environment variables</h3>
+							<FormAddEnv v-model="form.app.env" />
+						</TwCard>
+					</TabPanel>
+					<TabPanel :key="`tab-panel-front-office`">
+						<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
+							<h3 class="mb-5 font-semibol">Front office version</h3>
+							<FormSelectImageVersion v-model="form.webapp.version" repo="front-office" />
+						</TwCard>
+					</TabPanel>
+					<TabPanel :key="`tab-panel-extensions`">
+						<TwCard :body-padding="false" class="my-2 rounded-lg ring-black ring-1 ring-opacity-5">
+							<WorkspaceExtensionList :items="workspace.extensions"></WorkspaceExtensionList>
+						</TwCard>
+					</TabPanel>
+				</TabPanels>
+			</TabGroup>
+		</template>
 	</PageWrapper>
 </template>
 
@@ -98,7 +142,7 @@ const orgId = route.params.orgid as string
 const wsId = route.params.id as string
 const workspace = ref<Workspace>()
 const form = ref({})
-
+const isFetchingWorkspace = ref(true)
 store
 	.getWorkspace(orgId, wsId)
 	.then((res) => {
@@ -108,6 +152,7 @@ store
 	.catch((err) => {
 		throw new Error(String(err))
 	})
+	.finally(() => (isFetchingWorkspace.value = false))
 
 definePageMeta({
 	title: 'Workspace details',

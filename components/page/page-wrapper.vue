@@ -1,10 +1,10 @@
 <template>
 	<main class="flex-1">
-		<div class="py-6 space-y-6">
-			<div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-				<Breadcrumb />
-			</div>
-			<div v-if="hasSlotTitle" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+		<div class="py-6">
+			<!-- <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8"> -->
+			<!-- 	<Breadcrumb /> -->
+			<!-- </div> -->
+			<div v-if="hasSlotTitle" class="max-w-7xl mx-auto px-4 mb-8 sm:px-6 md:px-8">
 				<div class="flex justify-between items-center">
 					<div class="flex items-center">
 						<slot name="title:prepend"></slot>

@@ -85,30 +85,7 @@
 							/>
 							<div>
 								<span class="block text-sm font-medium text-gray-700 mb-1">Environment variables</span>
-								<div>
-									<div v-for="(env, index) in form.app.env" :key="`env-${index}`" class="flex items-end space-x-2 mb-3">
-										<div class="flex-1">
-											<FormKit
-												v-model="form.app.env[index].name"
-												:label="index === 0 ? 'Key' : ''"
-												type="text"
-												placeholder="VARIABLE_NAME"
-											/>
-										</div>
-										<div class="flex-1">
-											<FormKit
-												v-model="form.app.env[index].value"
-												:label="index === 0 ? 'Value' : ''"
-												type="text"
-												placeholder="somevalue"
-											/>
-										</div>
-										<TwButton type="button" variant="secondary" @click="removeEnvVariable(index)">
-											<XCircleIcon class="w-5 h-5" />
-										</TwButton>
-									</div>
-								</div>
-								<TwButton type="button" variant="secondary" @click="addNewEnvVariable">New variable</TwButton>
+								<FormAddEnv v-model="form.app.env" />
 							</div>
 						</div>
 					</div>
@@ -256,14 +233,6 @@ const subdomainHelpText = computed(() => {
 	if (form.value.subdomain === '') return 'https://example.catex.se'
 	return `https://${form.value.subdomain}.catex.se`
 })
-
-function addNewEnvVariable() {
-	form.value.app.env.push({ name: '', value: '' })
-}
-
-function removeEnvVariable(index) {
-	form.value.app.env.splice(index, 1)
-}
 
 function onChangeExtension(ext: Extension) {
 	form.value.extensions = form.value.extensions.map((e) => {

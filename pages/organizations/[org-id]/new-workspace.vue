@@ -33,15 +33,6 @@
 								name="name"
 								type="text"
 								placeholder="Example"
-								validation="required|length:3,20"
-							/>
-							<FormKit
-								v-model="form.subdomain"
-								label="Workspace URL"
-								name="subdomain"
-								type="text"
-								placeholder="example"
-								:help="subdomainHelpText"
 								validation="required|length:3,20|matches:/^[0-9a-z](-?[0-9a-z])*$/"
 							/>
 							<FormSelectMysqlInstances
@@ -61,14 +52,13 @@
 				<div class="md:col-span-1">
 					<div class="px-4 sm:px-0">
 						<h3 class="text-lg font-medium leading-6 text-gray-900">App information</h3>
-						<p class="mt-1 text-sm text-gray-600">Admin credentials, environment variables.</p>
 					</div>
 				</div>
 				<div class="mt-5 md:col-span-2 md:mt-0">
 					<div class="shadow sm:overflow-hidden sm:rounded-md">
 						<div class="space-y-3 bg-white px-4 py-5 sm:p-6">
 							<FormKit
-								v-model="form.app.adminEmail"
+								v-model="form.adminEmail"
 								label="Admin email"
 								name="adminEmail"
 								type="email"
@@ -76,65 +66,18 @@
 								validation="required|email"
 							/>
 							<FormKit
-								v-model="form.app.adminPassword"
+								v-model="form.adminPassword"
 								label="Admin password"
 								name="adminPassword"
 								type="password"
 								placeholder=""
 								validation="required"
 							/>
-							<div>
-								<span class="block text-sm font-medium text-gray-700 mb-1">Environment variables</span>
-								<FormAddEnv v-model="form.app.env" />
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- App -->
-			<div id="extensions" class="md:grid md:grid-cols-3 md:gap-6 mb-5">
-				<div class="md:col-span-1">
-					<div class="px-4 sm:px-0">
-						<h3 class="text-lg font-medium leading-6 text-gray-900">Extensions</h3>
-						<p class="mt-1 text-sm text-gray-600"></p>
-					</div>
-				</div>
-				<div class="mt-5 md:col-span-2 md:mt-0">
-					<div class="shadow sm:overflow-hidden sm:rounded-md">
-						<div class="space-y-3 bg-white px-4 py-5 sm:p-6">
-							<div class="grid grid-cols-2 gap-4">
-								<template v-if="isFetchingExtensions">
-									<div v-for="i in 4" :key="i">
-										<SkeletorExtensionSelect />
-									</div>
-								</template>
-								<template v-else>
-									<FormSelectExtension
-										v-for="ext in store.defaultExtensions"
-										:key="ext.name"
-										:name="ext.name"
-										:title="ext.title"
-										checked
-										hide-button
-										default
-										@update:model-value="onChangeExtension"
-									/>
-									<FormSelectExtension
-										v-for="ext in store.extensions"
-										:key="ext.name"
-										:name="ext.name"
-										:title="ext.title"
-										@update:model-value="onChangeExtension"
-										@select="onSelectExtension"
-										@remove="onRemoveExtension"
-									/>
-								</template>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Extensions -->
 			<div id="front-office" class="md:grid md:grid-cols-3 md:gap-6">
 				<div class="md:col-span-1">
 					<div class="px-4 sm:px-0">
@@ -145,34 +88,30 @@
 				<div class="mt-5 md:col-span-2 md:mt-0">
 					<div class="shadow sm:overflow-hidden sm:rounded-md">
 						<div class="space-y-3 bg-white px-4 py-5 sm:p-6">
-							<FormKit v-model="form.webapp.enabled" label="Enable front-office" name="webappEnable" type="checkbox" />
-							<FormKit v-model="form.webapp.version" label="Version" name="webappVersion" type="text" placeholder="" />
+							<FormKit v-model="form.webappEnabled" label="Enable front-office" name="webappEnabled" type="checkbox" />
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- Front office -->
 			<div class="flex justify-end my-6">
-				<FormKit type="submit" :disabled="!valid" />
+				<TwButton type="submit" :disabled="!valid" :loading="isCreatingWS">Create Workspace</TwButton>
 			</div>
 		</FormKit>
 	</PageWrapper>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import slugify from 'slugify'
 import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
-import { Extension } from '@/types'
-import { useExtensionsStore } from '@/stores/extensions'
 
 interface WorkspacePayload {
 	name: string
-	subdomain: string
 	mysqlinstance: string
-	app: Record<string, any>
-	webapp: Record<string, any>
-	extensions: Extension[]
+	adminEmail: string
+	adminPassword: string
+	webappEnabled: boolean
 }
 
 definePageMeta({
@@ -182,73 +121,34 @@ definePageMeta({
 
 const router = useRouter()
 const route = useRoute()
+const { $api, $toast } = useNuxtApp()
 const orgId = route.params.orgid as string
-const store = useExtensionsStore()
-const isFetchingExtensions = ref(true)
-store.getExtensions().finally(() => {
-	isFetchingExtensions.value = false
-})
-
 const form = ref<WorkspacePayload>({
 	name: '',
-	subdomain: '',
 	mysqlinstance: '',
-	app: {
-		adminEmail: '',
-		adminPassword: '',
-		env: [{ name: '', value: '' }],
-	},
-	webapp: {
-		enabled: false,
-		version: '1.0.0',
-	},
-	extensions: [
-		{
-			name: 'base',
-			mode: {
-				development: false,
-				version: null,
-			},
-			autoUpgrade: false,
-		},
-		{
-			name: 'pro',
-			mode: {
-				development: false,
-				version: null,
-			},
-			autoUpgrade: false,
-		},
-	],
+	adminEmail: '',
+	adminPassword: '',
+	webappEnabled: false,
 })
+const isCreatingWS = ref(false)
 
 watch(
-	() => form.value.subdomain,
+	() => form.value.name,
 	(newVal) => {
-		form.value.subdomain = slugify(newVal, { lower: true })
+		form.value.name = slugify(newVal, { lower: true })
 	}
 )
 
-const subdomainHelpText = computed(() => {
-	if (form.value.subdomain === '') return 'https://example.catex.se'
-	return `https://${form.value.subdomain}.catex.se`
-})
-
-function onChangeExtension(ext: Extension) {
-	form.value.extensions = form.value.extensions.map((e) => {
-		return e.name === ext.name ? ext : e
-	})
-}
-
-function onSelectExtension(ext: Extension) {
-	form.value.extensions.push(ext)
-}
-
-function onRemoveExtension(ext: Extension) {
-	form.value.extensions = form.value.extensions.filter(({ name }) => name !== ext.name)
-}
-
-function submitHandler() {
-	return true
+async function submitHandler() {
+	if (isCreatingWS.value) return
+	isCreatingWS.value = true
+	try {
+		await $api.post(`/api/v1alpha1/orgs/${orgId}/workspaces`, form.value)
+		$toast.success({ title: 'Workspace has been created successfully!' })
+		navigateTo(`/organizations/${orgId}`)
+	} catch (err) {
+		$toast.error({ title: 'Cannot create workspace', content: JSON.stringify(err.response.data) })
+	}
+	isCreatingWS.value = false
 }
 </script>

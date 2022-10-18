@@ -55,7 +55,7 @@
 			</TwCard>
 
 			<TabGroup vertical class="lg:grid gap-8 grid-cols-[200px_1fr]" as="div">
-				<TabList class="-mx-2">
+				<TabList class="-mx-2 mb-4 lg:mb-0">
 					<Tab v-for="tab in tabs" :key="tab.name" v-slot="{ selected }" as="template">
 						<a
 							:class="[

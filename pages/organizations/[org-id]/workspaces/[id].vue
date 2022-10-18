@@ -4,7 +4,7 @@
 			<button
 				class="mr-2 p-2 inline-flex items-center rounded-full border border-transparent bg-indigo-100 p-1 text-indigo-700 shadow-sm hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 				@click="router.back()"
-				>
+			>
 				<ArrowLeftIcon class="w-4 h-4" />
 			</button>
 		</template>
@@ -12,10 +12,10 @@
 
 		<div v-if="isFetchingWorkspace">
 			<TwCard class="mb-8 rounded-lg ring-black ring-1 ring-opacity-5">
-			<div>
+				<div>
 					<Skeletor width="100" />
 				</div>
-			<div>
+				<div>
 					<Skeletor width="160" class="mr-2" />
 					<Skeletor width="24" />
 				</div>
@@ -26,7 +26,7 @@
 						<Skeletor width="120" />
 					</div>
 				</div>
-			<div>
+				<div>
 					<TwCard class="mb-8 rounded-lg ring-black ring-1 ring-opacity-5">
 						<div class="mb-5">
 							<Skeletor width="200" />
@@ -48,7 +48,7 @@
 					:href="`https://${workspace.subdomain}.catex.se`"
 					target="_blank"
 					class="flex items-center gap-2 text-gray-500 hover:underline hover:text-gray-900"
-					>
+				>
 					{{ `${workspace.subdomain}.catex.se` }}
 					<ArrowTopRightOnSquareIcon class="w-5 h-5" />
 				</a>
@@ -62,7 +62,7 @@
 								selected ? 'text-gray-900 font-semibold' : '',
 								'block py-2 px-2 rounded-md text-gray-500 cursor-pointer hover:bg-gray-200',
 							]"
-							>
+						>
 							{{ tab.label }}
 						</a>
 					</Tab>
@@ -83,23 +83,29 @@
 								<template #title>Delete workspace</template>
 								<template #content>
 									<div class="space-y-2">
-										<p>Are you absolutely sure you want to delete <strong class="font-bold">{{ workspace.name }}</strong>?</p>
+										<p>
+											Are you absolutely sure you want to delete
+											<strong class="font-bold">{{ workspace.name }}</strong>
+											?
+										</p>
 										<p><strong>This action cannot be undone</strong></p>
 										<FormKit
-											placeholder="Type in the name of the workspace to confirm"
 											v-model="deletedWorkspaceName"
+											placeholder="Type in the name of the workspace to confirm"
 										/>
 										<code>{{ workspace.name }}</code>
 									</div>
 								</template>
 								<template #actions="{ close }">
-									<TwButton @click="close" variant="secondary">Cancel</TwButton>
+									<TwButton variant="secondary" @click="close">Cancel</TwButton>
 									<TwButton
 										variant="danger"
 										:disabled="deletedWorkspaceName !== workspace.name"
 										:loading="isDeletingWorkspace"
 										@click="deleteWorkspace"
-									>Delete</TwButton>
+									>
+										Delete
+									</TwButton>
 								</template>
 							</Modal>
 						</Teleport>
@@ -122,7 +128,7 @@
 											:href="`https://${workspace.subdomain}.catex.se`"
 											target="_blank"
 											class="flex items-center gap-2 text-lg text-gray-900 font-semibold"
-											>
+										>
 											{{ `${workspace.subdomain}.catex.se` }}
 											<ArrowTopRightOnSquareIcon class="w-5 h-5" />
 											<Badge variant="secondary">Default</Badge>
@@ -235,8 +241,8 @@ async function deleteWorkspace() {
 	try {
 		await $api.delete(`/api/v1alpha1/orgs/${orgId}/workspaces/${wsId}`)
 		navigateTo(`/organizations/${orgId}`)
-	} catch(err) {
-		$toast.error({ title: 'Cannot delete this workspace', content: JSON.stringify(err.response.data)})
+	} catch (err) {
+		$toast.error({ title: 'Cannot delete this workspace', content: JSON.stringify(err.response.data) })
 	}
 	isDeletingWorkspace.value = false
 }

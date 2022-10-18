@@ -15,16 +15,27 @@ export const useMysqlInstancesStore = defineStore({
 		async getMySQLInstances(orgId: string) {
 			try {
 				const res = await apiInstance.get(`/api/v1alpha1/orgs/${orgId}/mysqlinstances`)
-				this.mysqlInstances = res.data.data.map(this.parseMySQLInstance).sort(compareName)
+				this.mysqlInstances = res.data.data.map(this.parseMySqlInstance).sort(compareName)
 			} catch (err) {
 				throw new Error(err)
 			}
 		},
-		parseMySQLInstance(mysqlInstance: any): MySQLInstance {
+		async getMySqlInstance(orgId: string, id: string) {
+			try {
+				const res = await apiInstance.get(`/api/v1alpha1/orgs/${orgId}/mysqlinstances/${id}`)
+				return this.parseMySqlInstance(res.data.data)
+			} catch (err) {
+				throw new Error(err)
+			}
+		},
+		parseMySqlInstance(mysqlInstance: any): MySQLInstance {
 			return {
 				uid: mysqlInstance.spec.uid,
 				name: mysqlInstance.spec.name,
 				status: parseStatus(mysqlInstance.status),
+				storageGB: mysqlInstance.spec.storageGB,
+				instanceClass: mysqlInstance.spec.instanceClass,
+				createdAt: mysqlInstance.metadata.creationTimestamp,
 			}
 		},
 	},

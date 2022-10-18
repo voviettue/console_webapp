@@ -1,12 +1,24 @@
 <template>
 	<div>
 		<div class="mb-4 flex items-center justify-end space-x-2">
-			<TwButton>New database</TwButton>
+			<TwButton @click="navigateTo(`/organizations/${orgId}/new-mysql`)">New database</TwButton>
 			<DropdownAutoRefresh v-model="refreshInterval" @refresh="refresh" />
 		</div>
 		<div class="bg-white shadow-md overflow-hidden rounded rounded-lg ring-black ring-1 ring-opacity-5">
 			<SkeletorTable v-if="isFetchingMySQLInstances" :headers="headers" />
-			<TwTable v-else :headers="headers" :items="store.mysqlInstances"></TwTable>
+			<TwTable
+				v-else
+				:headers="headers"
+				:items="store.mysqlInstances"
+				:row-click="(item) => navigateTo(`/organizations/${orgId}/databases/${item.name}`)"
+			>
+				<template #item-storage="{ item }">
+					<span>{{ `${item.storageGB} GB` }}</span>
+				</template>
+				<template #item-instance="{ item }">
+					<code>{{ item.instanceClass }}</code>
+				</template>
+			</TwTable>
 		</div>
 	</div>
 </template>
@@ -27,6 +39,14 @@ const headers = [
 	{
 		value: 'name',
 		text: 'Name',
+	},
+	{
+		value: 'storage',
+		text: 'Storage',
+	},
+	{
+		value: 'instance',
+		text: 'Instance',
 	},
 	{
 		value: 'status',

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 type PropType = {
-	variant?: 'primary | secondary | success | danger'
+	variant?: 'primary' | 'secondary' | 'success' | 'danger'
 }
 
 const props = withDefaults(defineProps<PropType>(), {

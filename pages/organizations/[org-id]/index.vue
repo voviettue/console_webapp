@@ -27,7 +27,7 @@
 										: 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 cursor-pointer',
 									'whitespace-nowrap py-2 px-1 border-b-2 text-sm',
 								]"
-								>
+							>
 								{{ tab.label }}
 							</a>
 						</Tab>
@@ -49,7 +49,6 @@
 
 <script setup lang="ts">
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
-import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { useOrgsStore } from '@/stores/orgs'
 import { Org } from '@/types'
 
@@ -59,15 +58,10 @@ definePageMeta({
 })
 
 const route = useRoute()
-const router = useRouter()
 const store = useOrgsStore()
 const orgId = route.params.orgid as string
 const org = ref<Org>()
 const isFetchingOrg = ref(true)
-const headers = [
-	{ value: 'name', text: 'Name' },
-	{ value: 'owner', text: 'Owner' },
-]
 const tabs = [
 	{
 		name: 'workspaces',
@@ -79,8 +73,9 @@ const tabs = [
 	},
 ]
 
-store.getOrg(orgId)
-	.then(res => org.value = res)
+store
+	.getOrg(orgId)
+	.then((res) => (org.value = res))
 	.catch(() => navigateTo('/organizations'))
-	.finally(() => isFetchingOrg.value = false)
+	.finally(() => (isFetchingOrg.value = false))
 </script>

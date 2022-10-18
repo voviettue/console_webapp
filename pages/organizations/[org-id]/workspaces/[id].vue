@@ -73,7 +73,7 @@
 							<h3 class="mb-5 font-semibold">Workspace information</h3>
 							<TwList :headers="headers" :item="workspace" />
 						</TwCard>
-						<TwCard class="rounded-lg ring-black ring-1 ring-opacity-5">
+						<TwCard class="rounded-lg border border-red-300">
 							<h3 class="mb-5 font-semibold">Delete workspace</h3>
 							<p class="mb-5">This workspace will be permanently deleted. This action cannot be undone.</p>
 							<TwButton variant="danger" @click="openDeletionModal = true">Delete this workspace</TwButton>

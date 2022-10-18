@@ -5,10 +5,13 @@
 				<NuxtPage></NuxtPage>
 			</slot>
 		</PageSidebar>
+		<Teleport to="body">
+			<NotificationList />
+		</Teleport>
 	</div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 const route = useRoute()
 
 useHead({

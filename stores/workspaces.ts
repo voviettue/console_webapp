@@ -35,6 +35,7 @@ export const useWorkspacesStore = defineStore({
 					enabled: workspace.spec.webapp.enabled,
 					version: workspace.spec.webapp.version,
 				},
+				createdAt: workspace.metadata.creationTimestamp,
 			}
 		},
 		async getWorkspaces(orgId: string) {

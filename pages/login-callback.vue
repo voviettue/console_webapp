@@ -16,6 +16,8 @@ if (!token) {
 	navigateTo('sign-in')
 } else {
 	setToken(token)
-	navigateTo('organizations')
+	// @TODO retreive user group to detect org id
+	const orgId = 'catex'
+	navigateTo(`/orgs/${orgId}/overview`)
 }
 </script>

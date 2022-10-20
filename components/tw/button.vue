@@ -74,7 +74,7 @@ const additionalProps = computed(() => {
 })
 
 const commonClass =
-	'inline-flex items-center justify-center rounded-md border font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto'
+	'inline-flex items-center justify-center whitespace-nowrap rounded-md border font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto'
 const variantClass = computed(() => {
 	if (props.disabled) return 'bg-gray-400 text-white cursor-not-allowed'
 	if (props.variant === 'secondary')

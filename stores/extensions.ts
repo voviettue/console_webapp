@@ -12,17 +12,30 @@ export const useExtensionsStore = defineStore({
 		}
 	},
 	actions: {
-		parseExtensions(ext: any) {
+		parseExtension(ext: any) {
 			return {
-				name: ext.name,
-				title: ext.name, // @TODO: update
-				description: 'x-' + ext.name, // @TODO: udpate
+				id: ext.cfdata.package,
+				image: ext.image,
+				title: ext.title,
+				description: ext.description,
+				package: ext.cfdata.package,
+				namespace: ext.cfdata.namespace,
+				defaultDisplayVersion: ext.cfdata.defaultDisplayVersion,
+				versions: ext.cfdata.versions,
 			}
 		},
 		async getExtensions() {
 			try {
 				const res = await apiInstance.get('/api/meta/extensions')
-				this.rawExtensions = res.data.data.map(this.parseExtensions)
+				this.rawExtensions = res.data.data.map(this.parseExtension)
+			} catch (err) {
+				throw new Error(err)
+			}
+		},
+		async getExtension(id: string) {
+			try {
+				const res = await apiInstance.get(`/api/meta/extensions/${id}`)
+				return this.parseExtension(res.data.data)
 			} catch (err) {
 				throw new Error(err)
 			}
@@ -33,7 +46,7 @@ export const useExtensionsStore = defineStore({
 			return state.rawExtensions.filter((e) => DEFAULT_EXTENSIONS.includes(e.name))
 		},
 		extensions(state) {
-			return state.rawExtensions.filter((e) => !DEFAULT_EXTENSIONS.includes(e.name))
+			return state.rawExtensions
 		},
 	},
 })

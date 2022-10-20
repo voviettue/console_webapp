@@ -15,6 +15,7 @@ export interface WorkspaceApp {
 	adminEmail: string
 	adminPaddword: string
 	version: string
+	chartVersion: string
 	env: WorkspaceEnv[]
 }
 
@@ -27,4 +28,5 @@ export interface Workspace {
 	extensions: Extension[]
 	app: WorkspaceApp
 	webapp?: WorkspaceWebapp
+	createdAt: string
 }

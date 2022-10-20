@@ -1,8 +1,11 @@
 <template>
 	<div>
-		<div class="mb-4 flex items-center justify-end space-x-2">
-			<TwButton @click="navigateTo(`/organizations/${orgId}/new-mysql`)">New database</TwButton>
-			<DropdownAutoRefresh v-model="refreshInterval" @refresh="refresh" />
+		<div class="mb-8 flex items-center justify-between">
+			<h1 class="font-medium text-2xl">Databases</h1>
+			<div class="flex items-center justify-end space-x-2">
+				<TwButton @click="navigateTo(`/orgs/${orgId}/databases/new`)">New database</TwButton>
+				<DropdownAutoRefresh v-model="refreshInterval" @refresh="refresh" />
+			</div>
 		</div>
 		<div class="bg-white shadow-md overflow-hidden rounded rounded-lg ring-black ring-1 ring-opacity-5">
 			<SkeletorTable v-if="isFetchingMySQLInstances" :headers="headers" />
@@ -10,7 +13,7 @@
 				v-else
 				:headers="headers"
 				:items="store.mysqlInstances"
-				:row-click="(item) => navigateTo(`/organizations/${orgId}/databases/${item.name}`)"
+				:row-click="(item) => navigateTo(`/orgs/${orgId}/databases/${item.name}`)"
 			>
 				<template #item-storage="{ item }">
 					<span>{{ `${item.storageGB} GB` }}</span>

@@ -1,10 +1,6 @@
 <template>
-	<div id="layout-wrapper">
-		<PageSidebar>
-			<slot>
-				<NuxtPage></NuxtPage>
-			</slot>
-		</PageSidebar>
+	<div>
+		<slot />
 		<Teleport to="body">
 			<NotificationList />
 		</Teleport>

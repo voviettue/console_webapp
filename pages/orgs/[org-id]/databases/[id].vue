@@ -1,17 +1,10 @@
 <template>
-	<PageWrapper>
-		<template #title:prepend>
-			<button
-				class="mr-2 p-2 inline-flex items-center rounded-full border border-transparent bg-indigo-100 p-1 text-indigo-700 shadow-sm hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-				@click="router.back()"
-			>
-				<ArrowLeftIcon class="w-4 h-4" />
-			</button>
-		</template>
-		<template #title>Database settings</template>
-
+	<div>
+		<div class="mb-8">
+			<ButtonBack :to="`/orgs/${orgId}/databases`" text="Databases" />
+		</div>
 		<div v-if="isFetchingMySqlInstance">
-			<TwCard class="mb-8 rounded-lg ring-black ring-1 ring-opacity-5">
+			<TwCard class="mb-8">
 				<div>
 					<Skeletor width="100" />
 				</div>
@@ -24,7 +17,7 @@
 			</TwCard>
 		</div>
 		<template v-else>
-			<TwCard class="mb-8 rounded-lg ring-black ring-1 ring-opacity-5">
+			<TwCard class="mb-8">
 				<h1 class="text-xl font-medium mb-4">{{ mySqlInstance.name }}</h1>
 				<div class="mb-4">
 					<dl>
@@ -51,7 +44,7 @@
 					</dl>
 				</div>
 			</TwCard>
-			<TwCard class="rounded-lg border border-red-300">
+			<TwCard class="border border-red-300">
 				<h3 class="mb-5 font-semibold">Delete database</h3>
 				<p class="mb-5">This database will be permanently deleted. This action cannot be undone.</p>
 				<TwButton variant="danger" @click="openDeletionModal = true">Delete this database</TwButton>
@@ -85,18 +78,16 @@
 				</Modal>
 			</Teleport>
 		</template>
-	</PageWrapper>
+	</div>
 </template>
 
 <script setup lang="ts">
-import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { useRoute } from 'vue-router'
 import { useMysqlInstancesStore } from '@/stores/mysql-instances'
 import { MySQLInstance } from '@/types'
 
 const store = useMysqlInstancesStore()
 const route = useRoute()
-const router = useRouter()
 const { $api, $toast } = useNuxtApp()
 const orgId = route.params.orgid as string
 const id = route.params.id as string
@@ -131,8 +122,7 @@ async function deleteMySqlInstance() {
 	isDeletingMySqlInstance.value = true
 	try {
 		await $api.delete(`/api/v1alpha1/orgs/${orgId}/mysqlinstances/${orgId}-${id}`)
-
-		navigateTo(`/organizations/${orgId}`)
+		navigateTo(`/orgs/${orgId}/databases`)
 	} catch (err) {
 		$toast.error({ title: 'Cannot delete this MySQL instance', content: JSON.stringify(err.response.data) })
 	}

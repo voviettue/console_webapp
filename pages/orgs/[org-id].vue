@@ -39,7 +39,6 @@ store
 	.getOrg(orgId)
 	.then((res) => (org.value = res))
 	.catch(() => {
-		// @TODO handle error
 		showError('Organization not found')
 	})
 	.finally(() => (isFetchingOrg.value = false))

@@ -145,7 +145,7 @@ store
 		form.value = { ...workspace.value }
 	})
 	.catch((err) => {
-		throw new Error(String(err))
+		showError(err)
 	})
 	.finally(() => (isFetchingWorkspace.value = false))
 

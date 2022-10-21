@@ -64,7 +64,7 @@ store
 		workspace.value = res
 	})
 	.catch((err) => {
-		throw new Error(String(err))
+		showError(err)
 	})
 
 definePageMeta({

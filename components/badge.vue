@@ -13,7 +13,7 @@ const variantClass = computed(() => {
 	if (props.variant === 'secondary') return 'bg-gray-200 text-gray-700'
 	if (props.variant === 'success') return 'bg-green-100 text-green-800'
 	if (props.variant === 'danger') return 'bg-red-100 text-red-800'
-	return 'bg-indigo-100 text-indigo-800'
+	return 'bg-blue-100 text-blue-800'
 })
 </script>
 

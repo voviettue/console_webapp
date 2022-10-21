@@ -83,12 +83,12 @@ const variantClass = computed(() => {
 		return 'bg-green-600 text-white border-green-600 hover:bg-green-700 focus:ring-green-500'
 	if (props.variant === 'danger') return 'bg-red-600 text-white border-red-600 hover:bg-red-700 focus:ring-red-500'
 	if (props.variant === 'soft-primary')
-		return 'bg-indigo-100 text-indigo-700 border-transparent hover:bg-indigo-200 focus:ring-indigo-500'
+		return 'bg-blue-100 text-blue-700 border-transparent hover:bg-blue-200 focus:ring-blue-500'
 	if (props.variant === 'soft-danger')
 		return 'bg-red-100 text-red-700 border-transparent hover:bg-red-200 focus:ring-red-500'
 	if (props.variant === 'soft-success')
 		return 'bg-green-100 text-green-700 border-transparent hover:bg-green-200 focus:ring-green-500'
-	return 'bg-indigo-600 text-white border-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'
+	return 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700 focus:ring-blue-500'
 })
 const sizeClass = computed(() => {
 	if (props.size === 'xs') return 'px-2.5 py-1.5 text-xs'

@@ -2,13 +2,7 @@
 	<div>
 		<TwTable :headers="headers" :items="items">
 			<template #item-actions>
-				<button
-					class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 p-1 text-sm font-medium text-white shadow-sm hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
-					type="button"
-					@click="open = true"
-				>
-					Edit
-				</button>
+				<TwButton variant="secondary" size="sm" @click="open = true">Edit</TwButton>
 			</template>
 		</TwTable>
 		<TransitionRoot as="template" :show="open">
@@ -70,14 +64,14 @@
 								<div class="grid grid-cols-2 space-x-6 mt-5 sm:mt-6">
 									<button
 										type="button"
-										class="rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-400 text-base font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+										class="rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-400 text-base font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm"
 										@click="open = false"
 									>
 										Cancel
 									</button>
 									<button
 										type="button"
-										class="rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+										class="rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm"
 										@click="open = false"
 									>
 										Save

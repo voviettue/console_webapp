@@ -73,7 +73,7 @@ watchEffect(() => {
 }
 
 .active {
-	@apply border-indigo-500 text-indigo-600 border-t-2;
+	@apply border-blue-500 text-blue-600 border-t-2;
 }
 </style>
 >

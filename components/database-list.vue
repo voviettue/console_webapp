@@ -56,6 +56,11 @@ const headers = [
 		text: 'Status',
 		display: 'status',
 	},
+	{
+		value: 'createdAt',
+		text: 'Date created',
+		display: 'date',
+	},
 ]
 
 const refresh = () => {

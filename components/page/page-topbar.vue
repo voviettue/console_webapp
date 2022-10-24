@@ -1,5 +1,5 @@
 <template>
-	<div class="sticky top-0 z-10 flex-shrink-0 bg-white">
+	<div class="z-10 flex-shrink-0 bg-white">
 		<div class="flex-1 px-4 flex justify-between py-3">
 			<div class="flex-1 flex">
 				<div class="flex gap-4 items-center">
@@ -15,7 +15,7 @@
 					<a href="#" class="text-gray-500 hover:underline">Help</a>
 					<a href="#" class="text-gray-500 hover:underline">Docs</a>
 				</div>
-				<Menu as="div" class="ml-3 relative">
+				<Menu as="div" class="ml-3 relative z-40">
 					<div>
 						<MenuButton
 							class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -59,20 +59,20 @@
 				</Menu>
 			</div>
 		</div>
-		<div>
-			<div class="flex border-b border-gray-200 space-x-4 px-4">
-				<NuxtLink
-					v-for="({ name, to, current }, i) in menuItems"
-					:key="i"
-					:to="to"
-					:class="[
-						current ? 'text-gray-900 border-b-2 border-gray-900' : 'text-gray-500',
-						'whitespace-nowrap py-2 px-1 text-sm',
-					]"
-				>
-					{{ name }}
-				</NuxtLink>
-			</div>
+	</div>
+	<div class="sticky top-0 bg-white" v-if="menuItems.length">
+		<div class="flex border-b border-gray-200 space-x-4 px-4">
+			<NuxtLink
+				v-for="({ name, to, current }, i) in menuItems"
+				:key="i"
+				:to="to"
+				:class="[
+					current ? 'text-gray-900 border-b-2 border-gray-900' : 'text-gray-500',
+					'whitespace-nowrap py-2 px-1 text-sm',
+				]"
+			>
+				{{ name }}
+			</NuxtLink>
 		</div>
 	</div>
 </template>

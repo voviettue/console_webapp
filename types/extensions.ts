@@ -1,10 +1,17 @@
-export interface ExtensionMode {
-	development: boolean
-	tag: string
+export interface ExtensionCodeActifactVersion {
+	revision: string
+	version: string
 }
 
 export interface Extension {
-	name: string
-	mode: ExtensionMode
-	autoUpgrade: boolean
+	id: string
+	title: string
+	description: string
+	image: string
+	package: string
+	namespace: string
+	defaultDisplayVersion: string
+	versions: ExtensionCodeActifactVersion[]
+	syncedAt: string
+	updatedAt: string
 }

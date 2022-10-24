@@ -17,6 +17,7 @@ export const useOrgsStore = defineStore({
 				uid: org.metadata.uid,
 				name: org.metadata.name,
 				status: parseStatus(org.status),
+				createdAt: org.metadata.creationTimestamp,
 			}
 		},
 		async getOrgs() {

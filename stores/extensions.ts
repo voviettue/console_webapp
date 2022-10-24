@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { apiInstance } from '@/plugins/api'
+import { Extension } from '@/types'
 
 const DEFAULT_EXTENSIONS = ['base', 'pro']
 
@@ -12,7 +13,7 @@ export const useExtensionsStore = defineStore({
 		}
 	},
 	actions: {
-		parseExtension(ext: any) {
+		parseExtension(ext: any): Extension {
 			return {
 				id: ext.cfdata.package,
 				image: ext.image,
@@ -22,6 +23,8 @@ export const useExtensionsStore = defineStore({
 				namespace: ext.cfdata.namespace,
 				defaultDisplayVersion: ext.cfdata.defaultDisplayVersion,
 				versions: ext.cfdata.versions,
+				updatedAt: ext.updatedAt,
+				syncedAt: ext.syncedAt,
 			}
 		},
 		async getExtensions() {

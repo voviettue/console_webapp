@@ -100,12 +100,25 @@
 				</TabPanel>
 				<TabPanel :key="`tab-panel-front-office`">
 					<TwCard>
-						<h3 class="mb-5 font-semibold">Front office version</h3>
-						<div class="mb-2 flex items-center">
-							Version&nbsp;
-							<span>{{ workspace.webapp.version }}</span>
-							<TwButton class="ml-4" variant="secondary" size="sm">Edit</TwButton>
-						</div>
+						<h3 class="mb-5 font-semibold">Front office</h3>
+						<template v-if="workspace.webapp.enabled">
+							<a
+								:href="`https://app.${workspace.subdomain}.catex.se`"
+								target="_blank"
+								class="flex items-center gap-2 text-gray-500 hover:underline hover:text-gray-900 mb-3"
+							>
+								{{ `app.${workspace.subdomain}.catex.se` }}
+								<ArrowTopRightOnSquareIcon class="w-5 h-5" />
+							</a>
+							<div class="flex items-center">
+								Version&nbsp;
+								<span>{{ workspace.webapp.version }}</span>
+								<TwButton class="ml-4" variant="secondary" size="sm">Edit</TwButton>
+							</div>
+						</template>
+						<template v-else>
+							<TwButton>Create front office</TwButton>
+						</template>
 						<!-- <FormSelectImageVersion v-model="form.webapp.version" repo="front-office" /> -->
 					</TwCard>
 				</TabPanel>

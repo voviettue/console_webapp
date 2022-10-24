@@ -1,23 +1,5 @@
 <template>
 	<PageWrapper>
-		<template #breadcrumb>
-			<Breadcrumb :items="[{ to: `/orgs/${orgId}/overview`, label: orgId }]" />
-		</template>
-		<template #topbar-menu>
-			<div v-if="!isFetchingOrg" class="flex border-b border-gray-200 space-x-4 px-4">
-				<NuxtLink
-					v-for="({ name, to, current }, i) in menuItems"
-					:key="i"
-					:to="to"
-					:class="[
-						current ? 'text-gray-900 border-b-2 border-gray-900' : 'text-gray-500',
-						'whitespace-nowrap py-2 px-1 text-sm',
-					]"
-				>
-					{{ name }}
-				</NuxtLink>
-			</div>
-		</template>
 		<NuxtPage :org="org" />
 	</PageWrapper>
 </template>

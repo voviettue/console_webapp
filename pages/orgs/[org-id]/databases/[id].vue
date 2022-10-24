@@ -40,7 +40,9 @@
 					</dl>
 					<dl>
 						<dt class="uppercase text-xs text-gray-500">Created</dt>
-						<dd>{{ mySqlInstance.createdAt }}</dd>
+						<dd>
+							<DisplayDate :value="mySqlInstance.createdAt" />
+						</dd>
 					</dl>
 				</div>
 			</TwCard>

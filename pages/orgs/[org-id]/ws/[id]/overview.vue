@@ -21,7 +21,9 @@
 				</dl>
 				<dl>
 					<dt class="uppercase text-xs text-gray-500">Created</dt>
-					<dd>{{ workspace.createdAt }}</dd>
+					<dd>
+						<DisplayDate :value="workspace.createdAt" />
+					</dd>
 				</dl>
 			</div>
 		</template>

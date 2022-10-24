@@ -16,7 +16,9 @@
 			</dl>
 			<dl>
 				<dt class="uppercase text-xs text-gray-500">Created</dt>
-				<dd>{{ props.workspace.createdAt }}</dd>
+				<dd>
+					<DisplayDate :value="props.workspace.createdAt" />
+				</dd>
 			</dl>
 		</div>
 	</NuxtLink>

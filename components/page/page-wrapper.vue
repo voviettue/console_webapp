@@ -7,7 +7,7 @@
 					<div class="flex justify-between items-center">
 						<div class="flex items-center">
 							<slot name="title:prepend"></slot>
-							<h1 class="text-xl font-normal text-gray-900">
+							<h1 class="font-medium text-2xl">
 								<slot name="title"></slot>
 							</h1>
 						</div>

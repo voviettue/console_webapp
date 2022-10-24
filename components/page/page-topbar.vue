@@ -100,6 +100,9 @@ const breadcrumbItems = computed(() => {
 	if (String(route.name).startsWith('orgs-orgid')) {
 		return [{ to: `/orgs/${params.orgid}/overview`, label: params.orgid }]
 	}
+	if (String(route.name).startsWith('admin')) {
+		return [{ to: `/admin/orgs`, label: 'admin' }]
+	}
 	return []
 })
 
@@ -112,6 +115,11 @@ const menuItems = computed(() => {
 				name: 'Overview',
 				to: `/orgs/${params.orgid}/ws/${params.id}/overview`,
 				current: isCurrentRoute(route, `/orgs/${params.orgid}/ws/${params.id}/overview`),
+			},
+			{
+				name: 'Snapshots',
+				to: `/orgs/${params.orgid}/ws/${params.id}/snapshots`,
+				current: isCurrentRoute(route, `/orgs/${params.orgid}/ws/${params.id}/snapshots`),
 			},
 			{
 				name: 'Settings',
@@ -141,6 +149,25 @@ const menuItems = computed(() => {
 				name: 'Settings',
 				to: `/orgs/${params.orgid}/settings`,
 				current: isCurrentRoute(route, `/orgs/${params.orgid}/settings`),
+			},
+		]
+	}
+	if (String(route.name).startsWith('admin')) {
+		return [
+			{
+				name: 'Organizations',
+				to: `/admin/orgs`,
+				current: isCurrentRoute(route, `/admin/orgs`),
+			},
+			{
+				name: 'Extensions',
+				to: `/admin/extensions`,
+				current: isCurrentRoute(route, `/admin/extensions`),
+			},
+			{
+				name: 'Templates',
+				to: `/admin/templates`,
+				current: isCurrentRoute(route, `/admin/templates`),
 			},
 		]
 	}

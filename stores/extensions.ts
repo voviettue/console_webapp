@@ -15,16 +15,16 @@ export const useExtensionsStore = defineStore({
 	actions: {
 		parseExtension(ext: any): Extension {
 			return {
-				id: ext.cfdata.package,
 				image: ext.image,
 				title: ext.title,
 				description: ext.description,
-				package: ext.cfdata.package,
-				namespace: ext.cfdata.namespace,
-				defaultDisplayVersion: ext.cfdata.defaultDisplayVersion,
-				versions: ext.cfdata.versions,
+				package: ext.package,
+				namespace: ext.namespace,
+				defaultDisplayVersion: ext.defaultDisplayVersion,
+				versions: ext.versions,
 				updatedAt: ext.updatedAt,
 				syncedAt: ext.syncedAt,
+				public: ext.public,
 			}
 		},
 		async getExtensions() {

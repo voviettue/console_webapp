@@ -60,7 +60,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="sticky top-0 bg-white" v-if="menuItems.length">
+	<div v-if="menuItems.length" class="sticky top-0 bg-white">
 		<div class="flex border-b border-gray-200 space-x-4 px-4">
 			<NuxtLink
 				v-for="({ name, to, current }, i) in menuItems"

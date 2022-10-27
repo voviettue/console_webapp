@@ -4,7 +4,6 @@ export interface ExtensionCodeActifactVersion {
 }
 
 export interface Extension {
-	id: string
 	title: string
 	description: string
 	image: string
@@ -14,4 +13,5 @@ export interface Extension {
 	versions: ExtensionCodeActifactVersion[]
 	syncedAt: string
 	updatedAt: string
+	public: boolean
 }

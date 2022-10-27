@@ -2,17 +2,24 @@
 	<PageWrapper>
 		<template #title>Extensions</template>
 		<template #actions>
-			<TwButton variant="soft-primary" @click="syncAll" :loading="isSyncing">Sync all</TwButton>
+			<div class="flex gap-2">
+				<TwButton variant="primary" @click="navigateTo(`/admin/extensions/new`)">New extension</TwButton>
+				<TwButton variant="secondary" :loading="isSyncing" @click="syncAll">Sync all</TwButton>
+			</div>
 		</template>
 		<TwCard :body-padding="false">
 			<TwTable
-				v-if="store.extensions.length"
+				v-if="!isFetching"
 				:headers="headers"
 				:items="store.extensions"
 				:row-click="(item) => navigateTo(`/admin/extensions/${item.package}`)"
 			>
 				<template #item-name="{ item }">
 					<span>{{ `@${item.namespace}/${item.package}` }}</span>
+				</template>
+				<template #item-public="{ item }">
+					<Badge v-if="item.public" variant="success">Public</Badge>
+					<Badge v-else variant="warning">Private</Badge>
 				</template>
 			</TwTable>
 			<SkeletorTable v-else :headers="headers" />
@@ -52,12 +59,18 @@ const headers: TableHeader[] = [
 		text: 'Date synced',
 		display: 'date',
 	},
+	{
+		value: 'public',
+		text: '',
+	},
 ]
 const store = useExtensionsStore()
 const { $api } = useNuxtApp()
-store.getExtensions()
 
+const isFetching = ref(true)
 const isSyncing = ref(false)
+
+store.getExtensions().finally(() => (isFetching.value = false))
 
 async function syncAll() {
 	isSyncing.value = true

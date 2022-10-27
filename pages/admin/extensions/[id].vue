@@ -25,6 +25,7 @@
 								validation="required"
 							/>
 							<FormKit v-model="form.image" label="Image" type="text" placeholder="" validation="required" />
+							<FormKit v-model="form.public" type="checkbox" label="Public" />
 						</div>
 						<div class="flex justify-end my-6">
 							<TwButton type="submit" :disabled="!valid" :loading="isUpdating">Update</TwButton>
@@ -123,6 +124,7 @@ interface ExtensionPayload {
 	title: string
 	description: string
 	image: string
+	public: boolean
 }
 
 definePageMeta({
@@ -139,6 +141,7 @@ const form = ref<ExtensionPayload>({
 	title: '',
 	description: '',
 	image: '',
+	public: false,
 })
 const isSynchronizing = ref(false)
 const isUpdating = ref(false)
@@ -173,7 +176,12 @@ async function onSync() {
 function getExtension(id) {
 	store.getExtension(id).then((res) => {
 		extension.value = res
-		form.value = { ...res }
+		form.value = {
+			title: res.title,
+			description: res.description,
+			image: res.image,
+			public: res.public,
+		}
 	})
 }
 </script>

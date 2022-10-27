@@ -1,13 +1,11 @@
 const defaultRules = {
-	// No console statements in production
 	'no-console': process.env.NODE_ENV !== 'development' ? 'error' : 'off',
-	// No debugger statements in production
 	'no-debugger': process.env.NODE_ENV !== 'development' ? 'error' : 'off',
-
 	'@typescript-eslint/no-explicit-any': 'off',
 	'vue/multi-word-component-names': 'off',
 	'vue/no-setup-props-destructure': 'off',
 	'vue/no-v-model-argument': 'off',
+	'vue/no-multiple-template-root': 'off',
 }
 
 module.exports = {

@@ -10,8 +10,8 @@ export interface Extension {
 	package: string
 	namespace: string
 	defaultDisplayVersion: string
-	versions: ExtensionCodeActifactVersion[]
 	syncedAt: string
 	updatedAt: string
 	public: boolean
+	category: string
 }

@@ -30,7 +30,7 @@
 							v-for="extension in store.extensions"
 							:key="extension.id"
 							:extension="extension"
-							:to="`/orgs/${attrs.org.name}/marketplace/${extension.id}`"
+							:to="`/orgs/${attrs.org.name}/marketplace/${extension.package}`"
 						/>
 					</template>
 				</div>

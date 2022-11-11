@@ -21,10 +21,10 @@ export const useExtensionsStore = defineStore({
 				package: ext.package,
 				namespace: ext.namespace,
 				defaultDisplayVersion: ext.defaultDisplayVersion,
-				versions: ext.versions,
 				updatedAt: ext.updatedAt,
 				syncedAt: ext.syncedAt,
 				public: ext.public,
+				category: ext.category,
 			}
 		},
 		async getExtensions() {

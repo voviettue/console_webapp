@@ -19,7 +19,7 @@
 						<td
 							v-for="(header, colIndex) in normalizedHeaders"
 							:key="`td-${colIndex}`"
-							class="px-6 py-3 w-full whitespace-nowrap text-sm font-medium text-gray-900"
+							class="px-6 py-2 w-full whitespace-nowrap text-sm font-medium text-gray-900"
 						>
 							<Skeletor />
 						</td>

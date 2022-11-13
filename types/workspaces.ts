@@ -29,4 +29,5 @@ export interface Workspace {
 	app: WorkspaceApp
 	webapp?: WorkspaceWebapp
 	createdAt: string
+	dbName: string
 }

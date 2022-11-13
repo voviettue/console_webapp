@@ -26,7 +26,7 @@
 						<td
 							v-for="header in normalizedHeaders"
 							:key="`td-${header}`"
-							class="px-6 py-3 w-full whitespace-nowrap text-sm text-gray-900"
+							class="px-6 py-2 w-full whitespace-nowrap text-sm text-gray-900"
 						>
 							<slot :name="`item-${header?.value}`" :item="item" :value="get(item, header.value)">
 								<RenderDisplay

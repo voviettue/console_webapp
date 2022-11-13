@@ -3,58 +3,59 @@
 		<div class="mb-8 flex justify-between item-center">
 			<ButtonBack :to="`/admin/extensions`" text="Extensions" />
 			<div class="flex gap-2">
-				<TwButton variant="soft-primary" :loading="isSynchronizing" @click="onSync">Sync</TwButton>
-				<TwButton variant="soft-danger" @click="openDeletionModal = true">Delete</TwButton>
+				<TwButton variant="soft-primary" size="xs" icon :loading="isSynchronizing" @click="onSync" v-tooltip="'Sync'">
+					<ArrowPathIcon v-if="!isSynchronizing" class="w-5 h-5" />
+				</TwButton>
+				<TwButton variant="soft-danger" size="xs" icon @click="openDeletionModal = true" v-tooltip="'Delete'">
+					<TrashIcon class="w-5 h-5" />
+				</TwButton>
 			</div>
 		</div>
-		<div class="md:grid md:grid-cols-[1fr_400px] md:gap-6">
+		<div class="mb-6 md:grid md:grid-cols-[1fr_400px] md:gap-6">
 			<TwCard class="mb-6 md:mb-0">
-				<template v-if="extension">
-					<h1 class="mb-6 font-medium text-2xl">Update {{ extension.title }} extension</h1>
-					<FormKit
-						v-slot="{ state: { valid } }"
-						type="form"
-						autocomplete="off"
-						method="POST"
-						:actions="false"
-						@submit="onSubmit"
-						>
-						<div class="space-y-3">
-							<FormKit v-model="form.title" label="Title" type="text" placeholder="" validation="required" />
-							<FormKit
-								v-model="form.description"
-								label="Description"
-								type="textarea"
-								placeholder=""
-								validation="required"
-							/>
-							<FormKit v-model="form.image" label="Image" type="text" placeholder="" validation="required" />
-							<FormKit v-model="form.public" type="checkbox" label="Public" />
-						</div>
-						<div class="flex justify-end my-6">
-							<TwButton type="submit" :disabled="!valid" :loading="isUpdating">Update</TwButton>
-						</div>
-					</FormKit>
-				</template>
-				<template v-else>
-					<div class="flex flex-col">
-						<Skeletor width="300" class="mb-6" />
-						<Skeletor width="100" class="mb-2" />
-						<Skeletor width="100%" height="38" class="rounded-lg mb-4" />
-						<Skeletor width="100" class="mb-2" />
-						<Skeletor width="100%" height="100" class="rounded-lg mb-4" />
-						<Skeletor width="100" class="mb-2" />
-						<Skeletor width="100%" height="38" class="rounded-lg mb-4" />
-						<div class="flex justify-end">
-							<Skeletor width="100" height="38" class="rounded-lg" />
-						</div>
+				<h1 class="mb-6 font-medium text-2xl">Update {{ extension.title }} extension</h1>
+				<FormKit
+					v-slot="{ state: { valid } }"
+					type="form"
+					autocomplete="off"
+					method="POST"
+					:actions="false"
+					@submit="onSubmit"
+				>
+					<div class="space-y-3">
+						<FormKit v-model="form.title" label="Title" type="text" placeholder="" validation="required" />
+						<FormKit
+							v-model="form.description"
+							label="Description"
+							type="textarea"
+							placeholder=""
+							validation="required"
+						/>
+						<FormKit v-model="form.image" label="Image" type="text" placeholder="" validation="required" />
+						<FormKit v-model="form.public" type="checkbox" label="Public" />
 					</div>
-				</template>
+					<div class="flex gap-2 justify-end my-6">
+						<TwButton type="submit" :disabled="!valid" :loading="isUpdating">Update</TwButton>
+						<TwButton variant="secondary" @click="navigateTo(`/admin/extensions`)">Cancel</TwButton>
+					</div>
+				</FormKit>
 			</TwCard>
-			<TwCard>
-				<template v-if="extension">
+			<div>
+				<TwCard class="mb-6">
+					<div>
+						<dl>
+							<dt class="text-gray-500">Last modified</dt>
+							<dd>
+								<DisplayDate :value="extension.updatedAt" />
+							</dd>
+						</dl>
+					</div>
+					<Divider class="my-4" />
+					<FormSelectCategory v-model="extension.category" type="ext" @input="onSelectCategory" />
+				</TwCard>
+				<TwCard>
 					<h2 class="mb-6 font-medium text-xl">CodeActifact</h2>
-					<div class="flex gap-6 mb-4">
+					<div class="flex gap-8 mb-4">
 						<dl>
 							<dt class="uppercase text-xs text-gray-500">Namespace</dt>
 							<dd>
@@ -67,8 +68,6 @@
 								{{ extension.package }}
 							</dd>
 						</dl>
-					</div>
-					<div class="mb-4">
 						<dl>
 							<dt class="uppercase text-xs text-gray-500">Synced</dt>
 							<dd>
@@ -80,56 +79,24 @@
 						<dl>
 							<dt class="uppercase text-xs text-gray-500 mb-1">Versions</dt>
 							<dd>
-								<div v-for="version in extension.versions" :key="version.version">
+								<div v-for="version in versions" :key="version.version">
 									<code>{{ version.version }}</code>
 								</div>
 							</dd>
 						</dl>
 					</div>
-				</template>
-				<template v-else>
-					<div class="flex flex-col">
-						<Skeletor width="100%" class="mb-6" />
-						<div class="flex gap-6 mb-4">
-							<div class="flex flex-col">
-								<Skeletor width="60" class="mb-1" />
-								<Skeletor width="100" />
-							</div>
-							<div class="flex flex-col">
-								<Skeletor width="60" class="mb-1" />
-								<Skeletor width="100" />
-							</div>
-						</div>
-						<div class="flex flex-col mb-4">
-							<Skeletor width="60" class="mb-1" />
-							<Skeletor width="100" />
-						</div>
-						<Skeletor width="60" class="mb-2" />
-						<Skeletor width="100%" height="100" class="rounded-lg mb-4" />
-						<div class="flex justify-end">
-							<Skeletor width="100" height="38" class="rounded-lg" />
-						</div>
-					</div>
-				</template>
-			</TwCard>
+				</TwCard>
+			</div>
 		</div>
 		<Teleport to="body">
 			<Modal :open="openDeletionModal" @close="onCloseModal">
 				<template #title>Delete extension</template>
-				<template #content>
-					<div class="space-y-2">
-						<p>Are you absolutely sure you want to delete?</p>
-					</div>
-				</template>
+				<div class="space-y-2">
+					<p>Are you absolutely sure you want to delete?</p>
+				</div>
 				<template #actions="{ close }">
 					<TwButton variant="secondary" @click="close">Cancel</TwButton>
-					<TwButton
-						variant="danger"
-						:loading="isDeleting"
-						@click="deleteExtension"
-						>
-						Delete
-					</TwButton>
+					<TwButton variant="danger" :loading="isDeleting" @click="deleteExtension">Delete</TwButton>
 				</template>
 			</Modal>
 		</Teleport>
@@ -138,6 +105,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { TrashIcon, ArrowPathIcon } from '@heroicons/vue/24/outline'
 import { useExtensionsStore } from '@/stores/extensions'
 import { Extension } from '@/types'
 
@@ -158,6 +126,7 @@ const route = useRoute()
 const store = useExtensionsStore()
 const id = route.params.id as string
 const extension = ref<Extension>()
+const versions = ref([])
 const form = ref<ExtensionPayload>({
 	title: '',
 	description: '',
@@ -169,7 +138,8 @@ const isUpdating = ref(false)
 const isDeleting = ref(false)
 const openDeletionModal = ref(false)
 
-getExtension(id)
+await getExtension(id)
+await getVersions(id)
 
 async function onSubmit() {
 	if (isUpdating.value) return
@@ -196,16 +166,20 @@ async function onSync() {
 	isSynchronizing.value = false
 }
 
-function getExtension(id) {
-	store.getExtension(id).then((res) => {
-		extension.value = res
-		form.value = {
-			title: res.title,
-			description: res.description,
-			image: res.image,
-			public: res.public,
-		}
-	})
+async function getExtension(id) {
+	const res = await store.getExtension(id)
+	extension.value = res
+	form.value = {
+		title: res.title,
+		description: res.description,
+		image: res.image,
+		public: res.public,
+	}
+}
+
+async function getVersions(id) {
+	const res = await $api.get(`/api/meta/extensions/${id}/versions`)
+	versions.value = res.data.data
 }
 
 function onCloseModal() {
@@ -218,8 +192,16 @@ async function deleteExtension() {
 		await $api.delete(`/api/meta/extensions/${id}`)
 		openDeletionModal.value = false
 		navigateTo(`/admin/extensions`)
-	} catch(err) {
-	}
+	} catch (err) {}
 	isDeleting.value = false
+}
+
+async function onSelectCategory(value) {
+	try {
+		await $api.put(`/api/meta/extensions/${id}/categories`, { category: value })
+		$toast.success({ title: 'Category updated' })
+	} catch (error) {
+		$toast.error({ title: 'Cannot update category' })
+	}
 }
 </script>

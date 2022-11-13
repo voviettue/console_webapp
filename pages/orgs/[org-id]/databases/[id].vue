@@ -54,18 +54,16 @@
 			<Teleport to="body">
 				<Modal :open="openDeletionModal" @close="onCloseModal">
 					<template #title>Delete database</template>
-					<template #content>
-						<div class="space-y-2">
-							<p>
-								Are you absolutely sure you want to delete
-								<strong class="font-bold">{{ mySqlInstance.name }}</strong>
-								?
-							</p>
-							<p><strong>This action cannot be undone</strong></p>
-							<FormKit v-model="deletedMySqlInstanceName" placeholder="Type in the name of the workspace to confirm" />
-							<code>{{ mySqlInstance.name }}</code>
-						</div>
-					</template>
+					<div class="space-y-2">
+						<p>
+							Are you absolutely sure you want to delete
+							<strong class="font-bold">{{ mySqlInstance.name }}</strong>
+							?
+						</p>
+						<p><strong>This action cannot be undone</strong></p>
+						<FormKit v-model="deletedMySqlInstanceName" placeholder="Type in the name of the workspace to confirm" />
+						<code>{{ mySqlInstance.name }}</code>
+					</div>
 					<template #actions="{ close }">
 						<TwButton variant="secondary" @click="close">Cancel</TwButton>
 						<TwButton

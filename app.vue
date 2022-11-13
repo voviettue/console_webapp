@@ -9,6 +9,7 @@
 		<Body class="bg-zinc-50 text-sm text-zinc-800">
 			<div class="min-h-screen">
 				<NuxtLayout>
+					<NuxtLoadingIndicator />
 					<NuxtPage />
 				</NuxtLayout>
 			</div>

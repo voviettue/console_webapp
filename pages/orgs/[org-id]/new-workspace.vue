@@ -5,7 +5,7 @@
 		</div>
 		<TwCard class="py-8">
 			<div class="max-w-lg mx-auto">
-				<h1 class="mb-6 font-medium text-2xl">Add a workspace</h1>
+				<h1 class="mb-6 font-medium text-2xl">Add new workspace</h1>
 				<FormCreateWorkspace :org="orgId" :loading="isCreating" @submit="onSubmit" />
 			</div>
 		</TwCard>

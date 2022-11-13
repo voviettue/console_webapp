@@ -26,6 +26,7 @@
 								:href="`https://${ws.subdomain}.catex.se`"
 								target="_blank"
 								class="inline-flex items-center gap-2 text-gray-500 hover:underline hover:text-gray-900"
+								@click.stop=""
 							>
 								{{ `${ws.subdomain}.catex.se` }}
 								<ArrowTopRightOnSquareIcon class="w-4 h-4" />
@@ -51,17 +52,15 @@
 		<Teleport to="body">
 			<Modal :open="openModal" @close="onCloseModal">
 				<template #title>{{ `Install extension on ${modalData.ws.name}` }}</template>
-				<template #content>
-					<div class="space-y-2">
-						<p>
-							Are you sure you want to install
-							<strong>{{ modalData.extension.title }}</strong>
-							on
-							<strong>{{ modalData.ws.name }}</strong>
-							?
-						</p>
-					</div>
-				</template>
+				<div class="space-y-2">
+					<p>
+						Are you sure you want to install
+						<strong>{{ modalData.extension.title }}</strong>
+						on
+						<strong>{{ modalData.ws.name }}</strong>
+						?
+					</p>
+				</div>
 				<template #actions="{ close }">
 					<TwButton variant="secondary" @click="close">Cancel</TwButton>
 					<TwButton>Install</TwButton>

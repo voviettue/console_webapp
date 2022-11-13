@@ -12,7 +12,7 @@
 			<svg
 				v-if="loading"
 				aria-hidden="true"
-				class="mr-2 w-5 h-5 animate-spin fill-white"
+				:class="[icon ? '' : 'mr-2', 'w-5 h-5 animate-spin fill-white']"
 				viewBox="0 0 100 101"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
@@ -43,6 +43,7 @@ type PropType = {
 	variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'soft-primary' | 'soft-success' | 'soft-danger'
 	size?: 'xs' | 'sm' | 'md' | 'lg'
 	loading?: boolean
+	icon?: boolean
 }
 
 const props = withDefaults(defineProps<PropType>(), {
@@ -52,6 +53,7 @@ const props = withDefaults(defineProps<PropType>(), {
 	variant: 'primary',
 	size: 'md',
 	loading: false,
+	icon: false,
 })
 
 const emit = defineEmits(['click'])

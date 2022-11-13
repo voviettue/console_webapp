@@ -27,9 +27,9 @@ export const useExtensionsStore = defineStore({
 				category: ext.category,
 			}
 		},
-		async getExtensions() {
+		async getExtensions(query?: Record<string, any>) {
 			try {
-				const res = await apiInstance.get('/api/meta/extensions')
+				const res = await apiInstance.get('/api/meta/extensions', { params: query })
 				this.rawExtensions = res.data.data.map(this.parseExtension)
 			} catch (err) {
 				throw new Error(err)

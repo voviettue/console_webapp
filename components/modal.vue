@@ -28,14 +28,14 @@
 							class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
 						>
 							<div class="mt-3 text-center sm:mt-0 sm:text-left">
-								<DialogTitle as="h3" class="mb-4 text-lg font-medium leading-6 text-gray-900">
-									<slot name="title">Fallback title</slot>
+								<DialogTitle v-if="hasSlotTitle" as="h3" class="mb-4 text-lg font-medium leading-6 text-gray-900">
+									<slot name="title"></slot>
 								</DialogTitle>
 								<div class="mt-2">
-									<slot name="content">Fallback content</slot>
+									<slot v-bind="{ open, close }">Fallback content</slot>
 								</div>
 							</div>
-							<div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse gap-2">
+							<div v-if="hasSlotActions" class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse gap-2">
 								<slot name="actions" v-bind="{ open, close }"></slot>
 							</div>
 						</DialogPanel>
@@ -49,6 +49,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+
+const slots = useSlots()
 
 type PropType = {
 	open: boolean
@@ -66,6 +68,9 @@ watch(
 	() => props.open,
 	(newVal) => (open.value = newVal)
 )
+
+const hasSlotTitle = computed(() => slots?.title !== undefined)
+const hasSlotActions = computed(() => slots?.actions !== undefined)
 
 function close() {
 	open.value = false

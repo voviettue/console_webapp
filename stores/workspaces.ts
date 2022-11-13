@@ -36,6 +36,7 @@ export const useWorkspacesStore = defineStore({
 					version: workspace.spec.webapp.version,
 				},
 				createdAt: workspace.metadata.creationTimestamp,
+				dbName: `${workspace.spec.orgRefName}-${workspace.spec.dbRefName}-${workspace.spec.name}`,
 			}
 		},
 		async getWorkspaces(orgId: string) {

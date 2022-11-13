@@ -34,14 +34,7 @@ function onSubmit() {
 </script>
 
 <template>
-	<FormKit
-		v-slot="{ state: { valid } }"
-		type="form"
-		autocomplete="off"
-		method="POST"
-		:actions="false"
-		@submit="onSubmit"
-	>
+	<FormKit v-slot="{ state: { valid } }" type="form" autocomplete="off" :actions="false" @submit="onSubmit">
 		<div class="space-y-3">
 			<FormKit
 				v-model="form.name"

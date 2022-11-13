@@ -15,7 +15,7 @@ withDefaults(
 		label?: string
 	}>(),
 	{
-		label: 'Divider',
+		label: '',
 	}
 )
 </script>

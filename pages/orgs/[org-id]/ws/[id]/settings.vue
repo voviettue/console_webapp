@@ -1,10 +1,11 @@
 <template>
 	<div>
 		<h1 class="font-medium text-2xl mb-8">Workspace Settings</h1>
-		<TabGroup vertical class="lg:grid gap-8 grid-cols-[200px_1fr]" as="div">
+		<TabGroup :selected-index="selectedTab" vertical class="lg:grid gap-8 grid-cols-[200px_1fr]" as="div">
 			<TabList class="-mx-2 mb-4 lg:mb-0">
 				<Tab v-for="tab in tabs" :key="tab.name" v-slot="{ selected }" as="template">
 					<a
+						:href="`#${tab.name}`"
 						:class="[
 							selected ? 'text-gray-900 font-semibold' : '',
 							'block py-2 px-2 rounded-md text-gray-500 cursor-pointer hover:bg-gray-200',
@@ -28,18 +29,16 @@
 					<Teleport to="body">
 						<Modal :open="openDeletionModal" @close="onCloseModal">
 							<template #title>Delete workspace</template>
-							<template #content>
-								<div class="space-y-2">
-									<p>
-										Are you absolutely sure you want to delete
-										<strong class="font-bold">{{ workspace.name }}</strong>
-										?
-									</p>
-									<p><strong>This action cannot be undone</strong></p>
-									<FormKit v-model="deletedWorkspaceName" placeholder="Type in the name of the workspace to confirm" />
-									<code>{{ workspace.name }}</code>
-								</div>
-							</template>
+							<div class="space-y-2">
+								<p>
+									Are you absolutely sure you want to delete
+									<strong class="font-bold">{{ workspace.name }}</strong>
+									?
+								</p>
+								<p><strong>This action cannot be undone</strong></p>
+								<FormKit v-model="deletedWorkspaceName" placeholder="Type in the name of the workspace to confirm" />
+								<code>{{ workspace.name }}</code>
+							</div>
 							<template #actions="{ close }">
 								<TwButton variant="secondary" @click="close">Cancel</TwButton>
 								<TwButton
@@ -136,31 +135,18 @@
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/outline'
 import { useRoute } from 'vue-router'
-import { useWorkspacesStore } from '@/stores/workspaces'
-import { Workspace } from '@/types'
 
-const store = useWorkspacesStore()
 const route = useRoute()
 const { $api, $toast } = useNuxtApp()
 const orgId = route.params.orgid as string
 const wsId = route.params.id as string
-const workspace = ref<Workspace>()
-const form = ref({})
-const isFetchingWorkspace = ref(true)
 const deletedWorkspaceName = ref('')
 const openDeletionModal = ref(false)
 const isDeletingWorkspace = ref(false)
 
-store
-	.getWorkspace(orgId, wsId)
-	.then((res) => {
-		workspace.value = res
-		form.value = { ...workspace.value }
-	})
-	.catch((err) => {
-		showError(err)
-	})
-	.finally(() => (isFetchingWorkspace.value = false))
+const attrs = useAttrs()
+const workspace = ref(attrs.workspace)
+const form = ref(attrs.workspace)
 
 definePageMeta({
 	title: 'Workspace details',
@@ -196,6 +182,10 @@ const tabs = [
 		label: 'Extensions',
 	},
 ]
+const selectedTab = ref(0)
+if (window.location.hash !== '') {
+	selectedTab.value = tabs.findIndex((item) => '#' + item.name === window.location.hash)
+}
 
 function onCloseModal() {
 	openDeletionModal.value = false

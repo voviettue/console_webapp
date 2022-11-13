@@ -11,6 +11,6 @@ const props = defineProps<{
 const formattedDate = computed(() => {
 	const date = parseISO(props.value)
 	if (!isValid(date)) return props.value
-	return format(date, 'MMM dd, yyyy H:m a')
+	return format(date, 'MMM dd, yyyy HH:mm a')
 })
 </script>

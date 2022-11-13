@@ -8,7 +8,6 @@
 			<Skeletor />
 			<Skeletor width="80%" />
 			<Skeletor width="90%" />
-			<Skeletor width="70%" />
 		</div>
 	</div>
 </template>

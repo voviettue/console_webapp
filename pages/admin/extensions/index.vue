@@ -1,85 +1,51 @@
 <template>
 	<PageWrapper>
-		<template #title>Extensions</template>
-		<template #actions>
-			<div class="flex gap-2">
-				<TwButton variant="primary" @click="navigateTo(`/admin/extensions/new`)">New extension</TwButton>
-				<TwButton variant="secondary" :loading="isSyncing" @click="syncAll">Sync all</TwButton>
-			</div>
-		</template>
-		<TwCard :body-padding="false">
-			<TwTable
-				v-if="!isFetching"
-				:headers="headers"
-				:items="store.extensions"
-				:row-click="(item) => navigateTo(`/admin/extensions/${item.package}`)"
-			>
-				<template #item-name="{ item }">
-					<span>{{ `@${item.namespace}/${item.package}` }}</span>
-				</template>
-				<template #item-public="{ item }">
-					<Badge v-if="item.public" variant="success">Public</Badge>
-					<Badge v-else variant="warning">Private</Badge>
-				</template>
-			</TwTable>
-			<SkeletorTable v-else :headers="headers" />
-		</TwCard>
+		<TabGroup :selected-index="selectedTab" vertical class="lg:grid gap-8 grid-cols-[150px_1fr]" as="div">
+			<TabList class="-mx-2 mb-4 lg:mb-0">
+				<Tab v-for="tab in tabs" :key="tab.name" v-slot="{ selected }" as="template">
+					<a
+						:href="`#${tab.name}`"
+						:class="[
+							selected ? 'text-gray-900 font-semibold' : '',
+							'block py-2 px-2 rounded-md text-gray-500 cursor-pointer hover:bg-gray-200',
+						]"
+					>
+						{{ tab.label }}
+					</a>
+				</Tab>
+			</TabList>
+			<TabPanels>
+				<TabPanel :key="`tab-panel-extensions`" class="space-y-6">
+					<AdminExtensionPanelList />
+				</TabPanel>
+				<TabPanel :key="`tab-panel-cateegories`" class="space-y-6">
+					<AdminExtensionPanelCategories />
+				</TabPanel>
+			</TabPanels>
+		</TabGroup>
 	</PageWrapper>
 </template>
 
 <script lang="ts" setup>
-import { useExtensionsStore } from '@/stores/extensions'
-import { TableHeader } from '@/shared/types'
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 
 definePageMeta({
 	title: 'Extensions',
 	middleware: ['auth'],
 })
 
-const headers: TableHeader[] = [
+const tabs = [
 	{
-		value: 'title',
-		text: 'Title',
+		name: 'extensions',
+		label: 'All extensions',
 	},
 	{
-		value: 'name',
-		text: 'Name',
-	},
-	{
-		value: 'defaultDisplayVersion',
-		text: 'Latest version',
-	},
-	{
-		value: 'updatedAt',
-		text: 'Date updated',
-		display: 'date',
-	},
-	{
-		value: 'syncedAt',
-		text: 'Date synced',
-		display: 'date',
-	},
-	{
-		value: 'public',
-		text: '',
+		name: 'categories',
+		label: 'Categories',
 	},
 ]
-const store = useExtensionsStore()
-const { $api } = useNuxtApp()
-
-const isFetching = ref(true)
-const isSyncing = ref(false)
-
-store.getExtensions().finally(() => (isFetching.value = false))
-
-async function syncAll() {
-	isSyncing.value = true
-	try {
-		await $api.put('/api/meta/extensions/sync')
-		store.getExtensions()
-	} catch (err) {
-		//
-	}
-	isSyncing.value = false
+const selectedTab = ref(0)
+if (window.location.hash !== '') {
+	selectedTab.value = tabs.findIndex((item) => '#' + item.name === window.location.hash)
 }
 </script>

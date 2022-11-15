@@ -3,10 +3,10 @@
 		<div class="mb-8 flex justify-between item-center">
 			<ButtonBack :to="`/admin/extensions`" text="Extensions" />
 			<div class="flex gap-2">
-				<TwButton variant="soft-primary" size="xs" icon :loading="isSynchronizing" @click="onSync" v-tooltip="'Sync'">
+				<TwButton v-tooltip="'Sync'" variant="soft-primary" size="xs" icon :loading="isSynchronizing" @click="onSync">
 					<ArrowPathIcon v-if="!isSynchronizing" class="w-5 h-5" />
 				</TwButton>
-				<TwButton variant="soft-danger" size="xs" icon @click="openDeletionModal = true" v-tooltip="'Delete'">
+				<TwButton v-tooltip="'Delete'" variant="soft-danger" size="xs" icon @click="openDeletionModal = true">
 					<TrashIcon class="w-5 h-5" />
 				</TwButton>
 			</div>

@@ -1,7 +1,7 @@
 <template>
 	<Menu as="div" class="relative inline-block text-left">
 		<MenuButton
-			class="inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+			class="whitespace-nowrap inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100"
 		>
 			Auto refresh
 			<span class="ml-1 px-1.5 bg-blue-100 text-blue-700 text-white h-4 block rounded-full text-xs">

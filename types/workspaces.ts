@@ -30,4 +30,5 @@ export interface Workspace {
 	webapp?: WorkspaceWebapp
 	createdAt: string
 	dbName: string
+	snapshotEnabled: boolean
 }

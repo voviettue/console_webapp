@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-white shadow-md overflow-hidden rounded-lg ring-black ring-1 ring-opacity-5">
+	<div class="bg-white shadow-md rounded-lg ring-black ring-1 ring-opacity-5">
 		<div v-if="title || description" class="p-6 sm:px-6 lg:px-8">
 			<div class="sm:flex sm:items-center">
 				<div class="sm:flex-auto">

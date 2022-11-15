@@ -41,7 +41,10 @@ const theme = {
 	date: textClassification,
 	'datetime-local': textClassification,
 	form: { ...textClassification, messages: 'hidden' },
-	checkbox: boxClassification,
+	checkbox: {
+		...boxClassification,
+		label: 'text-sm text-gray-700',
+	},
 	email: textClassification,
 	file: {
 		label: 'block mb-1 font-bold text-sm',

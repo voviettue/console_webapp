@@ -16,6 +16,10 @@
 		@apply alert;
 		@apply bg-green-100 text-green-800;
 	}
+
+	.link {
+		@apply text-blue-600 cursor-pointer hover:underline
+	}
 }
 
 @layer base {

@@ -42,8 +42,10 @@ async function getTemplateFiles() {
 		</div>
 		<TwTable :items="files" :headers="headers">
 			<template #item-name="{ item }">
-				<span class="text-blue-600 cursor-pointer hover:underline">
-					{{ item.name.replace(`${item.template}/`, '') }}
+				<span class="link">
+					<a href="#">
+						{{ item.name.replace(`${item.template}/`, '') }}
+					</a>
 				</span>
 			</template>
 		</TwTable>

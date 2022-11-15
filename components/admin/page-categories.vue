@@ -86,7 +86,7 @@ function onCloseModal() {
 			<SkeletorTable v-if="isFetching" :headers="headers" />
 			<TwTable v-else :items="categories" :headers="headers">
 				<template #item-name="{ item }">
-					<a href="#" class="text-blue-600 cursor-pointer hover:underline" @click.prevent="onOpenModal(item)">
+					<a href="#" class="link" @click.prevent="onOpenModal(item)">
 						{{ item.name }}
 					</a>
 				</template>

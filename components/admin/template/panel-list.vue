@@ -47,7 +47,7 @@ store.getTemplates().finally(() => (isFetching.value = false))
 		<SkeletorTable v-if="isFetching" :headers="headers" />
 		<TwTable v-else :headers="headers" :items="store.templates">
 			<template #item-name="{ item }">
-				<NuxtLink :to="`/admin/templates/${item.name}`" class="text-blue-600 cursor-pointer hover:underline">
+				<NuxtLink :to="`/admin/templates/${item.name}`" class="link">
 					{{ `${item.name}` }}
 				</NuxtLink>
 			</template>

@@ -62,7 +62,7 @@ async function syncAll() {
 		<SkeletorTable v-if="isFetching" :headers="headers" />
 		<TwTable v-else :headers="headers" :items="store.extensions">
 			<template #item-name="{ item }">
-				<NuxtLink :to="`/admin/extensions/${item.package}`" class="text-blue-600 cursor-pointer hover:underline">
+				<NuxtLink :to="`/admin/extensions/${item.package}`" class="link">
 					{{ `${item.package}` }}
 				</NuxtLink>
 			</template>

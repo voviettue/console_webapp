@@ -69,7 +69,7 @@ function refresh() {
 		<h1 class="font-medium text-2xl mb-8">Snapshots</h1>
 		<div class="md:flex md:items-center justify-between mb-6">
 			<div class="mb-4 md:mb-0">
-				<FormKit v-model="snapshotEnabled" type="checkbox" :label="checkboxLabel" @input="enableSnapshot" />
+				<FormToggleSwitch v-model="snapshotEnabled" :label="checkboxLabel" @input="enableSnapshot" />
 			</div>
 			<div class="flex items-center gap-2">
 				<TwButton

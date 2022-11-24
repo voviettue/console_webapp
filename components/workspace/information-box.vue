@@ -7,6 +7,11 @@ const props = defineProps<{
 
 const { $api, $toast } = useNuxtApp()
 
+const deletionProtection = ref(props.item.deletionProtection)
+const deletionProtectionLabel = computed(() => {
+	return deletionProtection.value ? 'Enabled' : 'Disabled'
+})
+
 const headers = [
 	{ value: 'name', text: 'Name' },
 	{ value: 'owner', text: 'Owner' },
@@ -31,8 +36,12 @@ async function onChangeDeletionProtection(value) {
 	<TwCard>
 		<h3 class="mb-5 font-semibold">Workspace information</h3>
 		<TwList :headers="headers" :item="props.item">
-			<template #item-deletionProtection="{ item }">
-				<FormToggleSwitch model-value="item.deletionProtection" @input="onChangeDeletionProtection" />
+			<template #item-deletionProtection>
+				<FormToggleSwitch
+					v-model="deletionProtection"
+					:label="deletionProtectionLabel"
+					@input="onChangeDeletionProtection"
+				/>
 			</template>
 		</TwList>
 	</TwCard>

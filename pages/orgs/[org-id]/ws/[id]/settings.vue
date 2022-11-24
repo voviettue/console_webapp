@@ -18,7 +18,7 @@
 			<TabPanels>
 				<TabPanel :key="`tab-panel-general`" class="space-y-6">
 					<WorkspaceInformationBox :item="workspace" />
-					<WorkspaceDeleteBox :item="workspace" :org="orgId" />
+					<WorkspaceDeleteBox :item="workspace" />
 				</TabPanel>
 				<TabPanel :key="`tab-panel-domains`">
 					<h3 class="font-semibold">Domains</h3>
@@ -101,13 +101,8 @@
 <script lang="ts" setup>
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/outline'
-import { useRoute } from 'vue-router'
 import { Workspace } from '@/types'
 
-const route = useRoute()
-const { $api, $toast } = useNuxtApp()
-const orgId = route.params.orgid as string
-const wsId = route.params.id as string
 const attrs = useAttrs()
 const workspace = ref(attrs.workspace) as Workspace
 const form = ref(attrs.workspace)

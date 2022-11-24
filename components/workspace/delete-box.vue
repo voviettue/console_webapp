@@ -4,7 +4,6 @@ import { Workspace } from '@/types'
 const { $api, $toast } = useNuxtApp()
 
 const props = defineProps<{
-	org: string
 	item: Workspace
 }>()
 
@@ -21,17 +20,12 @@ async function deleteWorkspace() {
 	if (isDeletingWorkspace.value) return
 	isDeletingWorkspace.value = true
 	try {
-		await $api.delete(`/api/v1alpha1/orgs/${props.org}/workspaces/${props.item.name}`)
-		navigateTo(`/orgs/${props.org}/overview`)
+		await $api.delete(`/api/v1alpha1/orgs/${props.item.org}/workspaces/${props.item.name}`)
+		navigateTo(`/orgs/${props.item.org}/overview`)
 	} catch (err) {
-		console.log(err)
 		$toast.error({ title: 'Cannot delete this workspace', content: JSON.stringify(err.response.data) })
 	}
 	isDeletingWorkspace.value = false
-}
-
-function onChangeDeleteProtection(value) {
-	$api.patch(`/api/v1alpha1/orgs/${props.org}/workspaces/${props.item.name}`, { deletionProtection: value })
 }
 </script>
 <template>

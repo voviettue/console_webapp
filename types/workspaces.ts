@@ -17,6 +17,7 @@ export interface WorkspaceApp {
 	version: string
 	chartVersion: string
 	env: WorkspaceEnv[]
+	size: number
 }
 
 export interface Workspace {

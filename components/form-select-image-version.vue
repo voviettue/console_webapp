@@ -3,12 +3,11 @@ import gt from 'semver/functions/gt'
 import lt from 'semver/functions/lt'
 import valid from 'semver/functions/valid'
 
-type PropType = {
+const props = defineProps<{
 	repo: string
 	modelValue: string
-}
-const props = defineProps<PropType>()
-const emit = defineEmits(['update:modelValue'])
+}>()
+const emits = defineEmits(['update:modelValue'])
 const { $api } = useNuxtApp()
 const versions = ref([])
 const isFetchingVersion = ref(true)
@@ -34,8 +33,8 @@ $api
 	})
 	.finally(() => (isFetchingVersion.value = false))
 
-function onSelect(version) {
-	emit('update:modelValue', version)
+function onSelect(value: string) {
+	emits('update:modelValue', value)
 }
 </script>
 

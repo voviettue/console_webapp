@@ -31,4 +31,6 @@ export interface Workspace {
 	createdAt: string
 	dbName: string
 	snapshotEnabled: boolean
+	deletionProtection: boolean
+	org: string
 }

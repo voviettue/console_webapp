@@ -17,41 +17,8 @@
 			</TabList>
 			<TabPanels>
 				<TabPanel :key="`tab-panel-general`" class="space-y-6">
-					<TwCard>
-						<h3 class="mb-5 font-semibold">Workspace information</h3>
-						<TwList :headers="headers" :item="workspace" />
-					</TwCard>
-					<TwCard class="border border-red-300">
-						<h3 class="mb-5 font-semibold">Delete workspace</h3>
-						<p class="mb-5">This workspace will be permanently deleted. This action cannot be undone.</p>
-						<TwButton variant="danger" @click="openDeletionModal = true">Delete this workspace</TwButton>
-					</TwCard>
-					<Teleport to="body">
-						<Modal :open="openDeletionModal" @close="onCloseModal">
-							<template #title>Delete workspace</template>
-							<div class="space-y-2">
-								<p>
-									Are you absolutely sure you want to delete
-									<strong class="font-bold">{{ workspace.name }}</strong>
-									?
-								</p>
-								<p><strong>This action cannot be undone</strong></p>
-								<FormKit v-model="deletedWorkspaceName" placeholder="Type in the name of the workspace to confirm" />
-								<code>{{ workspace.name }}</code>
-							</div>
-							<template #actions="{ close }">
-								<TwButton variant="secondary" @click="close">Cancel</TwButton>
-								<TwButton
-									variant="danger"
-									:disabled="deletedWorkspaceName !== workspace.name"
-									:loading="isDeletingWorkspace"
-									@click="deleteWorkspace"
-								>
-									Delete
-								</TwButton>
-							</template>
-						</Modal>
-					</Teleport>
+					<WorkspaceInformationBox :item="workspace" />
+					<WorkspaceDeleteBox :item="workspace" :org="orgId" />
 				</TabPanel>
 				<TabPanel :key="`tab-panel-domains`">
 					<h3 class="font-semibold">Domains</h3>
@@ -135,30 +102,20 @@
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/outline'
 import { useRoute } from 'vue-router'
+import { Workspace } from '@/types'
 
 const route = useRoute()
 const { $api, $toast } = useNuxtApp()
 const orgId = route.params.orgid as string
 const wsId = route.params.id as string
-const deletedWorkspaceName = ref('')
-const openDeletionModal = ref(false)
-const isDeletingWorkspace = ref(false)
-
 const attrs = useAttrs()
-const workspace = ref(attrs.workspace)
+const workspace = ref(attrs.workspace) as Workspace
 const form = ref(attrs.workspace)
 
 definePageMeta({
 	title: 'Workspace details',
 	middleware: ['auth'],
 })
-
-const headers = [
-	{ value: 'name', text: 'Name' },
-	{ value: 'owner', text: 'Owner' },
-	{ value: 'status', text: 'Status', display: 'status' },
-	{ value: 'createdAt', text: 'Created at' },
-]
 
 const tabs = [
 	{
@@ -185,22 +142,5 @@ const tabs = [
 const selectedTab = ref(0)
 if (window.location.hash !== '') {
 	selectedTab.value = tabs.findIndex((item) => '#' + item.name === window.location.hash)
-}
-
-function onCloseModal() {
-	openDeletionModal.value = false
-	deletedWorkspaceName.value = ''
-}
-
-async function deleteWorkspace() {
-	if (isDeletingWorkspace.value) return
-	isDeletingWorkspace.value = true
-	try {
-		await $api.delete(`/api/v1alpha1/orgs/${orgId}/workspaces/${wsId}`)
-		navigateTo(`/orgs/${orgId}/overview`)
-	} catch (err) {
-		$toast.error({ title: 'Cannot delete this workspace', content: JSON.stringify(err.response.data) })
-	}
-	isDeletingWorkspace.value = false
 }
 </script>

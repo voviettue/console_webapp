@@ -38,6 +38,8 @@ export const useWorkspacesStore = defineStore({
 				createdAt: workspace.metadata.creationTimestamp,
 				dbName: `${workspace.spec.orgRefName}-${workspace.spec.dbRefName}-${workspace.spec.name}`,
 				snapshotEnabled: workspace.spec.actions?.snapshot?.enabled,
+				deletionProtection: workspace.spec.deletionProtection,
+				org: workspace.spec.orgRefName,
 			}
 		},
 		async getWorkspaces(orgId: string) {

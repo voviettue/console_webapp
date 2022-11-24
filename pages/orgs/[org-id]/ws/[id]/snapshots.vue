@@ -7,7 +7,7 @@ const org = route.params.orgid as string
 const ws = route.params.id as string
 const isFetching = ref(true)
 const isCreatingSnapshot = ref(false)
-const snapshotEnabled = ref(attrs.workspace.snapshotEnabled)
+const snapshotEnabled = ref(attrs.workspace.snapshotEnabled || false)
 const snapshots = ref([])
 
 getSnapshots().finally(() => (isFetching.value = false))

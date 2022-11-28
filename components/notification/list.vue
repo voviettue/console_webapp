@@ -13,9 +13,9 @@
 				leave-to-class="opacity-0"
 			>
 				<NotificationItem
-					v-for="({ id, type, title, content }, i) in store.notifications"
+					v-for="{ id, type, title, content } in store.notifications"
 					:id="id"
-					:key="`notification-${i}`"
+					:key="`notification-${id}`"
 					:type="type"
 					:title="title"
 					:content="content"

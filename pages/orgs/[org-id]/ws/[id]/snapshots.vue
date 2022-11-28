@@ -79,17 +79,18 @@ function refresh() {
 				<FormToggleSwitch v-model="snapshotEnabled" :label="checkboxLabel" @input="enableSnapshot" />
 			</div>
 			<div class="flex items-center gap-2">
-				<TwButton
-					v-if="snapshotEnabled"
-					v-tooltip="'Manually create snapshot every 5 minutes'"
-					class="flex-1"
-					variant="secondary"
-					:loading="isCreatingSnapshot"
-					:disabled="isDisableSnapshotButton"
-					@click.prevent="createSnapshot"
-				>
-					Create snapshot
-				</TwButton>
+				<div v-tooltip="'Manually create snapshot every 5 minutes'">
+					<TwButton
+						v-if="snapshotEnabled"
+						class="flex-1"
+						variant="secondary"
+						:loading="isCreatingSnapshot"
+						:disabled="isDisableSnapshotButton"
+						@click.prevent="createSnapshot"
+					>
+						Create snapshot
+					</TwButton>
+				</div>
 				<DropdownAutoRefresh v-model="refreshInterval" class="flex-1" @refresh="refresh" />
 			</div>
 		</div>

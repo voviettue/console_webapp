@@ -32,13 +32,12 @@ import { CheckCircleIcon, XCircleIcon } from '@heroicons/vue/24/outline'
 import { XMarkIcon } from '@heroicons/vue/20/solid'
 import { useNotificationsStore } from '@/stores/notifications'
 
-type PropType = {
+const props = defineProps<{
 	id: string | number
 	title: string
 	content?: string
 	type: 'success' | 'error'
-}
-const props = defineProps<PropType>()
+}>()
 const store = useNotificationsStore()
 
 setTimeout(() => {

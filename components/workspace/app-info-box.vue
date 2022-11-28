@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Workspace } from '@/types'
 import { TableHeader } from '@/shared/types'
+import { parseWorkspace } from '@/stores/workspaces'
 
 const { $api, $toast } = useNuxtApp()
 
@@ -16,19 +17,31 @@ const headers: TableHeader[] = [
 ]
 const isEditing = ref(false)
 const isUpdating = ref(false)
+const ws = ref<Workspace>(props.item)
 const form = ref({
 	app: {
-		version: props.item.app.version,
-		size: props.item.app.size,
+		version: ws.value.app.version,
+		size: ws.value.app.size,
 	},
+})
+
+watch(isEditing, (newVal) => {
+	if (!newVal) {
+		form.value.app = {
+			version: ws.value.app.version,
+			size: ws.value.app.size,
+		}
+	}
 })
 
 async function onSubmit() {
 	isUpdating.value = true
 	try {
-		await $api.patch(`/api/v1alpha1/orgs/${props.item.org}/workspaces/${props.item.name}`, {
+		const res = await $api.patch(`/api/v1alpha1/orgs/${ws.value.org}/workspaces/${ws.value.name}`, {
 			app: { ...form.value.app },
 		})
+		ws.value = parseWorkspace(res.data.data)
+		isEditing.value = false
 		$toast.success({ title: 'App information updated' })
 	} catch (err) {
 		$toast.error({ title: 'Error' })
@@ -52,13 +65,13 @@ async function onSubmit() {
 				label="App version"
 				help="You cannot revert to older versions"
 			/>
-			<div class="mt-6 flex justify-end gap-2">
-				<TwButton variant="secondary" @click="isEditing = false">Cancel</TwButton>
+			<div class="mt-6 flex justify-end gap-3">
 				<TwButton :loading="isUpdating" :disabled="isUpdating" @click="onSubmit">Update</TwButton>
+				<TwButton variant="secondary" @click="isEditing = false">Cancel</TwButton>
 			</div>
 		</template>
 		<template v-else>
-			<TwList :headers="headers" :item="props.item.app"></TwList>
+			<TwList :headers="headers" :item="ws.app"></TwList>
 		</template>
 	</TwCard>
 </template>

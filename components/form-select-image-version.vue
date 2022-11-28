@@ -1,37 +1,22 @@
 <script lang="ts" setup>
-import gt from 'semver/functions/gt'
-import lt from 'semver/functions/lt'
-import valid from 'semver/functions/valid'
+import { useImagesStore } from '@/stores/images'
 
 const props = defineProps<{
 	repo: string
 	modelValue: string
 }>()
 const emits = defineEmits(['update:modelValue'])
-const { $api } = useNuxtApp()
-const versions = ref([])
-const isFetchingVersion = ref(true)
-$api
-	.get(`/api/meta/images/${props.repo}`)
-	.then((res) => {
-		versions.value = res.data.data
-			.sort((a, b) => {
-				if (!valid(a.imageTag) || !valid(b.imageTag)) return 0
-				if (gt(a.imageTag, b.imageTag)) return -1
-				if (lt(a.imageTag, b.imageTag)) return 1
-				return 0
-			})
-			.map((e: any) => {
-				return {
-					label: e.imageTag,
-					value: e.imageTag,
-				}
-			})
+const store = useImagesStore()
+const options = computed(() => {
+	if (!store.images[props.repo]) return []
+	return store.images[props.repo].map((e: any) => {
+		return {
+			label: e.tag,
+			value: e.tag,
+		}
 	})
-	.catch((err) => {
-		throw new Error(String(err))
-	})
-	.finally(() => (isFetchingVersion.value = false))
+})
+store.getImages(props.repo)
 
 function onSelect(value: string) {
 	emits('update:modelValue', value)
@@ -39,12 +24,5 @@ function onSelect(value: string) {
 </script>
 
 <template>
-	<FormKit
-		type="select"
-		placeholder="Select a version"
-		:options="versions"
-		:value="modelValue"
-		:disabled="isFetchingVersion"
-		@input="onSelect"
-	/>
+	<FormKit type="select" placeholder="Select a version" :options="options" :value="modelValue" @input="onSelect" />
 </template>

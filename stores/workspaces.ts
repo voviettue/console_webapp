@@ -4,6 +4,37 @@ import { parseStatus } from '@/shared/stores'
 import { compareName } from '@/shared/utils/compares'
 import { apiInstance } from '@/plugins/api'
 
+export function parseWorkspace(ws: any): Workspace {
+	const env = []
+	if (ws.spec.app.env) {
+		for (const [k, v] of Object.entries(ws.spec.app.env)) {
+			env.push({ name: k, value: v })
+		}
+	}
+
+	return {
+		uid: ws.metadata.uid,
+		name: ws.metadata.name,
+		status: parseStatus(ws.status),
+		extensions: ws.spec.extensions,
+		domain: ws.spec.domain,
+		subdomain: ws.spec.subdomain,
+		app: {
+			...ws.spec.app,
+			env,
+		},
+		webapp: {
+			enabled: ws.spec.webapp.enabled,
+			version: ws.spec.webapp.version,
+		},
+		createdAt: ws.metadata.creationTimestamp,
+		dbName: `${ws.spec.orgRefName}-${ws.spec.dbRefName}-${ws.spec.name}`,
+		snapshotEnabled: ws.spec.actions?.snapshot?.enabled,
+		deletionProtection: ws.spec.deletionProtection,
+		org: ws.spec.orgRefName,
+	}
+}
+
 export const useWorkspacesStore = defineStore({
 	id: 'workspacesStore',
 	state() {
@@ -12,48 +43,18 @@ export const useWorkspacesStore = defineStore({
 		}
 	},
 	actions: {
-		parseWorkspace(workspace: any): Workspace {
-			const env = []
-			if (workspace.spec.app.env) {
-				for (const [k, v] of Object.entries(workspace.spec.app.env)) {
-					env.push({ name: k, value: v })
-				}
-			}
-
-			return {
-				uid: workspace.metadata.uid,
-				name: workspace.metadata.name,
-				status: parseStatus(workspace.status),
-				extensions: workspace.spec.extensions,
-				domain: workspace.spec.domain,
-				subdomain: workspace.spec.subdomain,
-				app: {
-					...workspace.spec.app,
-					env,
-				},
-				webapp: {
-					enabled: workspace.spec.webapp.enabled,
-					version: workspace.spec.webapp.version,
-				},
-				createdAt: workspace.metadata.creationTimestamp,
-				dbName: `${workspace.spec.orgRefName}-${workspace.spec.dbRefName}-${workspace.spec.name}`,
-				snapshotEnabled: workspace.spec.actions?.snapshot?.enabled,
-				deletionProtection: workspace.spec.deletionProtection,
-				org: workspace.spec.orgRefName,
-			}
-		},
-		async getWorkspaces(orgId: string) {
+		async getWorkspaces(org: string) {
 			try {
-				const res = await apiInstance.get(`/api/v1alpha1/orgs/${orgId}/workspaces`)
-				this.workspaces = res.data.data.map(this.parseWorkspace).sort(compareName)
+				const res = await apiInstance.get(`/api/v1alpha1/orgs/${org}/workspaces`)
+				this.workspaces = res.data.data.map(parseWorkspace).sort(compareName)
 			} catch (err) {
 				throw new Error(err)
 			}
 		},
-		async getWorkspace(orgId: string, wsId: string) {
+		async getWorkspace(org: string, ws: string) {
 			try {
-				const res = await apiInstance.get(`/api/v1alpha1/orgs/${orgId}/workspaces/${wsId}`)
-				return this.parseWorkspace(res.data.data)
+				const res = await apiInstance.get(`/api/v1alpha1/orgs/${org}/workspaces/${ws}`)
+				return parseWorkspace(res.data.data)
 			} catch (err) {
 				throw new Error(err)
 			}

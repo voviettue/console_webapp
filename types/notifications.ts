@@ -3,4 +3,5 @@ export type Notification = {
 	type: 'success' | 'error'
 	title: string
 	content?: string
+	error?: Record<string, any>
 }

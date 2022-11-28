@@ -2,13 +2,19 @@
 const { $api, $toast } = useNuxtApp()
 const route = useRoute()
 const attrs = useAttrs()
-const { refreshInterval } = useCollectionPreset('ws_details_snapshots')
+const { refreshInterval, settings } = useCollectionPreset('ws_details_snapshots')
 const org = route.params.orgid as string
 const ws = route.params.id as string
 const isFetching = ref(true)
 const isCreatingSnapshot = ref(false)
 const snapshotEnabled = ref(attrs.workspace.snapshotEnabled || false)
 const snapshots = ref([])
+
+const isDisableSnapshotButton = computed(() => {
+	const now = Date.now()
+	const runAt = settings.value.runAt
+	return (now - runAt) / 1000 / 60 <= 5
+})
 
 getSnapshots().finally(() => (isFetching.value = false))
 async function getSnapshots() {
@@ -56,6 +62,7 @@ async function createSnapshot() {
 			snapshotRunAt: 's-' + Date.now().toString(),
 		})
 		getSnapshots()
+		settings.value.runAt = Date.now()
 	} catch (err) {}
 	isCreatingSnapshot.value = false
 }
@@ -74,9 +81,11 @@ function refresh() {
 			<div class="flex items-center gap-2">
 				<TwButton
 					v-if="snapshotEnabled"
+					v-tooltip="'Manually create snapshot every 5 minutes'"
 					class="flex-1"
 					variant="secondary"
 					:loading="isCreatingSnapshot"
+					:disabled="isDisableSnapshotButton"
 					@click.prevent="createSnapshot"
 				>
 					Create snapshot

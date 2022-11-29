@@ -12,9 +12,21 @@ async function onSubmit(form) {
 	isCreating.value = true
 	try {
 		await $api.post(`/api/meta/templates`, form)
+
+		// Patch workspace publish tpl
+		await $api.patch(`/api/v1alpha1/orgs/${form.org}/workspaces/${form.workspace}`, {
+			publishTpl: {
+				enabled: true,
+				name: form.name,
+				runAt: `runat-${Date.now().toString()}`,
+			},
+		})
+
 		$toast.success({ title: 'Template has been created successfully!' })
 		navigateTo(`/admin/templates`)
 	} catch (err) {
+		// Cleanup
+		$api.delete(`/api/meta/templates/${form.name}`)
 		$toast.error({ title: 'Cannot create template', content: JSON.stringify(err.response.data) })
 	}
 	isCreating.value = false

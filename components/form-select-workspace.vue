@@ -31,6 +31,7 @@ const isDisableWsSelect = computed(() => {
 })
 
 async function onSelectOrg(value) {
+	if (!value) return
 	isFetchingWs.value = true
 	await wsStore.getWorkspaces(value)
 	isFetchingWs.value = false

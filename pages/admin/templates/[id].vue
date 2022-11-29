@@ -27,13 +27,19 @@
 						<FormKit v-model="form.public" type="checkbox" label="Public" />
 					</div>
 					<div class="flex gap-2 justify-end my-6">
-						<TwButton type="submit" :disabled="!valid" :loading="isUpdating">Update</TwButton>
+						<TwButton type="submit" :disabled="!valid || isUpdating" :loading="isUpdating">Update</TwButton>
 						<TwButton variant="secondary" @click="navigateTo(`/admin/templates`)">Cancel</TwButton>
 					</div>
 				</FormKit>
 			</TwCard>
 			<TwCard>
 				<div>
+					<dl class="mb-4">
+						<dt class="text-gray-500">Workspace</dt>
+						<dd>
+							<NuxtLink class="link">{{ `${template.org}/${template.workspace}` }}</NuxtLink>
+						</dd>
+					</dl>
 					<dl>
 						<dt class="text-gray-500">Last modified</dt>
 						<dd>
@@ -71,12 +77,6 @@ import { TrashIcon, ArrowPathIcon } from '@heroicons/vue/24/outline'
 import { useTemplatesStore } from '@/stores/templates'
 import { Template } from '@/types'
 
-interface TemplatePayload {
-	title: string
-	description: string
-	public: boolean
-}
-
 definePageMeta({
 	title: 'Update template',
 	middleware: ['auth'],
@@ -87,7 +87,11 @@ const route = useRoute()
 const store = useTemplatesStore()
 const id = route.params.id as string
 const template = ref<Template>()
-const form = ref<TemplatePayload>({
+const form = ref<{
+	title: string
+	description: string
+	public: boolean
+}>({
 	title: '',
 	description: '',
 	public: false,
@@ -149,6 +153,12 @@ async function deleteExtension() {
 	isDeleting.value = true
 	try {
 		await $api.delete(`/api/meta/templates/${id}`)
+		await $api.patch(`/api/v1alpha1/orgs/${template.value.org}/workspaces/${template.value.workspace}`, {
+			publishTpl: {
+				name: template.value.name,
+				enabled: false,
+			},
+		})
 		openDeletionModal.value = false
 		navigateTo(`/admin/templates`)
 	} catch (err) {}

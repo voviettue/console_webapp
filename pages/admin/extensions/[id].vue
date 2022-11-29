@@ -35,7 +35,7 @@
 						<FormKit v-model="form.public" type="checkbox" label="Public" />
 					</div>
 					<div class="flex gap-2 justify-end my-6">
-						<TwButton type="submit" :disabled="!valid" :loading="isUpdating">Update</TwButton>
+						<TwButton type="submit" :disabled="!valid || isUpdating" :loading="isUpdating">Update</TwButton>
 						<TwButton variant="secondary" @click="navigateTo(`/admin/extensions`)">Cancel</TwButton>
 					</div>
 				</FormKit>

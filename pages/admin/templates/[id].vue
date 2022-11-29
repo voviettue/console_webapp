@@ -155,7 +155,6 @@ async function deleteExtension() {
 		await $api.delete(`/api/meta/templates/${id}`)
 		await $api.patch(`/api/v1alpha1/orgs/${template.value.org}/workspaces/${template.value.workspace}`, {
 			publishTpl: {
-				name: template.value.name,
 				enabled: false,
 			},
 		})

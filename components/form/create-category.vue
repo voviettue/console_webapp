@@ -49,7 +49,7 @@ function onSubmit() {
 			<FormKit v-model="form.title" label="Title" name="title" type="text" placeholder="" validation="required" />
 		</div>
 		<div class="flex justify-end">
-			<TwButton type="submit" :disabled="!valid" :loading="props.loading">Create</TwButton>
+			<TwButton type="submit" :disabled="!valid || props.loading" :loading="props.loading">Create</TwButton>
 		</div>
 	</FormKit>
 </template>

@@ -69,7 +69,7 @@ function onSubmit() {
 			/>
 		</div>
 		<div class="flex justify-end my-6">
-			<TwButton type="submit" :disabled="!valid" :loading="props.loading">Create database</TwButton>
+			<TwButton type="submit" :disabled="!valid || props.loading" :loading="props.loading">Create database</TwButton>
 		</div>
 	</FormKit>
 </template>

@@ -47,7 +47,7 @@ function onSubmit() {
 			<FormSelectWorkspace v-model:org="form.org" v-model:workspace="form.workspace" />
 		</div>
 		<div class="flex justify-end my-6">
-			<TwButton type="submit" :disabled="!valid" :loading="props.loading">Create</TwButton>
+			<TwButton type="submit" :disabled="!valid || props.loading" :loading="props.loading">Create</TwButton>
 		</div>
 	</FormKit>
 </template>

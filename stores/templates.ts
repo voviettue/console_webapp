@@ -2,6 +2,20 @@ import { defineStore } from 'pinia'
 import { apiInstance } from '@/plugins/api'
 import { Template } from '@/types'
 
+export function parseTemplate(tpl: any): Template {
+	return {
+		name: tpl.name,
+		title: tpl.title,
+		description: tpl.description,
+		org: tpl.org,
+		workspace: tpl.workspace,
+		public: tpl.public,
+		updatedAt: tpl.updatedAt,
+		syncedAt: tpl.syncedAt,
+		category: tpl.category,
+	}
+}
+
 export const useTemplatesStore = defineStore({
 	id: 'templatesStore',
 	state: () => {
@@ -10,23 +24,10 @@ export const useTemplatesStore = defineStore({
 		}
 	},
 	actions: {
-		parseTemplate(tpl: any): Template {
-			return {
-				name: tpl.name,
-				title: tpl.title,
-				description: tpl.description,
-				org: tpl.org,
-				workspace: tpl.workspace,
-				public: tpl.public,
-				updatedAt: tpl.updatedAt,
-				syncedAt: tpl.syncedAt,
-				category: tpl.category,
-			}
-		},
 		async getTemplates() {
 			try {
 				const res = await apiInstance.get('/api/meta/templates')
-				this.templates = res.data.data.map(this.parseTemplate)
+				this.templates = res.data.data.map(parseTemplate)
 			} catch (err) {
 				throw new Error(err)
 			}
@@ -34,7 +35,7 @@ export const useTemplatesStore = defineStore({
 		async getTemplate(id: string) {
 			try {
 				const res = await apiInstance.get(`/api/meta/templates/${id}`)
-				return this.parseTemplate(res.data.data)
+				return parseTemplate(res.data.data)
 			} catch (err) {
 				throw new Error(err)
 			}

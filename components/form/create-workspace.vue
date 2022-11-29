@@ -13,6 +13,7 @@ interface WorkspacePayload {
 	adminEmail: string
 	adminPassword: string
 	webappEnabled: boolean
+	installFromTpl: Record<string, any>
 }
 
 const form = ref<WorkspacePayload>({
@@ -21,7 +22,14 @@ const form = ref<WorkspacePayload>({
 	adminEmail: '',
 	adminPassword: '',
 	webappEnabled: false,
+	installFromTpl: {
+		enabled: false,
+		s3Bucket: `${props.org}-templates`,
+		name: '',
+	},
 })
+const isShowAdvanced = ref(false)
+const selectedTemplate = ref<Template>(null)
 
 watch(
 	() => form.value.name,
@@ -31,6 +39,9 @@ watch(
 )
 
 function onSubmit() {
+	if (form.value.installFromTpl.enabled) {
+		form.value.installFromTpl.name = selectedTemplate.value.name
+	}
 	emit('submit', form.value)
 }
 </script>
@@ -49,7 +60,7 @@ function onSubmit() {
 				label="Workspace Name"
 				name="name"
 				type="text"
-				placeholder="Example"
+				placeholder=""
 				validation="required|length:3,20|matches:/^[0-9a-z](-?[0-9a-z])*$/"
 			/>
 			<FormSelectMysqlInstances
@@ -84,6 +95,14 @@ function onSubmit() {
 		<div class="space-y-3">
 			<FormKit v-model="form.webappEnabled" label="Enable front-office" name="webappEnabled" type="checkbox" />
 		</div>
+		<TwButton v-if="!isShowAdvanced" variant="secondary" class="my-4" @click="isShowAdvanced = true">
+			Show advanced
+		</TwButton>
+		<template v-if="isShowAdvanced">
+			<h3 class="text-xl font-medium my-4">Install from templates</h3>
+			<FormKit v-model="form.installFromTpl.enabled" label="Install from templates" type="checkbox" />
+			<FormSelectTemplate v-if="form.installFromTpl.enabled" v-model="selectedTemplate" class="my-4" />
+		</template>
 		<div class="flex justify-end my-6">
 			<TwButton type="submit" :disabled="!valid" :loading="props.loading">Create Workspace</TwButton>
 		</div>

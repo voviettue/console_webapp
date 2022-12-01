@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { format } from 'date-fns'
+
 definePageMeta({
 	title: 'New template',
 	middleware: ['auth'],
@@ -18,13 +20,14 @@ async function onSubmit(form) {
 			publishTpl: {
 				enabled: true,
 				name: form.name,
-				runAt: `runat-${Date.now().toString()}`,
+				runAt: format(new Date(), 'yyyy-MM-dd'),
 			},
 		})
 
 		$toast.success({ title: 'Template has been created successfully!' })
 		navigateTo(`/admin/templates`)
 	} catch (err) {
+		console.log(err)
 		// Cleanup
 		$api.delete(`/api/meta/templates/${form.name}`)
 		$toast.error({ title: 'Cannot create template', content: JSON.stringify(err.response.data) })

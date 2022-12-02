@@ -109,6 +109,7 @@ const breadcrumbItems = computed(() => {
 // @TODO: Finding a better way
 const menuItems = computed(() => {
 	const params = route.params
+	// Workspace menu
 	if (String(route.name).startsWith('orgs-orgid-ws')) {
 		return [
 			{
@@ -128,6 +129,7 @@ const menuItems = computed(() => {
 			},
 		]
 	}
+	// Organization menu
 	if (String(route.name).startsWith('orgs-orgid')) {
 		return [
 			{
@@ -152,6 +154,7 @@ const menuItems = computed(() => {
 			},
 		]
 	}
+	// Admin menu
 	if (String(route.name).startsWith('admin')) {
 		return [
 			{
@@ -168,6 +171,11 @@ const menuItems = computed(() => {
 				name: 'Templates',
 				to: `/admin/templates`,
 				current: isCurrentRoute(route, `/admin/templates`),
+			},
+			{
+				name: 'Settings',
+				to: `/admin/settings`,
+				current: isCurrentRoute(route, `/admin/settings`),
 			},
 		]
 	}

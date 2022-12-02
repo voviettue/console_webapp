@@ -61,7 +61,7 @@ async function onSubmit() {
 			<FormSlider v-model="form.app.size" :min="1" :max="5" />
 			<FormSelectImageVersion
 				v-model="form.app.version"
-				repo="core"
+				repo="gigapress/core"
 				label="App version"
 				help="You cannot revert to older versions"
 			/>

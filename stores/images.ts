@@ -14,7 +14,7 @@ export const useImagesStore = defineStore({
 	actions: {
 		async getImages(repo: string) {
 			try {
-				const res = await apiInstance.get(`/api/meta/images/${repo}`)
+				const res = await apiInstance.get(`/api/meta/images/${encodeURIComponent(repo)}`)
 				this.images[repo] = res.data.data.sort((a, b) => {
 					if (!valid(a.tag) || !valid(b.tag)) return 0
 					if (gt(a.tag, b.tag)) return -1

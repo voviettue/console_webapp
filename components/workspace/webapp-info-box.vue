@@ -86,13 +86,15 @@ async function getLatestExtFrontOfficeVersion() {
 	<TwCard>
 		<div class="mb-5 flex items-center justify-between">
 			<h3 class="font-semibold">Front office information</h3>
-			<TwButton v-if="!isEditing" variant="secondary" size="sm" @click="isEditing = true">Edit</TwButton>
+			<TwButton v-if="!isEditing && ws.webapp.enabled" variant="secondary" size="sm" @click="isEditing = true">
+				Edit
+			</TwButton>
 		</div>
 		<template v-if="ws.webapp.enabled">
 			<template v-if="isEditing">
 				<FormSelectImageVersion
 					v-model="form.webapp.version"
-					repo="front-office"
+					repo="gigapress/front-office"
 					label="Version"
 					help="You cannot revert to older versions"
 				/>
@@ -119,6 +121,5 @@ async function getLatestExtFrontOfficeVersion() {
 		<template v-else>
 			<TwButton :loading="isCreating" :disabled="isCreating" @click="onCreate">Create front office</TwButton>
 		</template>
-		<!--<FormSelectImageVersion v-model="form.webapp.version" repo="front-office" />-->
 	</TwCard>
 </template>

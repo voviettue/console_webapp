@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { Workspace } from '@/types'
+import { capitalize } from '@/shared/utils/str'
 
 const { $api, $toast } = useNuxtApp()
 
@@ -23,7 +24,11 @@ async function deleteWorkspace() {
 		await $api.delete(`/api/v1alpha1/orgs/${props.item.org}/workspaces/${props.item.name}`)
 		navigateTo(`/orgs/${props.item.org}/overview`)
 	} catch (err) {
-		$toast.error({ title: 'Cannot delete this workspace', content: JSON.stringify(err.response.data) })
+		let msg = ''
+		if (err.response.status === 422) {
+			msg = capitalize(err.response.data.errors[0].message)
+		}
+		$toast.error({ title: 'Cannot delete this workspace', content: msg })
 	}
 	isDeletingWorkspace.value = false
 }

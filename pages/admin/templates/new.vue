@@ -27,7 +27,6 @@ async function onSubmit(form) {
 		$toast.success({ title: 'Template has been created successfully!' })
 		navigateTo(`/admin/templates`)
 	} catch (err) {
-		console.log(err)
 		// Cleanup
 		$api.delete(`/api/meta/templates/${form.name}`)
 		$toast.error({ title: 'Cannot create template', content: JSON.stringify(err.response.data) })

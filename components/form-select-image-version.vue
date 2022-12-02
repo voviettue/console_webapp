@@ -16,7 +16,8 @@ const options = computed(() => {
 		}
 	})
 })
-store.getImages(props.repo)
+const isFetching = ref(true)
+store.getImages(props.repo).finally(() => (isFetching.value = false))
 
 function onSelect(value: string) {
 	emits('update:modelValue', value)
@@ -24,5 +25,12 @@ function onSelect(value: string) {
 </script>
 
 <template>
-	<FormKit type="select" placeholder="Select a version" :options="options" :value="modelValue" @input="onSelect" />
+	<FormKit
+		type="select"
+		placeholder="Select a version"
+		:disabled="isFetching"
+		:options="options"
+		:value="modelValue"
+		@input="onSelect"
+	/>
 </template>

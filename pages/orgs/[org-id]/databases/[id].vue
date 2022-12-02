@@ -85,6 +85,7 @@
 import { useRoute } from 'vue-router'
 import { useMysqlInstancesStore } from '@/stores/mysql-instances'
 import { MySQLInstance } from '@/types'
+import { capitalize } from '@/shared/utils/str'
 
 const store = useMysqlInstancesStore()
 const route = useRoute()
@@ -124,7 +125,11 @@ async function deleteMySqlInstance() {
 		await $api.delete(`/api/v1alpha1/orgs/${orgId}/mysqlinstances/${orgId}-${id}`)
 		navigateTo(`/orgs/${orgId}/databases`)
 	} catch (err) {
-		$toast.error({ title: 'Cannot delete this MySQL instance', content: JSON.stringify(err.response.data) })
+		let msg = ''
+		if (err.response.status === 422) {
+			msg = capitalize(err.response.data.errors[0].message)
+		}
+		$toast.error({ title: 'Cannot delete this MySQL instance', content: msg })
 	}
 	isDeletingMySqlInstance.value = false
 }

@@ -61,6 +61,19 @@ async function onSubmit() {
 					<Divider label="Other" class="my-6" />
 					<div class="space-y-3">
 						<FormKit v-model.number="form.maxWorkspaces" label="Max workspaces per organization" type="number" />
+						<FormKit v-model="form.ledgerRegion" label="Ledger region" type="select" :options="[
+							{ label: 'US East (N. Virginia)', value: 'us-east-1'},
+							{ label: 'US East (Ohio)', value: 'us-east-2'},
+							{ label: 'US West (Oregon)', value: 'us-west-2'},
+							{ label: 'Asia Pacific (Seoul)', value: 'ap-northeast-2'},
+							{ label: 'Asia Pacific (Singapore)', value: 'ap-southeast-1'},
+							{ label: 'Asia Pacific (Sydney)', value: 'ap-southeast-2'},
+							{ label: 'Asia Pacific (Tokyo)', value: 'ap-northeast-1'},
+							{ label: 'Canada (Central)', value: 'ca-central-1'},
+							{ label: 'Europe (Frankfurt)', value: 'eu-central-1'},
+							{ label: 'Europe (Ireland)', value: 'eu-west-1'},
+							{ label: 'Europe (London)', value: 'eu-west-2'},
+						]" />
 					</div>
 					<div class="flex justify-end my-6">
 						<TwButton type="submit" :disabled="!valid || isUpdating" :loading="isUpdating">Save</TwButton>

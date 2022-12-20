@@ -30,6 +30,9 @@
 				<TabPanel :key="`tab-panel-front-office`">
 					<WorkspaceWebappInfoBox :item="workspace" />
 				</TabPanel>
+				<TabPanel :key="`tab-panel-ledger`">
+					<WorkspaceLedgerBox :item="workspace" />
+				</TabPanel>
 				<TabPanel :key="`tab-panel-extensions`">
 					<TwCard :body-padding="false" class="my-2 rounded-lg ring-black ring-1 ring-opacity-5">
 						<WorkspaceExtensionList :items="workspace.extensions"></WorkspaceExtensionList>
@@ -68,6 +71,10 @@ const tabs = [
 	{
 		name: 'front-office',
 		label: 'Front office',
+	},
+	{
+		name: 'ledger',
+		label: 'Ledger',
 	},
 	{
 		name: 'extensions',

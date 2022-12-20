@@ -20,6 +20,13 @@ export interface WorkspaceApp {
 	size: number
 }
 
+export interface WorkspaceLedger {
+	enabled: boolean
+	version: string
+	region: string
+	status: string
+}
+
 export interface Workspace {
 	uid: string
 	name: string
@@ -34,4 +41,5 @@ export interface Workspace {
 	snapshotEnabled: boolean
 	deletionProtection: boolean
 	org: string
+	ledger: WorkspaceLedger
 }

@@ -24,14 +24,18 @@ export function parseWorkspace(ws: any): Workspace {
 			env,
 		},
 		webapp: {
-			enabled: ws.spec.webapp.enabled,
-			version: ws.spec.webapp.version,
+			enabled: ws.spec?.webapp?.enabled,
+			version: ws.spec?.webapp?.version,
 		},
 		createdAt: ws.metadata.creationTimestamp,
 		dbName: `${ws.spec.orgRefName}-${ws.spec.dbRefName}-${ws.spec.name}`,
 		snapshotEnabled: ws.spec.actions?.snapshot?.enabled,
 		deletionProtection: ws.spec.deletionProtection,
 		org: ws.spec.orgRefName,
+		ledger: {
+			...ws.spec.ledger,
+			status: ws.status.ledger ? ws.status.ledger.status : null,
+		},
 	}
 }
 

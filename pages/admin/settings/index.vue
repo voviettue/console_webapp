@@ -49,7 +49,6 @@ async function onSubmit() {
 					</div>
 					<Divider label="Front office" class="my-6" />
 					<div class="space-y-3">
-						<FormKit v-model="form.webappChartVersion" label="Chart version" type="text" />
 						<FormSelectImageVersion v-model="form.webappVersion" repo="gigapress/front-office" label="Version" />
 					</div>
 					<Divider label="Extensions" class="my-6" />
@@ -58,22 +57,33 @@ async function onSubmit() {
 						<FormKit v-model="form.extensionProVersion" label="Pro version" type="text" />
 						<FormKit v-model="form.extensionFrontofficeVersion" label="Front office version" type="text" />
 					</div>
+					<Divider label="Ledger" class="my-6" />
+					<div class="space-y-3">
+						<FormKit
+							v-model="form.ledgerRegion"
+							label="Ledger region"
+							type="select"
+							:options="[
+								{ label: 'US East (N. Virginia)', value: 'us-east-1' },
+								{ label: 'US East (Ohio)', value: 'us-east-2' },
+								{ label: 'US West (Oregon)', value: 'us-west-2' },
+								{ label: 'Asia Pacific (Seoul)', value: 'ap-northeast-2' },
+								{ label: 'Asia Pacific (Singapore)', value: 'ap-southeast-1' },
+								{ label: 'Asia Pacific (Sydney)', value: 'ap-southeast-2' },
+								{ label: 'Asia Pacific (Tokyo)', value: 'ap-northeast-1' },
+								{ label: 'Canada (Central)', value: 'ca-central-1' },
+								{ label: 'Europe (Frankfurt)', value: 'eu-central-1' },
+								{ label: 'Europe (Ireland)', value: 'eu-west-1' },
+								{ label: 'Europe (London)', value: 'eu-west-2' },
+							]"
+						/>
+						<FormKit v-model="form.ledgerVersion" label="Version" type="text" />
+						<FormKit v-model="form.ledgerExtVersion" label="Extension version" type="text" />
+					</div>
 					<Divider label="Other" class="my-6" />
 					<div class="space-y-3">
 						<FormKit v-model.number="form.maxWorkspaces" label="Max workspaces per organization" type="number" />
-						<FormKit v-model="form.ledgerRegion" label="Ledger region" type="select" :options="[
-							{ label: 'US East (N. Virginia)', value: 'us-east-1'},
-							{ label: 'US East (Ohio)', value: 'us-east-2'},
-							{ label: 'US West (Oregon)', value: 'us-west-2'},
-							{ label: 'Asia Pacific (Seoul)', value: 'ap-northeast-2'},
-							{ label: 'Asia Pacific (Singapore)', value: 'ap-southeast-1'},
-							{ label: 'Asia Pacific (Sydney)', value: 'ap-southeast-2'},
-							{ label: 'Asia Pacific (Tokyo)', value: 'ap-northeast-1'},
-							{ label: 'Canada (Central)', value: 'ca-central-1'},
-							{ label: 'Europe (Frankfurt)', value: 'eu-central-1'},
-							{ label: 'Europe (Ireland)', value: 'eu-west-1'},
-							{ label: 'Europe (London)', value: 'eu-west-2'},
-						]" />
+						<FormKit v-model="form.actionChartVersion" label="Action chart version" type="text" />
 					</div>
 					<div class="flex justify-end my-6">
 						<TwButton type="submit" :disabled="!valid || isUpdating" :loading="isUpdating">Save</TwButton>

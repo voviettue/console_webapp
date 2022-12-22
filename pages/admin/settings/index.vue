@@ -50,12 +50,12 @@ async function onSubmit() {
 					<Divider label="Front office" class="my-6" />
 					<div class="space-y-3">
 						<FormSelectImageVersion v-model="form.webappVersion" repo="gigapress/front-office" label="Version" />
+						<FormKit v-model="form.extensionFrontofficeVersion" label="Extension version" help="@giga-extensions/front-office" type="text" />
 					</div>
 					<Divider label="Extensions" class="my-6" />
 					<div class="space-y-3">
 						<FormKit v-model="form.extensionBaseVersion" label="Base version" type="text" />
 						<FormKit v-model="form.extensionProVersion" label="Pro version" type="text" />
-						<FormKit v-model="form.extensionFrontofficeVersion" label="Front office version" type="text" />
 					</div>
 					<Divider label="Ledger" class="my-6" />
 					<div class="space-y-3">
@@ -77,8 +77,8 @@ async function onSubmit() {
 								{ label: 'Europe (London)', value: 'eu-west-2' },
 							]"
 						/>
-						<FormKit v-model="form.ledgerVersion" label="Version" type="text" />
-						<FormKit v-model="form.ledgerExtVersion" label="Extension version" type="text" />
+						<FormSelectImageVersion v-model="form.ledgerVersion" repo="gigapress/ledger" label="Version" />
+						<FormKit v-model="form.ledgerExtVersion" label="Extension version" help="@giga-extensions/ledger" type="text" />
 					</div>
 					<Divider label="Other" class="my-6" />
 					<div class="space-y-3">

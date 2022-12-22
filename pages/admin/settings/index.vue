@@ -50,12 +50,17 @@ async function onSubmit() {
 					<Divider label="Front office" class="my-6" />
 					<div class="space-y-3">
 						<FormSelectImageVersion v-model="form.webappVersion" repo="gigapress/front-office" label="Version" />
-						<FormKit v-model="form.extensionFrontofficeVersion" label="Extension version" help="@giga-extensions/front-office" type="text" />
+						<FormSelectExtensionVersion
+							v-model="form.extensionFrontofficeVersion"
+							name="front-office"
+							label="Extension version"
+							help="@giga-extensions/front-office"
+						/>
 					</div>
 					<Divider label="Extensions" class="my-6" />
 					<div class="space-y-3">
-						<FormKit v-model="form.extensionBaseVersion" label="Base version" type="text" />
-						<FormKit v-model="form.extensionProVersion" label="Pro version" type="text" />
+						<FormSelectExtensionVersion v-model="form.extensionBaseVersion" name="base" label="@giga-extensions/base" />
+						<FormSelectExtensionVersion v-model="form.extensionProVersion" name="pro" label="@giga-extensions/pro" />
 					</div>
 					<Divider label="Ledger" class="my-6" />
 					<div class="space-y-3">
@@ -78,7 +83,12 @@ async function onSubmit() {
 							]"
 						/>
 						<FormSelectImageVersion v-model="form.ledgerVersion" repo="gigapress/ledger" label="Version" />
-						<FormKit v-model="form.ledgerExtVersion" label="Extension version" help="@giga-extensions/ledger" type="text" />
+						<FormSelectExtensionVersion
+							v-model="form.ledgerExtVersion"
+							name="ledger"
+							label="Extension version"
+							help="@giga-extensions/ledger"
+						/>
 					</div>
 					<Divider label="Other" class="my-6" />
 					<div class="space-y-3">

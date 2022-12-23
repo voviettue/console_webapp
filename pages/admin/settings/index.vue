@@ -51,7 +51,7 @@ async function onSubmit() {
 					<div class="space-y-3">
 						<FormSelectImageVersion v-model="form.webappVersion" repo="gigapress/front-office" label="Version" />
 						<FormSelectExtensionVersion
-							v-model="form.extensionFrontofficeVersion"
+							v-model="form.webappExtVersion"
 							name="front-office"
 							label="Extension version"
 							help="@giga-extensions/front-office"

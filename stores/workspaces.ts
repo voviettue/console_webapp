@@ -26,6 +26,7 @@ export function parseWorkspace(ws: any): Workspace {
 		webapp: {
 			enabled: ws.spec?.webapp?.enabled,
 			version: ws.spec?.webapp?.version,
+			extVersion: ws.spec?.webapp?.extVersion,
 		},
 		createdAt: ws.metadata.creationTimestamp,
 		dbName: `${ws.spec.orgRefName}-${ws.spec.dbRefName}-${ws.spec.name}`,

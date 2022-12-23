@@ -6,6 +6,7 @@ import { ArrowTopRightOnSquareIcon } from '@heroicons/vue/24/outline'
 import { Workspace } from '@/types'
 import { useImagesStore } from '@/stores/images'
 import { parseWorkspace } from '@/stores/workspaces'
+import { useSettingsStore } from '@/stores/settings'
 
 const props = defineProps<{
 	item: Workspace
@@ -13,15 +14,18 @@ const props = defineProps<{
 
 const { $api, $toast } = useNuxtApp()
 const store = useImagesStore()
+const settingsStore = useSettingsStore()
 const ws = ref(props.item)
 const form = ref({
 	webapp: {
 		version: ws.value.webapp.version,
+		extVersion: ws.value.webapp.extVersion,
 	},
 })
 const headers: TableHeader[] = [
 	{ value: 'url', text: 'URL' },
 	{ value: 'version', text: 'Version' },
+	{ value: 'extVersion', text: 'Extension version' },
 ]
 const isCreating = ref(false)
 const isEditing = ref(false)
@@ -30,21 +34,12 @@ const isUpdating = ref(false)
 async function onCreate() {
 	isCreating.value = true
 	try {
-		// await store.getImages('front-office')
-		// const imageFrontOfficeVersion = store.sortedImages('front-office')[0]
-		const extFrontOfficeVersion = await getLatestExtFrontOfficeVersion()
 		const res = await $api.patch(`/api/v1alpha1/orgs/${ws.value.org}/workspaces/${ws.value.name}`, {
 			webapp: {
 				enabled: true,
-				// version: imageFrontOfficeVersion.tag,
+				version: settingsStore.settings.webappVersion,
+				extVersion: settingsStore.settings.webappExtVersion,
 			},
-			extensions: [
-				...ws.value.extensions,
-				{
-					name: '@giga-extensions/front-office',
-					version: extFrontOfficeVersion,
-				},
-			],
 		})
 		ws.value = parseWorkspace(res.data.data)
 		$toast.success({ title: 'Front office created' })
@@ -68,19 +63,6 @@ async function onSubmit() {
 	}
 	isUpdating.value = false
 }
-
-async function getLatestExtFrontOfficeVersion() {
-	const res = await $api.get(`/api/meta/extensions/front-office/versions`)
-	const versions = res.data.data
-		.filter((e) => !e.version.endsWith('dev'))
-		.sort((a, b) => {
-			if (!valid(a.version) || !valid(b.version)) return 0
-			if (gt(a.version, b.version)) return -1
-			if (lt(a.version, b.version)) return 1
-			return 0
-		})
-	return versions[0].version
-}
 </script>
 <template>
 	<TwCard>
@@ -92,12 +74,19 @@ async function getLatestExtFrontOfficeVersion() {
 		</div>
 		<template v-if="ws.webapp.enabled">
 			<template v-if="isEditing">
-				<FormSelectImageVersion
-					v-model="form.webapp.version"
-					repo="gigapress/front-office"
-					label="Version"
-					help="You cannot revert to older versions"
-				/>
+				<div class="space-y-3">
+					<FormSelectImageVersion
+						v-model="form.webapp.version"
+						repo="gigapress/front-office"
+						label="Version"
+						help="You cannot revert to older versions"
+					/>
+					<FormSelectExtensionVersion
+						v-model="form.webapp.extVersion"
+						name="front-office"
+						label="Extension version"
+					/>
+				</div>
 				<div class="mt-6 flex justify-end gap-3">
 					<TwButton :loading="isUpdating" :disabled="isUpdating" @click="onSubmit">Update</TwButton>
 					<TwButton variant="secondary" @click="isEditing = false">Cancel</TwButton>
@@ -109,7 +98,7 @@ async function getLatestExtFrontOfficeVersion() {
 						<a
 							:href="`https://app.${item.subdomain}.catex.se`"
 							target="_blank"
-							class="font-normal flex items-center gap-2 link mb-3"
+							class="font-normal flex items-center gap-2 link"
 						>
 							{{ `app.${ws.subdomain}.catex.se` }}
 							<ArrowTopRightOnSquareIcon class="w-5 h-5" />

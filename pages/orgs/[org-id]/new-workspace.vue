@@ -24,6 +24,12 @@ const orgId = route.params.orgid as string
 const isCreating = ref(false)
 
 async function onSubmit(form: any) {
+	// Validate form data
+	if (form.installFromTpl.enabled && form.installFromTpl.version === "") {
+		$toast.error({title: 'Template version not found'})
+		return
+	}
+
 	if (isCreating.value) return
 	isCreating.value = true
 	try {

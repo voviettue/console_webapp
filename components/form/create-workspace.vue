@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import slugify from 'slugify'
+import { Template } from '@/types'
 
 const props = defineProps<{
 	org: string
 	loading?: boolean
 }>()
 const emit = defineEmits(['submit'])
+const { $api, $toast } = useNuxtApp()
 
 interface WorkspacePayload {
 	name: string
@@ -26,6 +28,7 @@ const form = ref<WorkspacePayload>({
 		enabled: false,
 		s3Bucket: `${props.org}-templates`,
 		name: '',
+		version: '',
 	},
 })
 const isShowAdvanced = ref(false)
@@ -38,9 +41,15 @@ watch(
 	}
 )
 
-function onSubmit() {
+async function onSubmit() {
 	if (form.value.installFromTpl.enabled) {
 		form.value.installFromTpl.name = selectedTemplate.value.name
+		// Fetch latest version
+		const res = await $api.get(`/api/meta/templates/${selectedTemplate.value.name}/files`)
+		if (res.data.data.length) {
+			const latestVersion = res.data.data.pop()
+			form.value.installFromTpl.version = latestVersion.name.replace(`${selectedTemplate.value.name}/`, '').replace('.json', '')
+		}
 	}
 	emit('submit', form.value)
 }

@@ -9,6 +9,7 @@ export interface WorkspaceEnv {
 export interface WorkspaceWebapp {
 	enabled: boolean
 	version: string
+	extVersion: string
 }
 
 export interface WorkspaceApp {

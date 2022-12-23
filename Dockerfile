@@ -14,4 +14,4 @@ COPY --from=builder /app/.nuxt .nuxt
 COPY --from=builder /app/.output .output
 COPY --from=builder /app/package.json .
 EXPOSE 3000
-CMD npm run preview
+CMD npx nuxt preview

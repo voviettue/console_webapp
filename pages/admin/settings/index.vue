@@ -10,10 +10,23 @@ definePageMeta({
 const { $api, $toast } = useNuxtApp()
 const store = useSettingsStore()
 const isUpdating = ref(false)
+const form = ref<Settings>({
+	appChartVersion: '',
+	appVersion: '',
+	extensionBaseVersion: '',
+	extensionProVersion: '',
+	webappVersion: '',
+	webappExtVersion: '',
+	ledgerVersion: '',
+	ledgerExtVersion: '',
+	ledgerRegion: null,
+	maxWorkspaces: 0,
+	actionChartVersion: '',
+})
 
-await store.getSettings()
-
-const form = ref<Settings>({ ...store.settings })
+store.getSettings().then(() => {
+  form.value = { ...store.settings }
+})
 
 async function onSubmit() {
 	if (isUpdating.value) return

@@ -33,7 +33,7 @@ function onSelect(value: string) {
 		placeholder="Select a version"
 		:disabled="isFetching"
 		:options="options"
-		:value="modelValue"
+		v-model="modelValue"
 		@input="onSelect"
 	/>
 </template>

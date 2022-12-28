@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware(() => {
-	const { hasToken } = useToken()
+	// const { hasToken } = useToken()
 
-	if (!hasToken()) {
-		return navigateTo('/sign-in')
-	}
+	// if (!hasToken()) {
+	// 	return navigateTo('/sign-in')
+	// }
 })

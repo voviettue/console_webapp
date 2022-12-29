@@ -3,7 +3,6 @@ import { format } from 'date-fns'
 
 definePageMeta({
 	title: 'New template',
-	middleware: ['auth'],
 })
 
 const { $api, $toast } = useNuxtApp()

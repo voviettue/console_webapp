@@ -5,7 +5,6 @@
 <script setup lang="ts">
 definePageMeta({
 	title: 'Databases',
-	middleware: ['auth'],
 })
 
 const route = useRoute()

@@ -110,7 +110,6 @@ store
 
 definePageMeta({
 	title: 'Workspace details',
-	middleware: ['auth'],
 })
 
 function onCloseModal() {

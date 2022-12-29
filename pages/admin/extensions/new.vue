@@ -1,7 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
 	title: 'New extension',
-	middleware: ['auth'],
 })
 
 const { $api, $toast } = useNuxtApp()

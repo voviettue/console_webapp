@@ -15,7 +15,6 @@
 <script setup lang="ts">
 definePageMeta({
 	title: 'New workspace',
-	middleware: ['auth'],
 })
 
 const route = useRoute()
@@ -25,8 +24,8 @@ const isCreating = ref(false)
 
 async function onSubmit(form: any) {
 	// Validate form data
-	if (form.installFromTpl.enabled && form.installFromTpl.version === "") {
-		$toast.error({title: 'Template version not found'})
+	if (form.installFromTpl.enabled && form.installFromTpl.version === '') {
+		$toast.error({ title: 'Template version not found' })
 		return
 	}
 

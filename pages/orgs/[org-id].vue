@@ -10,7 +10,6 @@ import { useSettingsStore } from '@/stores/settings'
 import { Org } from '@/types'
 definePageMeta({
 	title: 'Organization details',
-	middleware: ['auth'],
 })
 
 const route = useRoute()

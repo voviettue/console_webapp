@@ -118,7 +118,6 @@ interface ExtensionPayload {
 
 definePageMeta({
 	title: 'Update extension',
-	middleware: ['auth'],
 })
 
 const { $api, $toast } = useNuxtApp()

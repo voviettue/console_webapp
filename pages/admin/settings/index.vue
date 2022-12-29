@@ -4,7 +4,6 @@ import { useSettingsStore } from '@/stores/settings'
 
 definePageMeta({
 	title: 'Console settings',
-	middleware: ['auth'],
 })
 
 const { $api, $toast } = useNuxtApp()
@@ -25,7 +24,7 @@ const form = ref<Settings>({
 })
 
 store.getSettings().then(() => {
-  form.value = { ...store.settings }
+	form.value = { ...store.settings }
 })
 
 async function onSubmit() {

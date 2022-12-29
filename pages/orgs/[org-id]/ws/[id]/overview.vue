@@ -55,6 +55,5 @@ const attrs = useAttrs()
 const workspace = ref(attrs.workspace)
 definePageMeta({
 	title: 'Workspace details',
-	middleware: ['auth'],
 })
 </script>

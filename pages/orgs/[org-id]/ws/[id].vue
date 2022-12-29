@@ -26,6 +26,5 @@ store
 
 definePageMeta({
 	title: 'Workspace details',
-	middleware: ['auth'],
 })
 </script>

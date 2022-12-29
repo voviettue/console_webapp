@@ -81,11 +81,7 @@ async function onSubmit() {
 						label="Version"
 						help="You cannot revert to older versions"
 					/>
-					<FormSelectExtensionVersion
-						v-model="form.webapp.extVersion"
-						name="front-office"
-						label="Extension version"
-					/>
+					<FormSelectExtensionVersion v-model="form.webapp.extVersion" name="front-office" label="Extension version" />
 				</div>
 				<div class="mt-6 flex justify-end gap-3">
 					<TwButton :loading="isUpdating" :disabled="isUpdating" @click="onSubmit">Update</TwButton>

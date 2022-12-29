@@ -15,7 +15,6 @@
 <script setup lang="ts">
 definePageMeta({
 	title: 'New database',
-	middleware: ['auth'],
 })
 
 const route = useRoute()

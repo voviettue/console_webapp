@@ -52,7 +52,6 @@ const workspace = ref(attrs.workspace) as Workspace
 
 definePageMeta({
 	title: 'Workspace details',
-	middleware: ['auth'],
 })
 
 const tabs = [

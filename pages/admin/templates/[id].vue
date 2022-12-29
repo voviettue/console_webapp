@@ -79,7 +79,6 @@ import { Template } from '@/types'
 
 definePageMeta({
 	title: 'Update template',
-	middleware: ['auth'],
 })
 
 const { $api, $toast } = useNuxtApp()

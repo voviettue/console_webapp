@@ -48,7 +48,9 @@ async function onSubmit() {
 		const res = await $api.get(`/api/meta/templates/${selectedTemplate.value.name}/files`)
 		if (res.data.data.length) {
 			const latestVersion = res.data.data.pop()
-			form.value.installFromTpl.version = latestVersion.name.replace(`${selectedTemplate.value.name}/`, '').replace('.json', '')
+			form.value.installFromTpl.version = latestVersion.name
+				.replace(`${selectedTemplate.value.name}/`, '')
+				.replace('.json', '')
 		}
 	}
 	emit('submit', form.value)

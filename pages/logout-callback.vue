@@ -1,5 +1,7 @@
 <script setup>
-const { revokeToken } = useToken()
-revokeToken()
-navigateTo('sign-in')
+navigateTo('/')
 </script>
+
+<template>
+	<div>LOGOUT</div>
+</template>

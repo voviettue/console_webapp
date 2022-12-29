@@ -26,7 +26,6 @@ import { TableHeader } from '@/shared/types'
 
 definePageMeta({
 	title: 'Organizations',
-	middleware: ['auth'],
 })
 const headers: TableHeader[] = [
 	{

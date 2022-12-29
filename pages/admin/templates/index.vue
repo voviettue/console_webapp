@@ -31,7 +31,6 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 
 definePageMeta({
 	title: 'Templates',
-	middleware: ['auth'],
 })
 const tabs = [
 	{

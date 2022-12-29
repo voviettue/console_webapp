@@ -11,9 +11,11 @@
 			</div>
 			<div class="ml-4 flex items-center gap-6 md:ml-6">
 				<div class="flex gap-4 text-sm">
+					<!--
 					<a href="#" class="text-gray-500 hover:underline">Changelog</a>
 					<a href="#" class="text-gray-500 hover:underline">Help</a>
 					<a href="#" class="text-gray-500 hover:underline">Docs</a>
+					-->
 				</div>
 				<Menu as="div" class="ml-3 relative z-40">
 					<div>
@@ -83,10 +85,7 @@ import { UserCircleIcon } from '@heroicons/vue/24/outline'
 
 const route = useRoute()
 
-const userNavigation = [
-	{ name: 'Your Profile', href: '#' },
-	{ name: 'Settings', href: '#' },
-]
+const userNavigation = []
 
 // @TODO: Finding a better way
 const breadcrumbItems = computed(() => {
